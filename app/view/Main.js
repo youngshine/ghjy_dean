@@ -17,9 +17,7 @@ Ext.define('Youngshine.view.Main', {
         region: 'north',
 		xtype: 'container',
         //title: '导航菜单',
-		html: '<div style="color:#ccc;font-size:1.2em;float:left;">'+localStorage.school + '</div>'+
-			'<div style="color:#ccc;text-align:right;">'+ 
-			'操作员：' + localStorage.consultName + '</div>',
+		html: '<div style="color:#ccc;font-size:1.2em;float:left;">'+localStorage.school + '</div>',
         height: 30,
 		padding: '5 10',
 		style: {

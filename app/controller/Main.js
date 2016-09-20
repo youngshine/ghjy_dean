@@ -35,23 +35,21 @@ Ext.define('Youngshine.controller.Main', {
                 save: this.pswresetSave,
             },
 			'mywest': {
-				navEnroll: this.navEnroll,
-				navPrepaid: this.navPrepaid,//‚àö√£¬¨‚Ä¢‚Äö√¢‚Ä†‚Äö√Ñ‚àû≈ì√Ñ‚Äö√†√ª‚àö√£‚àö√≤‚àö¬∂‚àö√Ö¬¨√Ü‚àö¬£
-				navStudy: this.navStudy, 
-				navKcb: this.navKcb, //‚àö√Ö‚Äö√¢‚Ä†‚àö¬¢‚àö√á‚àö¬∂‚àö√±‚àö√§‚àö¬©‚àö‚â†‚àö√£‚àö√≤‚àö¬∂
-				navAssess: this.navAssess, //‚àö√§¬¨¬µ‚àö¬£‚àö√£‚àö√≤‚àö√´
-				navTeacher: this.navTeacher,
-				navPricelist: this.navPricelist,
+				student: this.navStudent,
+				schoolsub: this.navSchoolsub,
+				consult: this.navConsult,
+				teacher: this.navTeacher,
+				kclist: this.navKclist,
 				
-				navPswreset: this.navPswreset, 
-				navLogout: this.navLogout,
+				pswreset: this.navPswreset, 
+				logout: this.navLogout,
             },
         });
     },
 
 	// 用户而不是管理员admin登录成功，来自登录或注册成功直接跳转
     loginOk: function(obj,oldWin) {
-        var me = this; //console.log(obj)
+        var me = this; console.log(obj)
         Ext.data.JsonP.request({
             url: me.getApplication().dataUrl + 'login.php', 
             callbackKey: 'callback',
@@ -106,45 +104,37 @@ Ext.define('Youngshine.controller.Main', {
 	},
 	
 	//
-	navEnroll: function(){
-		this.getApplication().getController('Student').showEnroll();
+	navStudent: function(){
+		this.getApplication().getController('Student').showStudent();
 	},
 
-	navPrepaid: function(){
-		this.getApplication().getController('Prepaid').showPrepaid(1);
+	navSchoolsub: function(){
+		this.getApplication().getController('Schoolsub').showSchoolsub(1);
 	},	
 
-	navStudy: function(){
-		//this.getApplication().getController('Study').showStudy();
-		this.getApplication().getController('Prepaid').showPrepaid(0);
-	},	
-
-	navKcb: function(){
-		this.getApplication().getController('Study').showKcb();
-	},
-
-	navAssess: function(){
-		this.getApplication().getController('Assess').showAssess();
+	navAccnt: function(){
+		this.getApplication().getController('Accnt').showAccnt();
 	},
 	
-	// ‚àö√§‚Äö√†√´¬¨‚Ñ¢‚àö√á‚àö¬ß‚Äö√Ñ‚Ä†‚àö√§‚àö√ò‚àö¬•‚àö√á‚Äö√†√®‚àö‚Ä†
+	navConsult: function(){
+		//this.getApplication().getController('Study').showStudy();
+		this.getApplication().getController('Consult').showConsult(0);
+	},	
 	navTeacher: function(){
 		this.getApplication().getController('Teacher').showTeacher();
 	},
-	
-	// ‚àö√£‚àö√≤‚àö¬∂‚àö√Ö¬¨√Ü‚àö¬£‚Äö√Ñ‚àû¬¨‚Ñ¢‚Äö√†√´‚àö√§‚Äö√Ñ‚Ä†¬¨‚à´‚àö√£¬¨‚àû¬¨√Ü
-	navPricelist: function(){
-		this.getApplication().getController('Prepaid').showPricelist();
+
+	navKclist: function(){
+		this.getApplication().getController('Kclist').showKclist();
 	},
 	
 	navPswreset: function(){	
 		var win = Ext.create('Youngshine.view.login.Pswreset') //Ext.widget('pswreset')
-		win.down('displayfield[name=username]').setValue(localStorage.consultName)
+		win.down('displayfield[name=username]').setValue(localStorage.school)
 	},		
 	navLogout: function(){
 		//window.location.reload();
-		//document.location = 'http://www.youngshine.com'; //‚àö√£‚àö‚àè‚àö√Ü‚àö√á‚àö¬µ‚àö¬™‚Äö√Ñ‚àû‚Äö√†√®¬¨‚Ñ¢‚àö√†¬¨‚àû¬¨¬µ
-		//localStorage.setItem('isLogin',false);
+		//document.location = 'http://www.youngshine.com'; /
 		localStorage.setItem('schoolID','');
 		localStorage.setItem('schoolName','');
 		

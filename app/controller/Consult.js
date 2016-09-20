@@ -1,4 +1,4 @@
-Ext.define('Youngshine.controller.Teacher', {
+Ext.define('Youngshine.controller.Consult', {
     extend: 'Ext.app.Controller',
 
     views: [
@@ -8,13 +8,13 @@ Ext.define('Youngshine.controller.Teacher', {
 	//stores: ['Student'],
 
     refs: [{
-		ref: 'teacherlist',
-		selector: 'teacher-list'
+		ref: 'consultlist',
+		selector: 'consult-list'
 	}],
 
     init: function() {
         this.control({
-            'teacher-list': {
+            'consult-list': {
 				//addnew: this.teacherNew,
 				
             },				
@@ -22,17 +22,17 @@ Ext.define('Youngshine.controller.Teacher', {
     },
 
 	// 教师信息，包括添加删除排课以及历史报读课程，show跳转来自main controller
-	showTeacher: function(){
+	showConsult: function(){
 		var me = this;
-		var win = Ext.create('Youngshine.view.teacher.List') //Ext.widget('student-list');
+		var win = Ext.create('Youngshine.view.consult.List') //Ext.widget('student-list');
 		win.down('grid').getStore().removeAll(); // 先晴空
 		
 		var obj = {
 			"schoolID": localStorage.getItem('schoolID')
 		}
         var url = this.getApplication().dataUrl + 
-			'readTeacherList.php?data=' + JSON.stringify(obj);
-        var store = Ext.getStore('Teacher');
+			'readConsultList.php?data=' + JSON.stringify(obj);
+        var store = Ext.getStore('Consult');
 		store.removeAll();
 		store.clearFilter();
 		store.getProxy().url = url;

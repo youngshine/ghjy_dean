@@ -10,7 +10,7 @@ Ext.define('Youngshine.view.login.Pswreset', {
 	width: 350,
 	//height: 300,
 	
-	title: '操作员修改密码',
+	title: '修改密码',
 	
 	items: [{
 		xtype: 'form',
@@ -87,8 +87,8 @@ Ext.define('Youngshine.view.login.Pswreset', {
 		
 		var obj = {
 			'psw': psw1,
-			'id': localStorage.getItem('consultID'), // user_id or admin_id
-			'type': 'consult' // user or admin
+			'id': localStorage.getItem('schoolID'), // user_id or admin_id
+			'type': 'school' // user or admin
 		};
 		me.fireEvent('save',obj,me); //login controller
 

@@ -1,7 +1,7 @@
-Ext.define('Youngshine.view.teacher.List' ,{
+Ext.define('Youngshine.view.consult.List' ,{
     //extend: 'Ext.grid.Panel',
 	extend: 'Ext.window.Window',
-    alias : 'widget.teacher-list',
+    alias : 'widget.consult-list',
 
 	closable: true,
 	modal: true,
@@ -11,7 +11,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	height: 350,
 	layout: 'fit',
 
-    title : '教师列表',
+    title : '咨询师列表',
 	
 	fbar: [
 		'->',
@@ -27,7 +27,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	items: [{
 		xtype: 'grid',
 		stripeRows: true,
-		store: 'Teacher',
+		store: 'Consult',
 	    columns: [{
 			xtype: 'rownumberer'
 		},{	
@@ -35,19 +35,13 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	         width: 100,
 	         sortable: true,
 			 menuDisabled: true,
-	         dataIndex: 'teacherName'
+	         dataIndex: 'consultName'
 	     }, {
-	         text: '学科',
-	         width: 50,
+	         text: '分校区',
+	         flex: 1,
 	         //sortable: false,
 			 menuDisabled: true,
-	         dataIndex: 'subjectName'
-	     }, {
-	         text: '备注',
-	         flex: 1,
-	         sortable: false,
-			 menuDisabled: true,
-	         dataIndex: 'note'
+	         dataIndex: 'schoolsub'
 		},{	  
 			menuDisabled: true,
 			sortable: false,

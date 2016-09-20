@@ -1,6 +1,7 @@
-Ext.define('Youngshine.store.Followup',{
+// 缴费及其明细
+Ext.define('Youngshine.store.Accnt',{
     extend: 'Ext.data.Store',
-    model: 'Youngshine.model.Followup',
+    model: 'Youngshine.model.Accnt',
 	
     proxy: {
         type: 'jsonp',

@@ -1,7 +1,7 @@
-// 测评主记录：学生、学科
-Ext.define('Youngshine.store.Assess',{
+// 分校区
+Ext.define('Youngshine.store.Schoolsub',{
     extend: 'Ext.data.Store',
-    model: 'Youngshine.model.Assess',
+    model: 'Youngshine.model.Schoolsub',
 	
     proxy: {
         type: 'jsonp',

@@ -9,42 +9,27 @@ Ext.define('Youngshine.controller.Student', {
 
     refs: [{
 		ref: 'studentlist',
-		selector: 'student-list'
-    },{
-		ref: 'studentnew',
-		selector: 'student-new'
-	},{
-		ref: 'studentedit',
-		selector: 'student-edit'	
+		selector: 'student-list'	
 	}],
 
     init: function() {
         this.control({
             'student-list': {
-				addnew: this.studentNew,
-				edit: this.studentEdit, //自定义事件 user...
-				del: this.studentDelete,
 				studyhist: this.studentStudyhist,//报读历史记录
 				prepaid: this.studentPrepaid,//缴费历史记录
 				followup: this.studentFollowup,
-            },
-			'student-edit': {
-				save: this.studenteditSave, 
-            },
-			'student-new': {
-                save: this.studentnewSave,
-            }				
+            },			
         });
     },
 
 	// 学生信息，包括添加删除排课以及历史报读课程，show跳转来自main controller
-	showEnroll: function(){
+	showStudent: function(){
 		var me = this;
-		var win = Ext.create('Youngshine.view.student.List') //Ext.widget('student-list');
+		var win = Ext.create('Youngshine.view.student.List')
 		win.down('grid').getStore().removeAll(); // 先晴空
 		
 		var obj = {
-			"consultID": localStorage.getItem('consultID')
+			"schoolID": localStorage.getItem('schoolID')
 		}
         var url = this.getApplication().dataUrl + 
 			'readStudentList.php?data=' + JSON.stringify(obj);

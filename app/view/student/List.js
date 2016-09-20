@@ -2,12 +2,6 @@ Ext.define('Youngshine.view.student.List' ,{
     //extend: 'Ext.grid.Panel',
 	extend: 'Ext.window.Window',
     alias : 'widget.student-list',
-	
-    requires:[
-		'Youngshine.view.student.New',
-		'Youngshine.view.student.Edit',
-		'Youngshine.view.student.Study', //历史记录
-    ],
 
 	closable: true,
 	modal: true,
@@ -72,16 +66,6 @@ Ext.define('Youngshine.view.student.List' ,{
 
 	},'->',{	
 		xtype: 'button',
-		text: '＋新增',
-		tooltip: '添加学生',
-		//disabled: true,
-		//scale: 'medium',
-		width: 55,
-		handler: function(btn){
-			btn.up('window').onNew(); //onAdd是系统保留reserved word
-		}
-	},{	
-		xtype: 'button',
 		text: '关闭',
 		//scale: 'medium',
 		width: 55,
@@ -130,17 +114,17 @@ Ext.define('Youngshine.view.student.List' ,{
 			 menuDisabled: true,
 	         dataIndex: 'phone'	
 	     }, {
-	         text: '所在地区',
-	         width: 120,
-			 menuDisabled: true,
-	         dataIndex: 'district',
-	         //align: 'right',
-	         //renderer: Ext.util.Format.usMoney	
-	     }, {
 	         text: '住址',
 	         width: 100,
 			 menuDisabled: true,
 	         dataIndex: 'addr'
+	     }, {
+	         text: '分校区',
+	         width: 120,
+			 menuDisabled: true,
+	         dataIndex: 'schoolsub',
+	         //align: 'right',
+	         //renderer: Ext.util.Format.usMoney	
 	     }, {
 	         text: '注册时间',
 	         width: 70,
@@ -150,39 +134,6 @@ Ext.define('Youngshine.view.student.List' ,{
                  return '<span style="color:' + '#73b51e' + ';">' + val.substr(2,8) + '</span>';
                  //return val;
              }, 
-		},{	 
-			menuDisabled: true,
-			sortable: false,
-			xtype: 'actioncolumn',
-			width: 30,
-			items: [{
-				//iconCls: 'add',
-				icon: 'resources/images/my_edit_icon.png',
-				tooltip: '修改',
-				handler: function(grid, rowIndex, colIndex) {
-					grid.getSelectionModel().select(rowIndex); // 高亮当前选择行？？？不是自动？
-					var rec = grid.getStore().getAt(rowIndex);
-					//Ext.Msg.alert('Sell', 'Sell ' + rec.get('company'));
-					//me.fireEvent('adminEdit');
-					grid.up('window').onEdit(rec); 
-				}	
-			}]	
-		},{	 
-			menuDisabled: true,
-			sortable: false,
-			xtype: 'actioncolumn',
-			width: 30,
-			items: [{
-				//iconCls: 'add',
-				icon: 'resources/images/my_delete_icon.png',
-				tooltip: '删除',
-				handler: function(grid, rowIndex, colIndex) {
-					grid.getSelectionModel().select(rowIndex); // 高亮
-					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onDelete(rec); 
-				}	
-			}]	
-			
 		},{	 
 			menuDisabled: true,
 			sortable: false,
@@ -246,23 +197,6 @@ Ext.define('Youngshine.view.student.List' ,{
 	     }],     
 	}],
 	
-	onNew: function(){ 
-		this.down('grid').getSelectionModel().deselectAll();
-		this.fireEvent('addnew');
-	},
-	onEdit: function(rec){ 
-		this.fireEvent('edit',rec);
-	},
-	onDelete: function(rec){
-		var me = this;
-		console.log(rec);
-		Ext.Msg.confirm('提示','是否删除当前行？',function(btn){
-			if(btn == 'yes'){
-				me.fireEvent('del',rec);
-			}
-		});
-	},
-
 	// 咨询师与学生沟通记录
 	onFollowup: function(rec){ 
 		this.fireEvent('followup',rec);

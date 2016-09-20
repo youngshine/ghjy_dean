@@ -1,5 +1,5 @@
-// 咨询师：待排课
-Ext.define('Youngshine.controller.Kcb', {
+// 课程
+Ext.define('Youngshine.controller.Kclist', {
     extend: 'Ext.app.Controller',
 
 	//stores: ['Studying'],

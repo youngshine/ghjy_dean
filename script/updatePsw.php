@@ -24,7 +24,8 @@ if(isset($request->params))
 		$query = "UPDATE teacher set psw = '$psw'  where teacherID = $id";	
 	elseif ($role == 'consult')//咨询
 		$query = "UPDATE `ghjy_consult` set psw = '$psw'  where consultID = $id";	
-	
+	elseif ($role == 'school')//执行校长
+		$query = "UPDATE `ghjy_school` set psw = '$psw'  where schoolID = $id";
 	$result = mysql_query($query) or die("Invalid query: updatePassword1" . mysql_error());
 	
 	$res->success = true;

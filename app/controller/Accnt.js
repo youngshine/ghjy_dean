@@ -1,5 +1,5 @@
 // 咨询师：学生测评
-Ext.define('Youngshine.controller.Assess', {
+Ext.define('Youngshine.controller.Accnt', {
     extend: 'Ext.app.Controller',
 
 	//stores: ['Studying'],

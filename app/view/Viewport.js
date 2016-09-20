@@ -18,11 +18,10 @@ Ext.define('Youngshine.view.Viewport', {
 	
 	// 登录后，根据不同角色，不同界面Main
 	initComponent: function(){
-		//Ext.fly('appLoadingIndicator').destroy(); //去掉启动画面flash
+		Ext.fly('appLoadingIndicator').destroy(); //去掉启动画面flash
 	
 		var win = Ext.widget('login'); //一开始，登录窗口
-		//win.down('textfield[name=username]').setValue(localStorage.admin_name)
-
+		win.down('textfield[name=school]').setValue(localStorage.school)
 	
 		this.callParent()
 	}

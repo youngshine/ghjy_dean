@@ -1,7 +1,6 @@
-// 测评详细记录，包括题目及其对错10
-Ext.define('Youngshine.store.Topic-assess',{
+Ext.define('Youngshine.store.Consult',{
     extend: 'Ext.data.Store',
-    model: 'Youngshine.model.Topic-assess',
+    model: 'Youngshine.model.Consult',
 	
     proxy: {
         type: 'jsonp',

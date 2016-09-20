@@ -1,6 +1,6 @@
-Ext.define('Youngshine.store.Pricelist',{
+Ext.define('Youngshine.store.Kclist',{
     extend: 'Ext.data.Store',
-    model: 'Youngshine.model.Pricelist',
+    model: 'Youngshine.model.Kclist',
 	
     proxy: {
         type: 'jsonp',
