@@ -40,6 +40,7 @@ Ext.define('Youngshine.controller.Main', {
 				consult: this.navConsult,
 				teacher: this.navTeacher,
 				kclist: this.navKclist,
+				accnt: this.navAccnt,
 				
 				pswreset: this.navPswreset, 
 				logout: this.navLogout,
@@ -126,6 +127,10 @@ Ext.define('Youngshine.controller.Main', {
 
 	navKclist: function(){
 		this.getApplication().getController('Kclist').showKclist();
+	},
+	
+	navAccnt: function(){
+		this.getApplication().getController('Accnt').showAccnt();
 	},
 	
 	navPswreset: function(){	

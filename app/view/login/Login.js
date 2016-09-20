@@ -50,7 +50,7 @@ Ext.define('Youngshine.view.login.Login', {
 			name: 'psw', 
 			emptyText: '', 
 			inputType: 'password',
-			//value: '123456' 
+			value: '123456' 
 		}]
     }],
 
