@@ -16,9 +16,9 @@ Ext.define('Youngshine.view.accnt.List' ,{
 	tbar: [{
 		padding: '5,0',
 		xtype: 'combo',
-		width: 255,
+		width: 225,
 		fieldLabel: '分校区',
-		labelWidth: 55,
+		labelWidth: 45,
 		labelAlign: 'right',
 		itemId: 'schoolsub',
 		store: 'Schoolsub',
@@ -38,9 +38,29 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		} */
 	},{		
 		xtype: 'combo',
-		width: 155,
-		fieldLabel: '付款方式',
-		labelWidth: 55,
+		width: 100,
+		//fieldLabel: '课程类型',
+		//labelWidth: 55,
+		emptyText: '课程类型',
+		labelAlign: 'right',
+		itemId: 'kcType',
+		store: {
+			fields: ['value'],
+			data : [
+				{"value":"大小班"},
+				{"value":"一对一"},
+			]
+		},
+		valueField: 'value',
+		displayField: 'value',
+		//editable: false,
+		//padding: '5 0',
+	},{		
+		xtype: 'combo',
+		width: 100,
+		//fieldLabel: '课程类型',
+		//labelWidth: 55,
+		emptyText: '付款方式',
 		labelAlign: 'right',
 		itemId: 'payment',
 		store: {
@@ -49,13 +69,12 @@ Ext.define('Youngshine.view.accnt.List' ,{
 				{"value":"现金"},
 				{"value":"刷卡"},
 				{"value":"微信"},
-				{"value":"支付宝"}
+				{"value":"支付宝"},
 			]
 		},
 		valueField: 'value',
 		displayField: 'value',
-		emptyText: '',
-		editable: false,
+		//editable: false,
 		//padding: '5 0',
 	},{
 		xtype: 'datefield',
@@ -94,12 +113,20 @@ Ext.define('Youngshine.view.accnt.List' ,{
 	}],
 	fbar: [{
 		xtype: 'label',
-		html: '合计:',
+		html: '合计（元）:',
 	},{
 		xtype: 'displayfield',
 		itemId: 'subtotal',
 		value: 0,
 	},'->',{	
+		xtype: 'button',
+		text: '导出Excel',
+		//scale: 'medium',
+		//width: 55,
+		handler: function(btn){
+			btn.up('window').onExcel()
+		}
+	},{	
 		xtype: 'button',
 		text: '关闭',
 		//scale: 'medium',
@@ -209,7 +236,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 	onSearch: function(){ 
 		var me = this;
 		var start = this.down('datefield[name=startdate]').getValue(),
-			end = this.down('datefield[name=enddate]').value.toLocaleDateString() 
+			end = this.down('datefield[name=enddate]').value//.toLocaleDateString() 
 			// 0点0分，不准确，要转换toLocal
 		//end = new Date().format('yyyy-mm-dd')
 		/*var user_id = this.down('combo[name=user_id]').getValue()
@@ -217,10 +244,14 @@ Ext.define('Youngshine.view.accnt.List' ,{
 			user_id = 0
 		} */
 		var payment = this.down('combo[itemId=payment]').getValue(),
+			kcType = this.down('combo[itemId=kcType]').getValue(),
 			schoolsubID = this.down('combo[itemId=schoolsub]').getValue();
 
+		if(kcType == null){
+			kcType = ''  // 空白''，代表全部
+		}
 		if(payment == null){
-			payment = 'all' 
+			payment = ''  // 空白''，代表全部
 		}
 		if(schoolsubID == null){
 			schoolsubID = 0 // all
@@ -228,8 +259,10 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		var obj = {
 			start: start,
 			end: end,
+			kcType: kcType,
 			payment: payment,
-			schoolsubID: schoolsubID
+			schoolsubID: schoolsubID,
+			schoolID: localStorage.schoolID // 当前学校
 		}
 		console.log(obj)
 		this.fireEvent('search',obj,me);

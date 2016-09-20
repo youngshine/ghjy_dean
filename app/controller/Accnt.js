@@ -64,6 +64,11 @@ Ext.define('Youngshine.controller.Accnt', {
         store.load({
             callback: function(records, operation, success) {
 				console.log(records);
+				var total = 0
+				store.each(function(record){
+					total += parseInt(record.data.amount)
+				})
+				win.down('displayfield[itemId=subtotal]').setValue(total)
             },
             scope: this
         });

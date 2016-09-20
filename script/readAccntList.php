@@ -12,13 +12,26 @@ require_once('db/database_connection.php');
 	$arr = $req->params;
 
 	$schoolID = $arr->schoolID;
+	$start = $arr->start;
+	$end = $arr->end;
+	$kcType = $arr->kcType;
+	$payment = $arr->payment;
+	$schoolsubID = $arr->schoolsubID;
+	if($schoolsubID == 0){
+		$cond1 = "1 > 0"; //all
+	}else{
+		$cond1 = "a.schoolsubID = $schoolsubID";
+	}
 
 	$sql = " SELECT a.*,b.studentName,c.consultName,d.fullname AS schoolsub    
 		From `ghjy_accnt` a 
 		Join `ghjy_student` b On a.studentId=b.studentID 
 		Join `ghjy_consult` c On a.consultID=c.consultID  
 		Join `ghjy_school_sub` d On a.schoolsubID=d.schoolsubID 
-		WHERE a.schoolID = $schoolID ";	 
+		WHERE a.schoolID = $schoolID 
+			And (a.accntDate >= '$start' And a.accntDate <= '$end') 
+			And a.accntType Like '%$kcType%' And a.payment Like '%$payment%' 
+			And $cond1 ";	 
     $result = mysql_query($sql) 
 		or die("Invalid query: readAccntList " . mysql_error());
 
