@@ -7,7 +7,9 @@ Ext.define('Youngshine.model.Teacher', {
 		{name: 'subjectID'}, 
 		{name: 'subjectName'}, 
 		{name: 'schoolID'}, 
-		{name: 'schoolName'},	
+		{name: 'schoolName'},
+		{name: 'gender'}, 
+		{name: 'phone'}, 	
 		{name: 'note'},	
     ]
 });

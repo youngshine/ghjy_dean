@@ -5,6 +5,9 @@ Ext.define('Youngshine.model.Consult', {
     fields: [
 		{name: 'consultID'}, 
 		{name: 'consultName'}, 
+		{name: 'gender'}, 
+		{name: 'phone'}, 
+		{name: 'note'}, 
 		{name: 'schoolsubID'},
 		{name: 'schoolsub'}, // 所属分校区 fullname
 		{name: 'schoolID'}, 

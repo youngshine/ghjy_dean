@@ -11,72 +11,9 @@ Ext.define('Youngshine.view.accnt.List' ,{
 	height: 550,
 	layout: 'fit',
 
-    title : '缴费',
+    title : '缴费明细',
 
 	tbar: [{
-		padding: '5,0',
-		xtype: 'combo',
-		width: 225,
-		fieldLabel: '分校区',
-		labelWidth: 45,
-		labelAlign: 'right',
-		itemId: 'schoolsub',
-		store: 'Schoolsub',
-		valueField: 'schoolsubID',
-		displayField: 'fullname',
-		//value: '全部分校区',
-		emptyText: '选择分校区',
-		editable: false,
-		//padding: '5 0', 
-		/*
-		listeners: {
-			change: function(cb,newValue){
-				var schoolsubID = newValue,
-					payment = this.up('window').down('combo[itemId=payment]').getValue();
-				this.up('window').onFilter(schoolsubID,payment); 
-			}
-		} */
-	},{		
-		xtype: 'combo',
-		width: 100,
-		//fieldLabel: '课程类型',
-		//labelWidth: 55,
-		emptyText: '课程类型',
-		labelAlign: 'right',
-		itemId: 'kcType',
-		store: {
-			fields: ['value'],
-			data : [
-				{"value":"大小班"},
-				{"value":"一对一"},
-			]
-		},
-		valueField: 'value',
-		displayField: 'value',
-		//editable: false,
-		//padding: '5 0',
-	},{		
-		xtype: 'combo',
-		width: 100,
-		//fieldLabel: '课程类型',
-		//labelWidth: 55,
-		emptyText: '付款方式',
-		labelAlign: 'right',
-		itemId: 'payment',
-		store: {
-			fields: ['value'],
-			data : [
-				{"value":"现金"},
-				{"value":"刷卡"},
-				{"value":"微信"},
-				{"value":"支付宝"},
-			]
-		},
-		valueField: 'value',
-		displayField: 'value',
-		//editable: false,
-		//padding: '5 0',
-	},{
 		xtype: 'datefield',
 		name: 'startdate',
 		fieldLabel: '日期范围',
@@ -98,6 +35,87 @@ Ext.define('Youngshine.view.accnt.List' ,{
         //margins: '0 0 0 6',
         emptyText: '结束日期',
         allowBlank: false	
+	},{
+		padding: '5,0',
+		xtype: 'combo',
+		width: 180,
+		//fieldLabel: '分校区',
+		//labelWidth: 45,
+		labelAlign: 'right',
+		itemId: 'schoolsub',
+		store: 'Schoolsub',
+		valueField: 'schoolsubID',
+		displayField: 'fullname',
+		//value: '全部分校区',
+		emptyText: '选择分校区',
+		//editable: false,
+		//padding: '5 0', 
+		/*
+		listeners: {
+			change: function(cb,newValue){
+				var schoolsubID = newValue,
+					payment = this.up('window').down('combo[itemId=payment]').getValue();
+				this.up('window').onFilter(schoolsubID,payment); 
+			}
+		} */
+	},{		
+		xtype: 'combo',
+		width: 80,
+		//fieldLabel: '课程类型',
+		//labelWidth: 55,
+		emptyText: '课程类型',
+		labelAlign: 'right',
+		itemId: 'kcType',
+		store: {
+			fields: ['value'],
+			data : [
+				{"value":"大小班"},
+				{"value":"一对一"},
+			]
+		},
+		valueField: 'value',
+		displayField: 'value',
+		//editable: false,
+		//padding: '5 0',
+	},{		
+		xtype: 'combo',
+		width: 80,
+		//fieldLabel: '课程类型',
+		//labelWidth: 55,
+		emptyText: '付款方式',
+		labelAlign: 'right',
+		itemId: 'payment',
+		store: {
+			fields: ['value'],
+			data : [
+				{"value":"现金"},
+				{"value":"刷卡"},
+				{"value":"微信"},
+				{"value":"支付宝"},
+			]
+		},
+		valueField: 'value',
+		displayField: 'value',
+		//editable: false,
+		//padding: '5 0',
+	},{
+		xtype: 'combo',
+		width: 80,
+		emptyText: '缴费',
+		labelAlign: 'right',
+		itemId: 'refund',
+		store: {
+			fields: ['value'],
+			data : [
+				{"value":"缴费"},
+				{"value":"退费"},
+			]
+		},
+		valueField: 'value',
+		displayField: 'value',	
+		value: '缴费',
+		queryMode: 'local',
+		editable: false,
 	},{
 		xtype: 'button',
 		text: '查找',
@@ -173,17 +191,17 @@ Ext.define('Youngshine.view.accnt.List' ,{
 			 menuDisabled: true,
 	         dataIndex: 'payment'
 	     }, {
+			 text: '备注',
+	         width: 200,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'note'
+	     }, {
 			 text: '咨询师',
 	         width: 60,
 	         sortable: true,
 			 menuDisabled: true,
 	         dataIndex: 'consultName'
-	     }, {
-			 text: '备注',
-	         width: 150,
-	         sortable: true,
-			 menuDisabled: true,
-	         dataIndex: 'note'
 	     }, {
 			 text: '分校区',
 	         flex: 1,
@@ -245,6 +263,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		} */
 		var payment = this.down('combo[itemId=payment]').getValue(),
 			kcType = this.down('combo[itemId=kcType]').getValue(),
+			refund = this.down('combo[itemId=refund]').getValue(),
 			schoolsubID = this.down('combo[itemId=schoolsub]').getValue();
 
 		if(kcType == null){
@@ -261,6 +280,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 			end: end,
 			kcType: kcType,
 			payment: payment,
+			refund: refund,
 			schoolsubID: schoolsubID,
 			schoolID: localStorage.schoolID // 当前学校
 		}

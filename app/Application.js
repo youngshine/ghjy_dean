@@ -11,7 +11,7 @@ Ext.define('Youngshine.Application', {
 
     controllers: [
         // TODO: add controllers here
-		'Main','Student','Teacher','Consult','Accnt' //,'Schoolsub','Kclist'
+		'Main','Student','Teacher','Consult','Accnt','Kclist','Schoolsub'
     ],
 
     stores: [

@@ -9,8 +9,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.Msg": "ext/src/window/MessageBox.js",
   "Ext.rtl.EventObjectImpl": "ext/src/rtl/EventObject.js",
   "KitchenSink": "app",
-  "Youngshine": "app",
-  "Youngshine.view.prepay.Prepaid": "app/view/prepaid/Prepaid.js"
+  "Youngshine": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -414,6 +413,7 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "Ext.grid.RowEditor": [],
   "Ext.grid.RowEditorButtons": [],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [],
   "Ext.grid.ViewDropZone": [],
   "Ext.grid.column.Action": [
@@ -831,73 +831,41 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "KitchenSink.data.DataSets": [],
   "Youngshine.Application": [],
-  "Youngshine.controller.Assess": [],
-  "Youngshine.controller.Kcb": [],
-  "Youngshine.controller.Login": [],
+  "Youngshine.controller.Accnt": [],
+  "Youngshine.controller.Consult": [],
+  "Youngshine.controller.Kclist": [],
   "Youngshine.controller.Main": [],
-  "Youngshine.controller.Pay": [],
-  "Youngshine.controller.Prepaid": [],
+  "Youngshine.controller.Schoolsub": [],
   "Youngshine.controller.Student": [],
-  "Youngshine.controller.Study": [],
   "Youngshine.controller.Teacher": [],
-  "Youngshine.model.Assess": [],
-  "Youngshine.model.Followup": [],
-  "Youngshine.model.Kcb": [],
-  "Youngshine.model.Prepaid": [],
-  "Youngshine.model.Pricelist": [],
+  "Youngshine.model.Accnt": [],
+  "Youngshine.model.AccntDetail": [],
+  "Youngshine.model.Consult": [],
+  "Youngshine.model.Kclist": [],
   "Youngshine.model.School": [],
+  "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
-  "Youngshine.model.Study": [],
   "Youngshine.model.Teacher": [],
-  "Youngshine.model.Topic-assess": [],
-  "Youngshine.model.Zsd": [],
-  "Youngshine.store.Assess": [],
-  "Youngshine.store.District": [],
-  "Youngshine.store.Followup": [],
-  "Youngshine.store.Kcb": [],
-  "Youngshine.store.Prepaid": [],
-  "Youngshine.store.Pricelist": [],
+  "Youngshine.store.Accnt": [],
+  "Youngshine.store.Consult": [],
+  "Youngshine.store.Kclist": [],
   "Youngshine.store.School": [],
+  "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
-  "Youngshine.store.Study": [],
   "Youngshine.store.Teacher": [],
-  "Youngshine.store.Topic-assess": [],
-  "Youngshine.store.Zsd": [],
   "Youngshine.view.Main": [],
   "Youngshine.view.Viewport": [],
   "Youngshine.view.West": [],
-  "Youngshine.view.assess.Assess": [],
-  "Youngshine.view.assess.Chart": [],
-  "Youngshine.view.assess.ChartAssess": [],
-  "Youngshine.view.assess.List": [],
-  "Youngshine.view.assess.New": [],
-  "Youngshine.view.assess.Topic": [],
-  "Youngshine.view.assess.Zsd": [],
-  "Youngshine.view.kcb.Kcb": [],
-  "Youngshine.view.kcb.List": [],
-  "Youngshine.view.kcb.Student": [],
+  "Youngshine.view.accnt.Consult": [],
+  "Youngshine.view.accnt.List": [],
+  "Youngshine.view.consult.List": [],
+  "Youngshine.view.kclist.Edit": [],
+  "Youngshine.view.kclist.List": [],
+  "Youngshine.view.kclist.New": [],
   "Youngshine.view.login.Login": [],
   "Youngshine.view.login.Pswreset": [],
-  "Youngshine.view.prepaid.List": [],
-  "Youngshine.view.prepaid.New": [],
-  "Youngshine.view.prepaid.Pricelist": [],
-  "Youngshine.view.prepaid.Student": [],
-  "Youngshine.view.prepay.Prepaid": [],
-  "Youngshine.view.student.District": [],
-  "Youngshine.view.student.Edit": [],
-  "Youngshine.view.student.Find": [],
-  "Youngshine.view.student.Followup": [],
+  "Youngshine.view.schoolsub.List": [],
   "Youngshine.view.student.List": [],
-  "Youngshine.view.student.New": [],
-  "Youngshine.view.student.Prepaid": [],
-  "Youngshine.view.student.Study": [],
-  "Youngshine.view.study.Kcb": [],
-  "Youngshine.view.study.List": [],
-  "Youngshine.view.study.Prepay": [],
-  "Youngshine.view.study.Study": [],
-  "Youngshine.view.study.Study-kcb": [],
-  "Youngshine.view.study.Teacher": [],
-  "Youngshine.view.study.Zsd": [],
   "Youngshine.view.teacher.Edit": [],
   "Youngshine.view.teacher.List": [],
   "Youngshine.view.teacher.New": []
@@ -1338,6 +1306,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.grid.RowEditorButtons": [
     "widget.roweditorbuttons"
   ],
+  "Ext.grid.Scroller": [],
   "Ext.grid.View": [
     "widget.gridview"
   ],
@@ -1889,38 +1858,28 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "KitchenSink.data.DataSets": [],
   "Youngshine.Application": [],
-  "Youngshine.controller.Assess": [],
-  "Youngshine.controller.Kcb": [],
-  "Youngshine.controller.Login": [],
+  "Youngshine.controller.Accnt": [],
+  "Youngshine.controller.Consult": [],
+  "Youngshine.controller.Kclist": [],
   "Youngshine.controller.Main": [],
-  "Youngshine.controller.Pay": [],
-  "Youngshine.controller.Prepaid": [],
+  "Youngshine.controller.Schoolsub": [],
   "Youngshine.controller.Student": [],
-  "Youngshine.controller.Study": [],
   "Youngshine.controller.Teacher": [],
-  "Youngshine.model.Assess": [],
-  "Youngshine.model.Followup": [],
-  "Youngshine.model.Kcb": [],
-  "Youngshine.model.Prepaid": [],
-  "Youngshine.model.Pricelist": [],
+  "Youngshine.model.Accnt": [],
+  "Youngshine.model.AccntDetail": [],
+  "Youngshine.model.Consult": [],
+  "Youngshine.model.Kclist": [],
   "Youngshine.model.School": [],
+  "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
-  "Youngshine.model.Study": [],
   "Youngshine.model.Teacher": [],
-  "Youngshine.model.Topic-assess": [],
-  "Youngshine.model.Zsd": [],
-  "Youngshine.store.Assess": [],
-  "Youngshine.store.District": [],
-  "Youngshine.store.Followup": [],
-  "Youngshine.store.Kcb": [],
-  "Youngshine.store.Prepaid": [],
-  "Youngshine.store.Pricelist": [],
+  "Youngshine.store.Accnt": [],
+  "Youngshine.store.Consult": [],
+  "Youngshine.store.Kclist": [],
   "Youngshine.store.School": [],
+  "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
-  "Youngshine.store.Study": [],
   "Youngshine.store.Teacher": [],
-  "Youngshine.store.Topic-assess": [],
-  "Youngshine.store.Zsd": [],
   "Youngshine.view.Main": [
     "widget.app-main"
   ],
@@ -1930,35 +1889,23 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.view.West": [
     "widget.mywest"
   ],
-  "Youngshine.view.assess.Assess": [
-    "widget.assess"
+  "Youngshine.view.accnt.Consult": [
+    "widget.accnt-consult"
   ],
-  "Youngshine.view.assess.Chart": [
-    "widget.assess-chart"
+  "Youngshine.view.accnt.List": [
+    "widget.accnt-list"
   ],
-  "Youngshine.view.assess.ChartAssess": [
-    "widget.chart-assess"
+  "Youngshine.view.consult.List": [
+    "widget.consult-list"
   ],
-  "Youngshine.view.assess.List": [
-    "widget.assess-list"
+  "Youngshine.view.kclist.Edit": [
+    "widget.kclist-edit"
   ],
-  "Youngshine.view.assess.New": [
-    "widget.assess-new"
+  "Youngshine.view.kclist.List": [
+    "widget.kclist"
   ],
-  "Youngshine.view.assess.Topic": [
-    "widget.assess-topic"
-  ],
-  "Youngshine.view.assess.Zsd": [
-    "widget.zsd"
-  ],
-  "Youngshine.view.kcb.Kcb": [
-    "widget.kcb"
-  ],
-  "Youngshine.view.kcb.List": [
-    "widget.kcb-list"
-  ],
-  "Youngshine.view.kcb.Student": [
-    "widget.student-kcb"
+  "Youngshine.view.kclist.New": [
+    "widget.kclist-new"
   ],
   "Youngshine.view.login.Login": [
     "widget.login"
@@ -1966,65 +1913,11 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.view.login.Pswreset": [
     "widget.pswreset"
   ],
-  "Youngshine.view.prepaid.List": [
-    "widget.prepaid-list"
-  ],
-  "Youngshine.view.prepaid.New": [
-    "widget.prepaid-new"
-  ],
-  "Youngshine.view.prepaid.Pricelist": [
-    "widget.pricelist"
-  ],
-  "Youngshine.view.prepaid.Student": [
-    "widget.prepaid-student"
-  ],
-  "Youngshine.view.prepay.Prepaid": [
-    "widget.prepaid"
-  ],
-  "Youngshine.view.student.District": [
-    "widget.district"
-  ],
-  "Youngshine.view.student.Edit": [
-    "widget.student-edit"
-  ],
-  "Youngshine.view.student.Find": [
-    "widget.student-find"
-  ],
-  "Youngshine.view.student.Followup": [
-    "widget.student-followup"
+  "Youngshine.view.schoolsub.List": [
+    "widget.schoolsub"
   ],
   "Youngshine.view.student.List": [
     "widget.student-list"
-  ],
-  "Youngshine.view.student.New": [
-    "widget.student-new"
-  ],
-  "Youngshine.view.student.Prepaid": [
-    "widget.student-prepaid"
-  ],
-  "Youngshine.view.student.Study": [
-    "widget.student-study"
-  ],
-  "Youngshine.view.study.Kcb": [
-    "widget.kcb-list"
-  ],
-  "Youngshine.view.study.List": [
-    "widget.student-study"
-  ],
-  "Youngshine.view.study.Prepay": [
-    "widget.prepay"
-  ],
-  "Youngshine.view.study.Study": [
-    "widget.study"
-  ],
-  "Youngshine.view.study.Study-kcb": [
-    "widget.study-kcb"
-  ],
-  "Youngshine.view.study.Teacher": [
-    "widget.teacher"
-  ],
-  "Youngshine.view.study.Zsd": [
-    "widget.zsd"
   ],
   "Youngshine.view.teacher.Edit": [
     "widget.teacher-edit"

@@ -14,13 +14,19 @@ require_once('db/database_connection.php');
 	$schoolID = $arr->schoolID;
 	$start = $arr->start;
 	$end = $arr->end;
-	$kcType = $arr->kcType;
 	$payment = $arr->payment;
 	$schoolsubID = $arr->schoolsubID;
 	if($schoolsubID == 0){
 		$cond1 = "1 > 0"; //all
 	}else{
 		$cond1 = "a.schoolsubID = $schoolsubID";
+	}
+	$kcType = $arr->kcType;
+	$refund = $arr->refund;
+	if($refund == '退费'){
+		$cond2 = "a.accntType = '退费退班' ";
+	}else{
+		$cond2 = "(a.accntType != '退费退班' And a.accntType Like '%$kcType%'  )";
 	}
 
 	$sql = " SELECT a.*,b.studentName,c.consultName,d.fullname AS schoolsub    
@@ -30,8 +36,9 @@ require_once('db/database_connection.php');
 		Join `ghjy_school_sub` d On a.schoolsubID=d.schoolsubID 
 		WHERE a.schoolID = $schoolID 
 			And (a.accntDate >= '$start' And a.accntDate <= '$end') 
-			And a.accntType Like '%$kcType%' And a.payment Like '%$payment%' 
-			And $cond1 ";	 
+			And a.payment Like '%$payment%' 
+			And $cond1 
+			And $cond2 ";	 
     $result = mysql_query($sql) 
 		or die("Invalid query: readAccntList " . mysql_error());
 

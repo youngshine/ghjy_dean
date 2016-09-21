@@ -17,6 +17,13 @@ Ext.define('Youngshine.view.consult.List' ,{
 		'->',
 	{	
 		xtype: 'button',
+		text: '＋新增',
+		width: 65,
+	    handler: function(btn){
+			btn.up('window').onNew(); //onAdd是系统保留reserved word
+	    }
+	},{
+		xtype: 'button',
 		text: '关闭',
 		width: 65,
 	    handler: function(btn){
@@ -29,7 +36,8 @@ Ext.define('Youngshine.view.consult.List' ,{
 		stripeRows: true,
 		store: 'Consult',
 	    columns: [{
-			xtype: 'rownumberer'
+			xtype: 'rownumberer',
+			width: 30
 		},{	
 			 text: '姓名',
 	         width: 100,
@@ -37,11 +45,38 @@ Ext.define('Youngshine.view.consult.List' ,{
 			 menuDisabled: true,
 	         dataIndex: 'consultName'
 	     }, {
+			 text: '性别',
+	         width: 35,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'gender'
+	     }, {
+			 text: '电话',
+	         width: 100,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'phone'
+	     }, {
 	         text: '分校区',
 	         flex: 1,
 	         //sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'schoolsub'
+ 		},{	 
+ 			menuDisabled: true,
+ 			sortable: false,
+ 			xtype: 'actioncolumn',
+ 			width: 30,
+ 			items: [{
+ 				//iconCls: 'add',
+ 				icon: 'resources/images/my_edit_icon.png',
+ 				tooltip: '修改',
+ 				handler: function(grid, rowIndex, colIndex) {
+ 					grid.getSelectionModel().select(rowIndex); // highlight showing selected
+ 					var rec = grid.getStore().getAt(rowIndex);
+ 					grid.up('window').onEdit(rec); 
+ 				}	
+ 			}]
 		},{	  
 			menuDisabled: true,
 			sortable: false,

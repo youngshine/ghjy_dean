@@ -41,6 +41,7 @@ Ext.define('Youngshine.controller.Main', {
 				teacher: this.navTeacher,
 				kclist: this.navKclist,
 				accnt: this.navAccnt,
+				accntconsult: this.navAccntConsult,
 				
 				pswreset: this.navPswreset, 
 				logout: this.navLogout,
@@ -65,7 +66,8 @@ Ext.define('Youngshine.controller.Main', {
 					localStorage.setItem('schoolID',result.data.schoolID);
 	
 					// 跳转页面 main
-					me.main = Ext.create('Youngshine.view.Main')
+					me.main = Ext.create('Youngshine.view.Main');
+					me.main.down('container[region=north]').html = result.data.schoolName
 					me.getMyviewport().add(me.main) // build
 					oldWin.close(); //成功后关闭当前窗口
                 }else{
@@ -131,6 +133,9 @@ Ext.define('Youngshine.controller.Main', {
 	
 	navAccnt: function(){
 		this.getApplication().getController('Accnt').showAccnt();
+	},
+	navAccntConsult: function(){
+		this.getApplication().getController('Accnt').showAccntConsult();
 	},
 	
 	navPswreset: function(){	

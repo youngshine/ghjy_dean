@@ -103,7 +103,7 @@ Ext.define('Youngshine.view.student.List' ,{
 	         dataIndex: 'gender'
 	     }, {
 	         text: '年级',
-	         width: 60,
+	         width: 50,
 	         //sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'grade'	 
@@ -118,6 +118,11 @@ Ext.define('Youngshine.view.student.List' ,{
 	         width: 100,
 			 menuDisabled: true,
 	         dataIndex: 'addr'
+	     }, {
+	         text: '备注',
+	         width: 100,
+			 menuDisabled: true,
+	         dataIndex: 'note'
 	     }, {
 	         text: '分校区',
 	         width: 120,
