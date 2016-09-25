@@ -116,7 +116,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		value: '缴费',
 		queryMode: 'local',
 		editable: false,
-	},{
+	},'-',{
 		xtype: 'button',
 		text: '查找',
 		width: 80,	

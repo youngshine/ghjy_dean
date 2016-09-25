@@ -87,7 +87,7 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 		value: '缴费',
 		queryMode: 'local',
 		editable: false,
-	},{
+	},'-',{
 		xtype: 'button',
 		text: '查找',
 		width: 80,	

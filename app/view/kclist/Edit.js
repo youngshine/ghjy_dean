@@ -16,7 +16,7 @@ Ext.define('Youngshine.view.kclist.Edit', {
 		xtype: 'form',
 		bodyPadding: 10,
 		fieldDefaults: {
-			labelWidth: 85,
+			labelWidth: 95,
 			labelAlign: 'right',
 			anchor: '100%'
 		},
@@ -28,44 +28,44 @@ Ext.define('Youngshine.view.kclist.Edit', {
 			xtype: 'combo',
 			name: 'kcType',
 			store: {
-				fields: ['value', 'name'],
+				fields: ['value'],
 				data : [
-					{"value":"大小班", "name":"大小班"},
-					{"value":"一对一", "name":"一对一"}
+					{"value":"大小班"},
+					{"value":"一对一"}
 				]
 			},
 			valueField: 'value',
-			displayField: 'name',
+			displayField: 'value',
 			editable: false,
-			fieldLabel: '课程类别'
+			fieldLabel: '类型'
 		},{
 			xtype: 'combo',
 			name: 'kmType',
 			store: {
-				fields: ['value', 'name'],
+				fields: ['value'],
 				data : [
-					{"value":"数理化", "name":"数理化"},
-					{"value":"语政英", "name":"语政英"},
-					{"value":"史地生", "name":"史地生"},
-					{"value":"艺术", "name":"艺术"}
+					{"value":"数理化"},
+					{"value":"语政英"},
+					{"value":"史地生"},
+					{"value":"艺术"}
 				]
 			},
 			valueField: 'value',
-			displayField: 'name',
+			displayField: 'value',
 			editable: false,
 			fieldLabel: '学科'
 		},{
 			xtype: 'numberfield',
 			name : 'unitprice',
-			fieldLabel: '单价'
+			fieldLabel: '一对一单价'
 		},{
 			xtype: 'numberfield',
 			name : 'hour',
-			fieldLabel: '课时数'
+			fieldLabel: '班级课时数'
 		},{
 			xtype: 'numberfield',
 			name : 'amount',
-			fieldLabel: '金额'
+			fieldLabel: '班级收费金额'
 		},{
 			xtype: 'hiddenfield',
 			name: 'kclistID', //修改的唯一id,隐藏
@@ -73,7 +73,7 @@ Ext.define('Youngshine.view.kclist.Edit', {
 	}],
 	
     fbar : [{
-		text: '保存', disabled: true,
+		text: '保存', 
 		width: 45,
 		action: 'save',
 		//scope: this,
@@ -98,25 +98,26 @@ Ext.define('Youngshine.view.kclist.Edit', {
 			unitprice = this.down('numberfield[name=unitprice]').getValue(),
 			hour = this.down('numberfield[name=hour]').getValue(),
 			amount = this.down('numberfield[name=amount]').getValue(),
-			kclistID = this.down('hiddenfield[name=kclistID]').getValue();
+			kclistID = this.down('hiddenfield[name=kclistID]').getValue() // unique
 
 		if (title == ''){
 			Ext.Msg.alert('提示','课程名称不能空白');
 			return;
 		}
 		
+		var obj = {
+			"title": title,
+			"kcType": kcType,
+			"kmType": kmType,
+			"unitprice": unitprice,
+			"hour": hour,
+			"amount": amount,
+			"kclistID": kclistID
+		};
+		console.log(obj);
+		
 		Ext.Msg.confirm('询问','确认修改保存？',function(id){
 			if( id == "yes"){
-				var obj = {
-					"title": title,
-					"kcType": kcType,
-					"kmType": kmType,
-					"unitprice": unitprice,
-					"hour": hour,
-					"amount": amount,
-					"kclistID": kclistID
-				};
-				console.log(obj);
 				//me.close();
 				me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
 			}

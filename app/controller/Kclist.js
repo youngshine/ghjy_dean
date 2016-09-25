@@ -56,7 +56,8 @@ Ext.define('Youngshine.controller.Kclist', {
 	},	
 	
     kclistNew: function(button) {
-		var win = Ext.create('Youngshine.view.kclist.New')
+		var me = this;
+		me.kclistnew = Ext.create('Youngshine.view.kclist.New')
     },
 	kclistnewSave: function(obj,win){ //obj用户信息
 		var me = this;
@@ -66,24 +67,22 @@ Ext.define('Youngshine.controller.Kclist', {
 		   wait: true,
 		   waitConfig: {interval:200},
 		});
-		Ext.data.JsonP.request({
+		Ext.Ajax.request({
             url: this.getApplication().dataUrl + 'createKclist.php',
-            callbackKey: 'callback',
-            params:{
-                data: JSON.stringify(obj)
-            },
-            success: function(result){
-				Ext.MessageBox.hide(); console.log(result)
-				if(result.success){
-					obj.studentID = result.data.studentID; // model数组添加项目
+            params: obj,
+            success: function(response){
+				Ext.MessageBox.hide(); 
+				var ret = JSON.parse(response.responseText)
+				if(ret.success){
+					obj.studentID = ret.data.studentID; // model数组添加项目
 					obj.created = '刚刚刚刚'
 					Ext.getStore('Kclist').insert(0,obj); //新增记录，排在最前面
 					win.close(); //成功保存才关闭窗口
 				}else{		
-					Ext.Msg.alert('提示',result.message);
+					Ext.Msg.alert('提示',ret.message);
 				}	
 			},
-			failure: function(result){
+			failure: function(response){
 				Ext.MessageBox.hide();
 				Ext.Msg.alert('网络错误','服务请求失败');
 			}
@@ -102,25 +101,24 @@ Ext.define('Youngshine.controller.Kclist', {
 		   wait: true,
 		   waitConfig: {interval:200},
 		});
-		Ext.data.JsonP.request({
+		Ext.Ajax.request({
             url: this.getApplication().dataUrl + 'updateKclist.php',
-            callbackKey: 'callback',
-            params:{
-                data: JSON.stringify(obj)
-            },
-            success: function(result){
+            //callbackKey: 'callback',
+            params: obj,
+            success: function(response){
 				Ext.MessageBox.hide();
-				if(result.success){
+				var ret = JSON.parse(response.responseText)
+				if(ret.success){
 					// 更新前端store
 					var model = oldWin.down('form').getRecord();
 					model.set(obj) 
 					
 					oldWin.close();
 				}else{	
-					Ext.Msg.alert('提示',result.message);
+					Ext.Msg.alert('提示',ret.message);
 				}	
 			},
-			failure: function(result){
+			failure: function(response){
 				Ext.MessageBox.hide();
 				Ext.Msg.alert('网络错误','服务请求失败');
 			}
@@ -135,20 +133,21 @@ Ext.define('Youngshine.controller.Kclist', {
 		   waitConfig: {interval:200},
 		});
 		console.log(record)
-		Ext.data.JsonP.request({
+		Ext.Ajax.request({
 			// 删除服务端记录: 最好做个标记，别真正删除？或者过期的和定期的不能删除？
 			url: this.getApplication().dataUrl + 'deleteKclist.php',
-			callbackKey: 'callback',
+			//callbackKey: 'callback',
 			params:{
-				data: '{"kclistID":' + record.data.kclistID + '}'
+				"kclistID": record.data.kclistID
 			},
-			success: function(result){
+			success: function(response){
 				Ext.MessageBox.hide();
-				if(result.success){
+				var ret = JSON.parse(response.responseText)
+				if(ret.success){
 					var store = Ext.getStore('Kclist'); //移除本地store记录
 					store.remove(record); //.removeAt(i); 
 				}else{
-					Ext.Msg.alert('提示',result.message);
+					Ext.Msg.alert('提示',ret.message);
 				}
 			},
 			failure: function(){

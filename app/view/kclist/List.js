@@ -73,13 +73,13 @@ Ext.define('Youngshine.view.kclist.List' ,{
 			xtype: 'rownumberer',
 			width: 30
 		},{	
-	         text: '名称',
-	         width: 150,
+	         text: '课程名称',
+	         flex: 1,
 	         //sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'title'
 	     }, {
-			 text: '课程类型',
+			 text: '类型',
 	         width: 60,
 	         sortable: true,
 			 menuDisabled: true,
@@ -135,11 +135,7 @@ Ext.define('Youngshine.view.kclist.List' ,{
 		         }
 		         return value;
 		     }
-	     }, {
-	         text: '备注',
-	         flex: 1,
-			 menuDisabled: true,
-	         dataIndex: 'note' 
+
   		},{	 
   			menuDisabled: true,
   			sortable: false,

@@ -51,7 +51,7 @@ Ext.define('Youngshine.controller.Main', {
 
 	// 用户而不是管理员admin登录成功，来自登录或注册成功直接跳转
     loginOk: function(obj,oldWin) {
-        var me = this; console.log(obj)
+        var me = this; //console.log(obj)
         Ext.data.JsonP.request({
             url: me.getApplication().dataUrl + 'login.php', 
             callbackKey: 'callback',
@@ -60,7 +60,7 @@ Ext.define('Youngshine.controller.Main', {
             },
             success: function(result){
                 if(result.success){
-					console.log(result.data)
+					//console.log(result.data) //密码问题
 					//localStorage.setItem('isLogin',true);
 					localStorage.setItem('school',result.data.schoolName); //加盟校区
 					localStorage.setItem('schoolID',result.data.schoolID);

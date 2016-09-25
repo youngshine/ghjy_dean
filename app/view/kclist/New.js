@@ -16,7 +16,7 @@ Ext.define('Youngshine.view.kclist.New', {
 		xtype: 'form',
 		bodyPadding: 10,
 		fieldDefaults: {
-			labelWidth: 80,
+			labelWidth: 95,
 			labelAlign: 'right',
 			anchor: '100%'
 		},
@@ -28,44 +28,47 @@ Ext.define('Youngshine.view.kclist.New', {
 			xtype: 'combo',
 			name: 'kcType',
 			store: {
-				fields: ['value', 'name'],
+				fields: ['value'],
 				data : [
-					{"value":"大小班", "name":"大小班"},
-					{"value":"一对一", "name":"一对一"}
+					{"value":"大小班"},
+					{"value":"一对一"}
 				]
 			},
 			valueField: 'value',
-			displayField: 'name',
+			displayField: 'value',
 			editable: false,
-			fieldLabel: '课程类别'
+			fieldLabel: '类型'
 		},{
 			xtype: 'combo',
 			name: 'kmType',
 			store: {
-				fields: ['value', 'name'],
+				fields: ['value'],
 				data : [
-					{"value":"数理化", "name":"数理化"},
-					{"value":"语政英", "name":"语政英"},
-					{"value":"史地生", "name":"史地生"},
-					{"value":"艺术", "name":"艺术"}
+					{"value":"数理化"},
+					{"value":"语政英"},
+					{"value":"史地生"},
+					{"value":"艺术"}
 				]
 			},
 			valueField: 'value',
-			displayField: 'name',
+			displayField: 'value',
 			editable: false,
 			fieldLabel: '学科'
 		},{
 			xtype: 'numberfield',
 			name : 'unitprice',
-			fieldLabel: '单价'
+			fieldLabel: '一对一单价',
+			value: 0
 		},{
 			xtype: 'numberfield',
 			name : 'hour',
-			fieldLabel: '课时数'
+			fieldLabel: '班级课时数',
+			value: 0
 		},{
 			xtype: 'numberfield',
 			name : 'amount',
-			fieldLabel: '金额'
+			fieldLabel: '班级收费金额',
+			value: 0
 		},{
 			xtype: 'textfield',
 			name: 'note',
@@ -75,7 +78,7 @@ Ext.define('Youngshine.view.kclist.New', {
 	}],
 	
     fbar : [{
-		text: '保存', disabled: true,
+		text: '保存', 
 		width: 45,
 		action: 'save',
 		//scope: this,
@@ -94,32 +97,48 @@ Ext.define('Youngshine.view.kclist.New', {
    
 	onSave: function(){
 		var me = this;
-		var teacherName = this.down('textfield[name=teacherName]').getValue().trim();
-		var subject = this.down('combo[name=subject]').getValue();
-		//var note = this.down('textfield[name=note]').getValue().trim();
+		var title = this.down('textfield[name=title]').getValue().trim(),
+			kcType = this.down('combo[name=kcType]').getValue(),
+			kmType = this.down('combo[name=kmType]').getValue(),
+			unitprice = this.down('numberfield[name=unitprice]').getValue(),
+			hour = this.down('numberfield[name=hour]').getValue(),
+			amount = this.down('numberfield[name=amount]').getValue()
 		
-		if (teacherName == ''){
-			Ext.Msg.alert('提示','姓名不能空白');
+		if (title == ''){
+			Ext.Msg.alert('提示','课程名称不能空白');
 			return;
 		}
-		if (subject == null){
+		if (kcType == null){
+			Ext.Msg.alert('提示','请选择课程类型');
+			return;
+		}
+		if (kmType == null){
 			Ext.Msg.alert('提示','请选择学科');
 			return;
-		}		
+		}
+		if (unitprice==0 && hour==0 ){
+			Ext.Msg.alert('提示','请输入一对一单价或课时数');
+			return;
+		}	
+		if (unitprice != 0 && hour != 0 ){
+			Ext.Msg.alert('提示','不能同时输入单价和课时数');
+			return;
+		}	
+		
+		var obj = {
+			"title": title,
+			"kcType": kcType,
+			"kmType": kmType,
+			"unitprice": unitprice,
+			"hour": hour,
+			"amount": amount,
+			"schoolID": localStorage.schoolID
+		};
+		console.log(obj);
 
-		Ext.Msg.confirm('询问','是否保存？',function(id){
+		Ext.Msg.confirm('询问','是否新增保存？',function(id){
 			if( id == "yes"){
-				//if(viewEF.isValid()){
-					var obj = {
-						"teacherName": teacherName,
-						"subjectID": subjectID,
-						"subjectName": subjectName,
-
-					};
-					console.log(obj);
-					//me.close();
-					me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
-				//}
+				me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
 			}
 		})
 	}
