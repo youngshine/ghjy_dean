@@ -15,7 +15,10 @@ Ext.define('Youngshine.controller.Teacher', {
 		selector: 'teacher-new'
 	},{
 		ref: 'teacheredit',
-		selector: 'teacher-edit'	
+		selector: 'teacher-edit'
+	},{
+		ref: 'teachercourse',
+		selector: 'teacher-course'	
 	}],
 
     init: function() {
@@ -30,7 +33,11 @@ Ext.define('Youngshine.controller.Teacher', {
             },
 			'teacher-new': {
                 save: this.teachernewSave,
-            }				
+            },
+			// 教师上课课时
+			'teacher-course': {
+				search: this.teachercourseSearch,
+			},					
         });
     },
 
@@ -206,4 +213,52 @@ Ext.define('Youngshine.controller.Teacher', {
 			}
 		});	
 	},	
+	
+	// 教师课时统计，show跳转来自main controller
+	showTeacherCourse: function(){
+		var me = this;
+		var win = Ext.create('Youngshine.view.teacher.Course');
+		win.down('grid').getStore().removeAll(); // 先晴空
+		
+		var obj = {
+			"schoolID": localStorage.getItem('schoolID'),
+		}
+	    var url = this.getApplication().dataUrl + 
+			'readTeacherList.php?data=' + JSON.stringify(obj);
+        var store = Ext.getStore('Teacher');
+		store.removeAll();
+		store.clearFilter();
+		store.getProxy().url = url;
+        store.load({
+            callback: function(records, operation, success) {
+				console.log(records);
+            },
+            scope: this
+        });
+	},	
+	
+    teachercourseSearch: function(obj,win) {
+		var store = Ext.getStore('Course'); 
+		store.removeAll();
+		
+		var url 
+		if(obj.kcType=='大小班'){
+			url = 'readCourseListByClass.php?data=' + JSON.stringify(obj);
+		}else{
+			url = 'readCourseListByOne2one.php?data=' + JSON.stringify(obj);
+		}
+		url = this.getApplication().dataUrl + url
+		store.getProxy().url = url;
+        store.load({
+            callback: function(records, operation, success) {
+				console.log(records);
+				var total = 0
+				store.each(function(record){
+					total += parseInt(record.data.hour)
+				})
+				win.down('displayfield[itemId=subtotal]').setValue(total)
+            },
+            scope: this
+        });
+    },	
 });

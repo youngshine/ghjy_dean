@@ -74,8 +74,7 @@ Ext.define('Youngshine.controller.Kclist', {
 				Ext.MessageBox.hide(); 
 				var ret = JSON.parse(response.responseText)
 				if(ret.success){
-					obj.studentID = ret.data.studentID; // model数组添加项目
-					obj.created = '刚刚刚刚'
+					obj.kclistID = ret.data.kclistID; // model数组添加项目
 					Ext.getStore('Kclist').insert(0,obj); //新增记录，排在最前面
 					win.close(); //成功保存才关闭窗口
 				}else{		

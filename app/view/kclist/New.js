@@ -53,7 +53,23 @@ Ext.define('Youngshine.view.kclist.New', {
 			valueField: 'value',
 			displayField: 'value',
 			editable: false,
-			fieldLabel: '学科'
+			fieldLabel: '学科类别'
+		},{
+			xtype: 'combo',
+			name: 'sectionName',
+			store: {
+				fields: ['value'],
+				data : [
+					{"value":"幼儿"},
+					{"value":"小学"},
+					{"value":"初中"},
+					{"value":"高中"}
+				]
+			},
+			valueField: 'value',
+			displayField: 'value',
+			editable: false,
+			fieldLabel: '学段'
 		},{
 			xtype: 'numberfield',
 			name : 'unitprice',
@@ -100,6 +116,7 @@ Ext.define('Youngshine.view.kclist.New', {
 		var title = this.down('textfield[name=title]').getValue().trim(),
 			kcType = this.down('combo[name=kcType]').getValue(),
 			kmType = this.down('combo[name=kmType]').getValue(),
+			sectionName = this.down('combo[name=sectionName]').getValue(),
 			unitprice = this.down('numberfield[name=unitprice]').getValue(),
 			hour = this.down('numberfield[name=hour]').getValue(),
 			amount = this.down('numberfield[name=amount]').getValue()
@@ -113,7 +130,11 @@ Ext.define('Youngshine.view.kclist.New', {
 			return;
 		}
 		if (kmType == null){
-			Ext.Msg.alert('提示','请选择学科');
+			Ext.Msg.alert('提示','请选择学科类别');
+			return;
+		}
+		if (sectionName == null){
+			Ext.Msg.alert('提示','请选择学段！');
 			return;
 		}
 		if (unitprice==0 && hour==0 ){
@@ -129,6 +150,7 @@ Ext.define('Youngshine.view.kclist.New', {
 			"title": title,
 			"kcType": kcType,
 			"kmType": kmType,
+			"sectionName": sectionName,
 			"unitprice": unitprice,
 			"hour": hour,
 			"amount": amount,

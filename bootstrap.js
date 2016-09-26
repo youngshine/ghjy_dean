@@ -841,6 +841,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.Accnt": [],
   "Youngshine.model.AccntDetail": [],
   "Youngshine.model.Consult": [],
+  "Youngshine.model.Course": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
@@ -848,6 +849,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
   "Youngshine.store.Consult": [],
+  "Youngshine.store.Course": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
@@ -866,6 +868,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.login.Pswreset": [],
   "Youngshine.view.schoolsub.List": [],
   "Youngshine.view.student.List": [],
+  "Youngshine.view.teacher.Course": [],
   "Youngshine.view.teacher.Edit": [],
   "Youngshine.view.teacher.List": [],
   "Youngshine.view.teacher.New": []
@@ -1868,6 +1871,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.Accnt": [],
   "Youngshine.model.AccntDetail": [],
   "Youngshine.model.Consult": [],
+  "Youngshine.model.Course": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
@@ -1875,6 +1879,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
   "Youngshine.store.Consult": [],
+  "Youngshine.store.Course": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
@@ -1918,6 +1923,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Youngshine.view.student.List": [
     "widget.student-list"
+  ],
+  "Youngshine.view.teacher.Course": [
+    "widget.teacher-course"
   ],
   "Youngshine.view.teacher.Edit": [
     "widget.teacher-edit"

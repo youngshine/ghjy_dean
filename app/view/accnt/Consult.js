@@ -16,17 +16,21 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 	tbar: [{
 		padding: '5,0',
 		xtype: 'combo',
-		width: 150,
-		fieldLabel: '咨询师',
-		labelWidth: 45,
-		labelAlign: 'right',
+		width: 200,
+		//fieldLabel: '咨询师',
+		//labelWidth: 45,
+		//labelAlign: 'right',
 		itemId: 'consult',
 		store: 'Consult',
 		valueField: 'consultID',
 		displayField: 'consultName',
 		//value: '全部分校区',
-		//emptyText: '选择咨询师',
+		emptyText: '选择咨询师',
 		editable: false,
+		listConfig: {
+            itemTpl: '{consultName} - {schoolsub}'
+        },	
+		queryMode: 'local'	
 	},{	
 		//padding: '5,0',
 		xtype: 'datefield',
