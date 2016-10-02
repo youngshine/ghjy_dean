@@ -10,6 +10,7 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 	width: 800,
 	height: 550,
 	layout: 'fit',
+	defaultFocus : 'consult', 
 
     title : '咨询师业绩统计',
 
@@ -25,7 +26,7 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 		valueField: 'consultID',
 		displayField: 'consultName',
 		//value: '全部分校区',
-		emptyText: '选择咨询师',
+		emptyText: '选择业绩归属咨询师',
 		editable: false,
 		listConfig: {
             itemTpl: '{consultName} - {schoolsub}'
@@ -160,6 +161,20 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 	         dataIndex: 'amount',
 			 align: 'right'
 	     }, {
+			 text: '欠费',
+	         width: 60,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'amount_owe',
+			 align: 'right'
+	     }, {
+			 text: '入帐',
+	         width: 60,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'fullAmountPaid',
+			 align: 'right'
+	     }, {
 			 text: '付款方式',
 	         width: 60,
 	         sortable: true,
@@ -229,7 +244,7 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 			kcType: kcType,
 			//payment: payment,
 			refund: refund,
-			consultID: consultID,
+			consultID_owe: consultID,
 			schoolID: localStorage.schoolID // 当前学校
 		}
 		console.log(obj)

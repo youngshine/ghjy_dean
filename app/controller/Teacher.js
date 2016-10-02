@@ -125,6 +125,7 @@ Ext.define('Youngshine.controller.Teacher', {
 		//Ext.widget('teacher-edit');
         win.down('form').loadRecord(record); //binding data
 		
+		// 学科subject 临时store
 		var store = Ext.create('Ext.data.Store', {
 		     fields: ['subjectID','subjectName'],
 		     proxy: {

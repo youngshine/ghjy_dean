@@ -7,8 +7,8 @@ Ext.define('Youngshine.view.consult.List' ,{
 	modal: true,
     autoShow: true,
 	//resizable: false,
-	width: 550,
-	height: 350,
+	width: 700,
+	height: 450,
 	layout: 'fit',
 
     title : '咨询师列表',
@@ -49,7 +49,8 @@ Ext.define('Youngshine.view.consult.List' ,{
 	         width: 35,
 	         sortable: true,
 			 menuDisabled: true,
-	         dataIndex: 'gender'
+	         dataIndex: 'gender',
+			 align: 'center'
 	     }, {
 			 text: '电话',
 	         width: 100,
@@ -62,6 +63,12 @@ Ext.define('Youngshine.view.consult.List' ,{
 	         //sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'schoolsub'
+	     }, {
+	         text: '备注',
+	         width: 100,
+	         //sortable: false,
+			 menuDisabled: true,
+	         dataIndex: 'note'
  		},{	 
  			menuDisabled: true,
  			sortable: false,
@@ -101,26 +108,13 @@ Ext.define('Youngshine.view.consult.List' ,{
 	     }],     
 	}],
 	
-	listeners: {
-		itemdblclick: function (view, record, row, i, e) {
-			//this.up('mysearch').onItemdblclick(view, record, row, i, e);
-			//this.fireEvent('editUser',view,record);
-			this.onItemdblclick(view,record);
-		},
-		selectionchange: function(selModel, selections){
-			this.onSelect(selModel, selections)
-		}
+	onNew: function(){ 
+		this.down('grid').getSelectionModel().deselectAll();
+		this.fireEvent('addnew');
 	},
-
-	/* 
-	onItemdblclick: function(view,record){
-		this.fireEvent('editUser',view,record);
+	onEdit: function(rec){ 
+		this.fireEvent('edit',rec);
 	},
-	onSelect: function(selModel, selections){
-		//this.fireEvent('selectUser',selModel, selections);
-		var delBut = this.down('button[action=delete]');
-        delBut.setDisabled(false);
-	}, */
 
 	onDelete: function(rec){
 		var me = this;

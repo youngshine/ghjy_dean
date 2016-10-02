@@ -11,6 +11,7 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 	width: 750,
 	height: 550,
 	layout: 'fit',
+	defaultFocus: 'teacher',
 
     title : '教师课时统计',
 
@@ -137,7 +138,7 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 	         dataIndex: 'hour',
 			 align: 'center'
 	     }, {
-			 text: '班级或课程内容',
+			 text: '班级或一对一课',
 	         flex: 1,
 	         sortable: true,
 			 menuDisabled: true,
@@ -160,7 +161,7 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onRollup(rec); 
+					grid.up('window').onRollcall(rec); 
 				}	
 			}]			 		 
 	     }], 
@@ -207,7 +208,7 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 	},	
 	
 	// 点名表
-	onRollup: function(record){
+	onRollcall: function(record){
 		var me = this
 		
 		var obj = {

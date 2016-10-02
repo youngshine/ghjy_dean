@@ -129,6 +129,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	}, */
 
 	onNew: function(){ 
+		this.down('grid').getSelectionModel().deselectAll();
 		this.fireEvent('addnew');
 	},
 	onEdit: function(rec){ 

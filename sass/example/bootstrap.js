@@ -860,7 +860,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.West": [],
   "Youngshine.view.accnt.Consult": [],
   "Youngshine.view.accnt.List": [],
+  "Youngshine.view.consult.Edit": [],
   "Youngshine.view.consult.List": [],
+  "Youngshine.view.consult.New": [],
   "Youngshine.view.kclist.Edit": [],
   "Youngshine.view.kclist.List": [],
   "Youngshine.view.kclist.New": [],
@@ -1900,8 +1902,14 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.view.accnt.List": [
     "widget.accnt-list"
   ],
+  "Youngshine.view.consult.Edit": [
+    "widget.consult-edit"
+  ],
   "Youngshine.view.consult.List": [
     "widget.consult-list"
+  ],
+  "Youngshine.view.consult.New": [
+    "widget.consult-new"
   ],
   "Youngshine.view.kclist.Edit": [
     "widget.kclist-edit"

@@ -11,7 +11,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 	height: 550,
 	layout: 'fit',
 
-    title : '缴费明细',
+    title : '缴费明细查询',
 
 	tbar: [{
 		xtype: 'datefield',
@@ -142,7 +142,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		//scale: 'medium',
 		//width: 55,
 		handler: function(btn){
-			btn.up('window').onExcel()
+			btn.up('window').onExcel(btn)
 		}
 	},{	
 		xtype: 'button',
@@ -185,6 +185,20 @@ Ext.define('Youngshine.view.accnt.List' ,{
 	         dataIndex: 'amount',
 			 align: 'right'
 	     }, {
+			 text: '欠费',
+	         width: 60,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'amount_owe',
+			 align: 'right'
+	     }, {
+			 text: '入帐',
+	         width: 60,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'fullAmountPaid',
+			 align: 'right'
+	     }, {
 			 text: '付款方式',
 	         width: 60,
 	         sortable: true,
@@ -197,11 +211,11 @@ Ext.define('Youngshine.view.accnt.List' ,{
 			 menuDisabled: true,
 	         dataIndex: 'note'
 	     }, {
-			 text: '咨询师',
-	         width: 60,
+			 text: '归属咨询师',
+	         width: 80,
 	         sortable: true,
 			 menuDisabled: true,
-	         dataIndex: 'consultName'
+	         dataIndex: 'consultName_owe'
 	     }, {
 			 text: '分校区',
 	         flex: 1,
@@ -287,4 +301,54 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		console.log(obj)
 		this.fireEvent('search',obj,me);
 	},	
+	
+	onExcel: function(btn){
+		var me = this;
+		/*
+		try{
+		   var oXL = new ActiveXObject("Excel.Application"); 
+		}catch(e){
+		   Ext.Msg.alert('警告',"请确认已经安装了Excel并允许运行Excel!");
+		   btn.style.cursor = "hand";
+		   return;
+		}
+		oXL.Workbooks.Add(); 
+		var obook = oXL.ActiveWorkBook; 
+		var osheets = obook.Worksheets;
+		var osheet = obook.Sheets(1);
+		var xlrow = 1; */
+		
+		exportexcel();
+		
+		//函数：exportexcel
+		function exportexcel() {
+			var grid = me.down('grid')
+			
+			var vExportContent = grid.getExcelXml();  
+			console.log(vExportContent); return
+			      
+			if (Ext.isIE6 || Ext.isIE7 || Ext.isSafari || Ext.isSafari2 || Ext.isSafari3) {  
+				if (! Ext.fly('frmDummy')) {             
+					var frm = document.createElement('form');               
+					frm.id = 'frmDummy';             
+					frm.name = id;               
+					frm.className = 'x-hidden';              
+					document.body.appendChild(frm);            
+				}           
+				Ext.Ajax.request({              
+					url: 'exportexcel.php',                 
+					method: 'POST',                
+					form: Ext.fly('frmDummy'),                 
+					callback: function(o, s, r) {                   
+						//alert(r.responseText);             
+					},                
+					isUpload: true,              
+					params: {exportContent: vExportContent}            
+				})        
+			} else {            
+				document.location = 'data:application/vnd.ms-excel;base64,' + 
+					Base64.encode(vExportContent);       
+			} 
+		}
+	}
 });
