@@ -6,6 +6,7 @@ Ext.define('Youngshine.model.Consult', {
 		{name: 'consultID'}, 
 		{name: 'consultName'}, 
 		{name: 'gender'}, 
+		{name: 'userId'}, 
 		{name: 'phone'}, 
 		{name: 'note'}, 
 		{name: 'schoolsubID'},

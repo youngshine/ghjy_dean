@@ -204,7 +204,7 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onTopic(rec); 
+					grid.up('window').onAccntDetail(rec); 
 				}	
 			}]			 		 
 	     }], 
@@ -250,4 +250,30 @@ Ext.define('Youngshine.view.accnt.Consult' ,{
 		console.log(obj)
 		this.fireEvent('search',obj,me);
 	},	
+	
+	// 缴费的子表明细
+	onAccntDetail: function(record){
+		var obj = {
+			"accntID": record.get('accntID')
+		}
+		console.log(obj)
+        Ext.data.JsonP.request({
+            url: Youngshine.app.getApplication().dataUrl + 'readAccntDetailByAccnt.php', 
+            callbackKey: 'callback',
+            params:{
+                data: JSON.stringify(obj)
+            },
+            success: function(result){
+                if(result.success){
+					console.log(result.data)
+					var arr = result.data,
+						title = ''
+					for(var i=0;i<arr.length;i++)
+						title += (i+1) + '、' + arr[i].title + '：' + 
+							arr[i].hour+'课时'+ arr[i].amount+'元' + '<br>';
+					Ext.MessageBox.alert('课程明细',title)
+                }
+            },
+        });
+	},
 });

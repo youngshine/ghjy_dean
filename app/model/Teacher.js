@@ -3,7 +3,8 @@ Ext.define('Youngshine.model.Teacher', {
     //idProperty: 'admin_id',
     fields: [
 		{name: 'teacherID'}, 
-		{name: 'teacherName'}, 
+		{name: 'teacherName'},
+		{name: 'userId'},  
 		{name: 'subjectID'}, 
 		{name: 'subjectName'}, 
 		{name: 'schoolID'}, 

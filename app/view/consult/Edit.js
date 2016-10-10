@@ -26,6 +26,10 @@ Ext.define('Youngshine.view.consult.Edit', {
 			name : 'consultName',
 			fieldLabel: '姓名'
 		},{
+			xtype: 'displayfield',
+			name : 'userId',
+			fieldLabel: '微信账号'
+		},{
 			xtype: 'combo',
 			name: 'gender',
 			store: {

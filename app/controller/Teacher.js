@@ -125,6 +125,7 @@ Ext.define('Youngshine.controller.Teacher', {
 		//Ext.widget('teacher-edit');
         win.down('form').loadRecord(record); //binding data
 		
+		/*
 		// 学科subject 临时store
 		var store = Ext.create('Ext.data.Store', {
 		     fields: ['subjectID','subjectName'],
@@ -146,7 +147,18 @@ Ext.define('Youngshine.controller.Teacher', {
 			},
 			scope: this
 		});
-		 
+		 */
+
+        var store = Ext.getStore('Subject');
+		store.removeAll();
+		store.clearFilter();
+		store.getProxy().url = this.getApplication().dataUrl + 'readSubjectList.php'
+        store.load({
+            callback: function(records, operation, success) {
+				console.log(records);
+            },
+            scope: this
+        });
     },
 	teachereditSave: function(obj,oldWin){ //obj用户信息
 		var me = this;

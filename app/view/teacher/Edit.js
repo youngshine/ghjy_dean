@@ -25,13 +25,40 @@ Ext.define('Youngshine.view.teacher.Edit', {
 			name : 'teacherName',
 			fieldLabel: '姓名'
 		},{
+			xtype: 'displayfield',
+			name : 'userId',
+			fieldLabel: '微信账号'
+		},{
+			xtype: 'combo',
+			name: 'gender',
+			store: {
+				fields: ['value'],
+				data : [
+					{"value":"男"},
+					{"value":"女"},
+				]
+			},
+			valueField: 'value',
+			displayField: 'value',
+			editable: false,
+			fieldLabel: '性别'
+		},{
+			xtype: 'textfield',
+			name: 'phone',
+			fieldLabel: '电话',
+		},{
 			xtype: 'combo',
 			name: 'subjectID',
-			store: null, //'Subject',
+			store: 'Subject',
 			valueField: 'subjectID',
 			displayField: 'subjectName',
 			editable: false,
 			fieldLabel: '学科'
+		},{
+			xtype: 'textfield',
+			name: 'note',
+			fieldLabel: '备注',
+			
 		},{
 			xtype: 'hiddenfield',
 			name: 'teacherID',
@@ -40,7 +67,7 @@ Ext.define('Youngshine.view.teacher.Edit', {
 	}],
 	
     fbar : [{
-		text: '保存', disabled: true,
+		text: '保存', 
 		width: 45,
 		action: 'save',
 		//scope: this,
@@ -59,9 +86,13 @@ Ext.define('Youngshine.view.teacher.Edit', {
 	
 	onSave: function(){
 		var me = this;
-		var teacherName = this.down('textfield[name=teacherName]').getValue().trim();
-		var subjectID = this.down('combo[name=subjectID]').getValue();	
-		var teacherID = this.down('hiddenfield[name=teacherID]').getValue();
+		var teacherName = this.down('textfield[name=teacherName]').getValue().trim(),
+			gender = this.down('combo[name=gender]').getValue(),
+			phone = this.down('textfield[name=phone]').getValue().trim(),
+			note = this.down('textfield[name=note]').getValue().trim(),
+			subjectID = this.down('combo[name=subjectID]').getValue(),
+			subjectName = this.down('combo[name=subjectID]').getRawValue(),
+			teacherID = this.down('hiddenfield[name=teacherID]').getValue(); //unique
 
 		if (teacherName == ''){
 			Ext.Msg.alert('提示','姓名不能空白');
@@ -72,6 +103,9 @@ Ext.define('Youngshine.view.teacher.Edit', {
 			if( id == "yes"){
 				var obj = {
 					"teacherName": teacherName,
+					"gender": gender,
+					"phone": phone,
+					"note": note,
 					"subjectID": subjectID,
 					"subjectName": subjectName,
 					"teacherID": teacherID

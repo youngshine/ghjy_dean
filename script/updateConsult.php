@@ -12,11 +12,13 @@ $consultID = $_REQUEST['consultID']; // update unique
 $consultName = addslashes($_REQUEST['consultName']); 
 $gender = addslashes($_REQUEST['gender']); 
 $phone = addslashes($_REQUEST['phone']); 
+$note = addslashes($_REQUEST['note']); 
 $schoolsubID = $_REQUEST['schoolsubID'];
 
 $query = "UPDATE `ghjy_consult` SET 
 	consultName = '$consultName',gender = '$gender',
-	phone = '$phone',schoolsubID = $schoolsubID
+	phone = '$phone',note = '$note',
+	schoolsubID = $schoolsubID
 	WHERE consultID = $consultID ";
 $result = mysql_query($query);
 	

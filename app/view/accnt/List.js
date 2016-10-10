@@ -128,6 +128,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 			//background: 'transparent',
 			border: '1px solid #bbb'
 		},
+		glyph: 72,
 	}],
 	fbar: [{
 		xtype: 'label',
@@ -142,7 +143,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		//scale: 'medium',
 		//width: 55,
 		handler: function(btn){
-			btn.up('window').onExcel(btn)
+			btn.up('window').onExport2Excel(btn)
 		}
 	},{	
 		xtype: 'button',
@@ -234,7 +235,7 @@ Ext.define('Youngshine.view.accnt.List' ,{
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onTopic(rec); 
+					grid.up('window').onAccntDetail(rec); 
 				}	
 			}]			 		 
 	     }], 
@@ -302,7 +303,33 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		this.fireEvent('search',obj,me);
 	},	
 	
-	onExcel: function(btn){
+	// 缴费的子表明细
+	onAccntDetail: function(record){
+		var obj = {
+			"accntID": record.get('accntID')
+		}
+		console.log(obj)
+        Ext.data.JsonP.request({
+            url: Youngshine.app.getApplication().dataUrl + 'readAccntDetailByAccnt.php', 
+            callbackKey: 'callback',
+            params:{
+                data: JSON.stringify(obj)
+            },
+            success: function(result){
+                if(result.success){
+					console.log(result.data)
+					var arr = result.data,
+						title = ''
+					for(var i=0;i<arr.length;i++)
+						title += (i+1) + '、' + arr[i].title + '：' + 
+							arr[i].hour+'课时'+ arr[i].amount+'元' + '<br>';
+					Ext.MessageBox.alert('课程明细',title)
+                }
+            },
+        });
+	},
+	
+	onExport2Excel: function(btn){
 		var me = this;
 		/*
 		try{
@@ -318,37 +345,28 @@ Ext.define('Youngshine.view.accnt.List' ,{
 		var osheet = obook.Sheets(1);
 		var xlrow = 1; */
 		
-		exportexcel();
+		// 1.create
+		var oXL = new ActiveXObject("Excel.Application");  
+        var oWB = oXL.Workbooks.Add();  
+        var oSheet = oWB.ActiveSheet;  
+
+		// 2.populate
+		var Lenr = curTbl.rows.length;  
+        for (i = 0; i < Lenr; i++)  
+        {        
+			var Lenc = curTbl.rows(i).cells.length;  
+            for (j = 0; j < Lenc; j++)  
+            {  
+                oSheet.Cells(i + 1, j + 1).value = curTbl.rows(i).cells(j).innerText;  
+
+            }  
+
+        } 
 		
-		//函数：exportexcel
-		function exportexcel() {
-			var grid = me.down('grid')
-			
-			var vExportContent = grid.getExcelXml();  
-			console.log(vExportContent); return
-			      
-			if (Ext.isIE6 || Ext.isIE7 || Ext.isSafari || Ext.isSafari2 || Ext.isSafari3) {  
-				if (! Ext.fly('frmDummy')) {             
-					var frm = document.createElement('form');               
-					frm.id = 'frmDummy';             
-					frm.name = id;               
-					frm.className = 'x-hidden';              
-					document.body.appendChild(frm);            
-				}           
-				Ext.Ajax.request({              
-					url: 'exportexcel.php',                 
-					method: 'POST',                
-					form: Ext.fly('frmDummy'),                 
-					callback: function(o, s, r) {                   
-						//alert(r.responseText);             
-					},                
-					isUpload: true,              
-					params: {exportContent: vExportContent}            
-				})        
-			} else {            
-				document.location = 'data:application/vnd.ms-excel;base64,' + 
-					Base64.encode(vExportContent);       
-			} 
-		}
+		// 3.save
+		xlsWin.document.write(inStr);  
+        xlsWin.document.close();  
+        xlsWin.document.execCommand('Saveas', true, inName);  
+        xlsWin.close(); 
 	}
 });

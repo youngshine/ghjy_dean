@@ -16,7 +16,7 @@ Ext.define('Youngshine.view.consult.List' ,{
 	fbar: [
 		'->',
 	{	
-		xtype: 'button',
+		xtype: 'button', disabled: true,
 		text: '＋新增',
 		width: 65,
 	    handler: function(btn){

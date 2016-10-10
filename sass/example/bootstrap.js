@@ -846,6 +846,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
+  "Youngshine.model.Subject": [],
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
   "Youngshine.store.Consult": [],
@@ -854,6 +855,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
+  "Youngshine.store.Subject": [],
   "Youngshine.store.Teacher": [],
   "Youngshine.view.Main": [],
   "Youngshine.view.Viewport": [],
@@ -1878,6 +1880,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
+  "Youngshine.model.Subject": [],
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
   "Youngshine.store.Consult": [],
@@ -1886,6 +1889,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
+  "Youngshine.store.Subject": [],
   "Youngshine.store.Teacher": [],
   "Youngshine.view.Main": [
     "widget.app-main"
