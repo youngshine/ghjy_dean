@@ -128,8 +128,9 @@ Ext.define('Youngshine.view.accnt.List' ,{
 			//background: 'transparent',
 			border: '1px solid #bbb'
 		},
-		glyph: 72,
+		//glyph: 72,
 	}],
+	
 	fbar: [{
 		xtype: 'label',
 		html: '合计（元）:',
@@ -300,7 +301,24 @@ Ext.define('Youngshine.view.accnt.List' ,{
 			schoolID: localStorage.schoolID // 当前学校
 		}
 		console.log(obj)
-		this.fireEvent('search',obj,me);
+		//this.fireEvent('search',obj,me);
+		
+		var store = me.down('grid').getStore(); //Ext.getStore('Accnt'); 
+		store.removeAll();
+        var url = Youngshine.app.getApplication().dataUrl + 
+			'readAccntList.php?data=' + JSON.stringify(obj);
+		store.getProxy().url = url;
+        store.load({
+            callback: function(records, operation, success) {
+				console.log(records);
+				var total = 0
+				store.each(function(record){
+					total += parseInt(record.data.amount)
+				})
+				me.down('displayfield[itemId=subtotal]').setValue(total)
+            },
+            scope: this
+        });
 	},	
 	
 	// 缴费的子表明细
@@ -330,43 +348,37 @@ Ext.define('Youngshine.view.accnt.List' ,{
 	},
 	
 	onExport2Excel: function(btn){
-		var me = this;
-		/*
-		try{
-		   var oXL = new ActiveXObject("Excel.Application"); 
-		}catch(e){
-		   Ext.Msg.alert('警告',"请确认已经安装了Excel并允许运行Excel!");
-		   btn.style.cursor = "hand";
-		   return;
+		var me = this; // export2accnt.excel store.data
+
+		var arrList = [] //,jsonList = {};
+		var store = me.down('grid').getStore()
+		store.each(function(rec,index){
+			arrList.push(rec.data)
+			//jsonList[index] = rec.data.kclistID 
+		})
+		if (arrList.length == 0){	
+			Ext.Msg.alert('提示','没有可导出的记录！');
+			return;
 		}
-		oXL.Workbooks.Add(); 
-		var obook = oXL.ActiveWorkBook; 
-		var osheets = obook.Worksheets;
-		var osheet = obook.Sheets(1);
-		var xlrow = 1; */
+		//console.log(arrList);
+		//console.log(JSON.stringify(jsonList));
+		//arrList = JSON.stringify(jsonList); 
+		arrList = JSON.stringify(arrList); //传递到后台，必须字符串
+		//console.log(arrList);
+		var obj = {
+			"arrList": arrList
+		}
+		console.log(obj)
 		
-		// 1.create
-		var oXL = new ActiveXObject("Excel.Application");  
-        var oWB = oXL.Workbooks.Add();  
-        var oSheet = oWB.ActiveSheet;  
-
-		// 2.populate
-		var Lenr = curTbl.rows.length;  
-        for (i = 0; i < Lenr; i++)  
-        {        
-			var Lenc = curTbl.rows(i).cells.length;  
-            for (j = 0; j < Lenc; j++)  
-            {  
-                oSheet.Cells(i + 1, j + 1).value = curTbl.rows(i).cells(j).innerText;  
-
-            }  
-
-        } 
-		
-		// 3.save
-		xlsWin.document.write(inStr);  
-        xlsWin.document.close();  
-        xlsWin.document.execCommand('Saveas', true, inName);  
-        xlsWin.close(); 
+		Ext.Ajax.request({
+		    url: Youngshine.app.getApplication().dataUrl + 'export2accnt.php',
+			//url: 'script/export2accnt.php',
+		    params: obj, 
+		    success: function(response){ 
+				console.log(response.responseText)
+				var ret = Ext.JSON.decode(response.responseText)
+				console.log(ret.data)
+		    }
+		});
 	}
 });
