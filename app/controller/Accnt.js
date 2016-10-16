@@ -27,7 +27,7 @@ Ext.define('Youngshine.controller.Accnt', {
 	// 缴费，show跳转来自main controller
 	showAccnt: function(){
 		var me = this;
-		var win = Ext.create('Youngshine.view.accnt.List');
+		var win = Ext.create('Youngshine.view.accnt.Accnt');
 		win.down('grid').getStore().removeAll(); // 先晴空
 		
 		var obj = {
@@ -63,7 +63,7 @@ Ext.define('Youngshine.controller.Accnt', {
 	// 缴费，show跳转来自main controller
 	showAccntConsult: function(){
 		var me = this;
-		var win = Ext.create('Youngshine.view.accnt.Consult');
+		var win = Ext.create('Youngshine.view.accnt.AccntConsult');
 		win.down('grid').getStore().removeAll(); // 先晴空
 		
 		var obj = {
@@ -101,7 +101,7 @@ Ext.define('Youngshine.controller.Accnt', {
 		var store = Ext.getStore('Accnt'); 
 		store.removeAll();
         var url = this.getApplication().dataUrl + 
-			'readAccntList.php?data=' + JSON.stringify(obj);
+			'readOrdersList.php?data=' + JSON.stringify(obj);
 		store.getProxy().url = url;
         store.load({
             callback: function(records, operation, success) {

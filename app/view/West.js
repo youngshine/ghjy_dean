@@ -28,7 +28,8 @@ Ext.define('Youngshine.view.West', {
 			'<div class="menuitem" title="kclist" style="margin:5px;">课程</div>'+
 		
 			'<div style="margin:10px 0;cursor:auto;"><hr></div>'+
-			'<div class="menuitem" title="accnt" style="margin:5px;">缴费退费明细</div>'+
+			'<div class="menuitem" title="accnt" style="margin:5px;">课程销售查询</div>'+
+			'<div class="menuitem" title="accntfee" style="margin:5px;">缴款明细</div>'+
 			'<div class="menuitem" title="accntconsult" style="margin:5px;">咨询师业绩统计</div>'+
 			'<div class="menuitem" title="course" style="margin:5px;">教师课时统计</div>'+
 

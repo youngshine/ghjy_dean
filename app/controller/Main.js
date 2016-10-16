@@ -40,7 +40,8 @@ Ext.define('Youngshine.controller.Main', {
 				consult: this.navConsult,
 				teacher: this.navTeacher,
 				kclist: this.navKclist,
-				accnt: this.navAccnt,
+				accnt: this.navAccnt, //课程销售单
+				accntfee: this.navAccntFee,//财务缴款
 				accntconsult: this.navAccntConsult,
 				
 				course: this.navCourse,
@@ -135,6 +136,9 @@ Ext.define('Youngshine.controller.Main', {
 	
 	navAccnt: function(){
 		this.getApplication().getController('Accnt').showAccnt();
+	},
+	navAccntFee: function(){
+		this.getApplication().getController('Accnt').showAccntFee();
 	},
 	navAccntConsult: function(){
 		this.getApplication().getController('Accnt').showAccntConsult();

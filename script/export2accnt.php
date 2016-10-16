@@ -1,6 +1,5 @@
 <?php  
-// 导入PHPExcel类库  
-require_once("Classes/PHPExcel.php");  
+
 
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 header('Access-Control-Allow-Origin: *'); // 跨域问题
@@ -11,8 +10,11 @@ $arrList = $_REQUEST['arrList']; //销售记录 addslash
 //$arrList = '[{"name":"lin","age":48},{"name":"wang","age":37}]';
 $arrList = json_decode($arrList); //json字符串转换成数组 decode($a,true)
 //$i = count($arrList); //行数
-var_dump($arrList);
-exit();
+
+
+ 
+// 导入PHPExcel类库  
+require_once("Classes/PHPExcel.php");  
   
 // 通常PHPExcel对象有两种实例化的方式  
 // 1. 通过new关键字创建空白文档  
@@ -56,22 +58,24 @@ $sheet->setTitle("报读缴费明细");
   
 // 1、设置第3行第5列（E3）的值  
 $sheet->setCellValueByColumnAndRow(1, 1, '报读缴费记录');  
-
+$sheet->setCellValueByColumnAndRow(1, 3, '日期'); 
+$sheet->setCellValueByColumnAndRow(2, 3, '类型'); 
+$sheet->setCellValueByColumnAndRow(3, 3, '金额'); 
+$sheet->setCellValueByColumnAndRow(4, 3, '归属咨询师'); 
+$sheet->setCellValueByColumnAndRow(5, 3, '分校区'); 
+$sheet->setCellValueByColumnAndRow(6, 3, '备注'); 
 
 // 2 循环填充表格
 $i = 0;
 foreach($arrList as $rec){
-	$sheet->setCellValueByColumnAndRow(1, $i+4, $$rec->accntDate); 
-	$sheet->setCellValueByColumnAndRow(2, $i+4, $$rec->accntType); 
-	$sheet->setCellValueByColumnAndRow(3, $i+4, $$rec->amount); 
-	$sheet->setCellValueByColumnAndRow(4, $i+4, $$rec->consultName_owe); 
-	$sheet->setCellValueByColumnAndRow(5, $i+4, $$rec->schoolsub); 
-	$sheet->setCellValueByColumnAndRow(6, $i+4, $$rec->note); 
-	$i++
+	$sheet->setCellValueByColumnAndRow(1, $i+4, $rec->accntDate); 
+	$sheet->setCellValueByColumnAndRow(2, $i+4, $rec->accntType); 
+	$sheet->setCellValueByColumnAndRow(3, $i+4, $rec->amount); 
+	$sheet->setCellValueByColumnAndRow(4, $i+4, $rec->consultName_owe); 
+	$sheet->setCellValueByColumnAndRow(5, $i+4, $rec->schoolsub); 
+	$sheet->setCellValueByColumnAndRow(6, $i+4, $rec->note); 
+	$i++;
 }
-
-$title = array("日期", "类型", "销售金额", "到账金额","咨询师", "分校区","备注");
-//$j = count($title); //列数
 
 /* 循环
 for ($i=0; $i<count($arrList); $i++) {
@@ -91,5 +95,10 @@ header('Cache-Control: max-age=0');
 PHPExcel_IOFactory::createWriter($phpexcel, 'Excel5')->save('php://output');  
 */
 
+echo json_encode(array(
+    "success" => true,
+    "message" => "导出Excel成功",
+	"data"    => $arrList
+));
 
 ?>  
