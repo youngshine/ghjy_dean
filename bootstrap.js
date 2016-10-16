@@ -840,6 +840,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.controller.Teacher": [],
   "Youngshine.model.Accnt": [],
   "Youngshine.model.AccntDetail": [],
+  "Youngshine.model.AccntFee": [],
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
   "Youngshine.model.Kclist": [],
@@ -849,6 +850,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.Subject": [],
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
+  "Youngshine.store.AccntFee": [],
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
   "Youngshine.store.Kclist": [],
@@ -860,8 +862,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.Main": [],
   "Youngshine.view.Viewport": [],
   "Youngshine.view.West": [],
-  "Youngshine.view.accnt.Consult": [],
-  "Youngshine.view.accnt.List": [],
+  "Youngshine.view.accnt.Accnt": [],
+  "Youngshine.view.accnt.AccntConsult": [],
+  "Youngshine.view.accnt.AccntFee": [],
   "Youngshine.view.consult.Edit": [],
   "Youngshine.view.consult.List": [],
   "Youngshine.view.consult.New": [],
@@ -1874,6 +1877,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.controller.Teacher": [],
   "Youngshine.model.Accnt": [],
   "Youngshine.model.AccntDetail": [],
+  "Youngshine.model.AccntFee": [],
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
   "Youngshine.model.Kclist": [],
@@ -1883,6 +1887,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.Subject": [],
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
+  "Youngshine.store.AccntFee": [],
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
   "Youngshine.store.Kclist": [],
@@ -1900,11 +1905,14 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.view.West": [
     "widget.mywest"
   ],
-  "Youngshine.view.accnt.Consult": [
+  "Youngshine.view.accnt.Accnt": [
+    "widget.accnt"
+  ],
+  "Youngshine.view.accnt.AccntConsult": [
     "widget.accnt-consult"
   ],
-  "Youngshine.view.accnt.List": [
-    "widget.accnt-list"
+  "Youngshine.view.accnt.AccntFee": [
+    "widget.accnt-fee"
   ],
   "Youngshine.view.consult.Edit": [
     "widget.consult-edit"

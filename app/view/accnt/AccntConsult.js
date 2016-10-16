@@ -77,19 +77,19 @@ Ext.define('Youngshine.view.accnt.AccntConsult' ,{
 	},{
 		xtype: 'combo',
 		width: 80,
-		emptyText: '缴费',
+		emptyText: '',
 		labelAlign: 'right',
 		itemId: 'refund',
 		store: {
 			fields: ['value'],
 			data : [
-				{"value":"缴费"},
-				{"value":"退费"},
+				{"value":"正常"},
+				{"value":"退单"},
 			]
 		},
+		value: '正常',
 		valueField: 'value',
 		displayField: 'value',	
-		value: '缴费',
 		queryMode: 'local',
 		editable: false,
 	},'-',{
@@ -154,32 +154,45 @@ Ext.define('Youngshine.view.accnt.AccntConsult' ,{
 			 menuDisabled: true,
 	         dataIndex: 'accntType'
 	     }, {
-			 text: '金额',
+	         text: '课程金额',
 	         width: 60,
-	         sortable: true,
+	         //sortable: false,
+			 menuDisabled: true,
+	         dataIndex: 'amount_ys',
+			 align: 'right'	
+	     }, {
+	         text: '打折(元)',
+	         width: 60,
+	         //sortable: false,
+			 menuDisabled: true,
+	         dataIndex: 'discount',
+			 align: 'right',
+			 renderer: function(value){
+		         if (value == 0) {
+		             return '';
+		         }
+		         return value;
+		     }	
+	     }, {
+	         text: '折后金额',
+	         width: 60,
 			 menuDisabled: true,
 	         dataIndex: 'amount',
 			 align: 'right'
 	     }, {
-			 text: '欠费',
+	         text: '欠费(元)',
 	         width: 60,
-	         sortable: true,
+	         //sortable: false,
 			 menuDisabled: true,
-	         dataIndex: 'amount_owe',
-			 align: 'right'
-	     }, {
-			 text: '入帐',
-	         width: 60,
-	         sortable: true,
-			 menuDisabled: true,
-	         dataIndex: 'fullAmountPaid',
-			 align: 'right'
-	     }, {
-			 text: '付款方式',
-	         width: 60,
-	         sortable: true,
-			 menuDisabled: true,
-	         dataIndex: 'payment'
+	         dataIndex: 'balance',
+			 align: 'right',
+			 renderer: function(value){
+		         if (value == 0) {
+		             return '';
+		         }
+		         return value;
+		     }	
+
 	     }, {
 			 text: '备注',
 	         width: 200,
@@ -199,15 +212,30 @@ Ext.define('Youngshine.view.accnt.AccntConsult' ,{
 			width: 30,
 			items: [{
 				//iconCls: 'add',
-				icon: 'resources/images/my_right_icon.png',
-				//tooltip: '测评内容',
+				icon: 'resources/images/my_kclist_icon.png',
+				tooltip: '课程明细',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
 					grid.up('window').onAccntDetail(rec); 
 				}	
+			}]	
+		},{	 
+			menuDisabled: true,
+			sortable: false,
+			xtype: 'actioncolumn',
+			width: 30,
+			items: [{
+				//iconCls: 'add',
+				icon: 'resources/images/my_pay_icon.png',
+				tooltip: '缴款记录',
+				handler: function(grid, rowIndex, colIndex) {
+					grid.getSelectionModel().select(rowIndex); // 高亮
+					var rec = grid.getStore().getAt(rowIndex);
+					grid.up('window').onAccntFee(rec); 
+				}	
 			}]			 		 
-	     }], 
+	    }], 
 		 
    	 	listeners: {
    	 		itemdblclick: function (view, record, row, i, e) {
@@ -272,6 +300,32 @@ Ext.define('Youngshine.view.accnt.AccntConsult' ,{
 						title += (i+1) + '、' + arr[i].title + '：' + 
 							arr[i].hour+'课时'+ arr[i].amount+'元' + '<br>';
 					Ext.MessageBox.alert('课程明细',title)
+                }
+            },
+        });
+	},
+	
+	// 缴款记录
+	onAccntFee: function(record){
+		var obj = {
+			"accntID": record.get('accntID')
+		}
+		console.log(obj)
+        Ext.data.JsonP.request({
+            url: Youngshine.app.getApplication().dataUrl + 'readAccntFee.php', 
+            callbackKey: 'callback',
+            params:{
+                data: JSON.stringify(obj)
+            },
+            success: function(result){
+                if(result.success){
+					console.log(result.data)
+					var arr = result.data,
+						title = ''
+					for(var i=0;i<arr.length;i++)
+						title += (i+1) + '、' + arr[i].feeDate + arr[i].payment + 
+							'：' + arr[i].amount+'元' + '<br>';
+					Ext.MessageBox.alert('缴款记录',title)
                 }
             },
         });

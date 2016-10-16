@@ -16,6 +16,7 @@ Ext.define('Youngshine.Application', {
 
     stores: [
         // TODO: add stores here
-		'Schoolsub','Student','Consult','Teacher','Kclist','Accnt',"Course",'Subject'
+		'Schoolsub','Student','Consult','Teacher','Kclist',
+		'Accnt','AccntFee',"Course",'Subject'
     ]
 });

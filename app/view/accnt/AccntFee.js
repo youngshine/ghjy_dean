@@ -101,19 +101,19 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 	},{
 		xtype: 'combo',
 		width: 80,
-		emptyText: '缴费',
+		emptyText: '',
 		labelAlign: 'right',
 		itemId: 'refund',
 		store: {
 			fields: ['value'],
 			data : [
-				{"value":"缴费"},
-				{"value":"退费"},
+				{"value":"正常"},
+				{"value":"退单"},
 			]
 		},
+		value: '正常',
 		valueField: 'value',
 		displayField: 'value',	
-		value: '缴费',
 		queryMode: 'local',
 		editable: false,
 	},'-',{
@@ -175,7 +175,7 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 	items: [{
 		xtype: 'grid',
 		stripeRows: true,
-		store: 'Accnt',
+		store: 'AccntFee',
 	    columns: [{
 			xtype: 'rownumberer',
 			width: 30
@@ -184,33 +184,13 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 	         width: 80,
 	         sortable: true,
 			 menuDisabled: true,
-	         dataIndex: 'accntDate'
-	     }, {
-			 text: '类型',
-	         width: 60,
-	         sortable: true,
-			 menuDisabled: true,
-	         dataIndex: 'accntType'
+	         dataIndex: 'feeDate'
 	     }, {
 			 text: '金额',
-	         width: 60,
+	         width: 80,
 	         sortable: true,
 			 menuDisabled: true,
 	         dataIndex: 'amount',
-			 align: 'right'
-	     }, {
-			 text: '欠费',
-	         width: 60,
-	         sortable: true,
-			 menuDisabled: true,
-	         dataIndex: 'amount_owe',
-			 align: 'right'
-	     }, {
-			 text: '入帐',
-	         width: 60,
-	         sortable: true,
-			 menuDisabled: true,
-	         dataIndex: 'fullAmountPaid',
 			 align: 'right'
 	     }, {
 			 text: '付款方式',
@@ -219,13 +199,19 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 			 menuDisabled: true,
 	         dataIndex: 'payment'
 	     }, {
-			 text: '备注',
-	         width: 200,
+			 text: '销售单号',
+	         width: 60,
 	         sortable: true,
 			 menuDisabled: true,
-	         dataIndex: 'note'
+	         dataIndex: 'accntID'
 	     }, {
-			 text: '归属咨询师',
+			 text: '学生',
+	         width: 80,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'studentName'
+	     }, {
+			 text: '咨询师',
 	         width: 80,
 	         sortable: true,
 			 menuDisabled: true,
@@ -235,7 +221,7 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 	         flex: 1,
 	         sortable: true,
 			 menuDisabled: true,
-	         dataIndex: 'schoolsub'	
+	         dataIndex: 'schoolsub' 
 		},{	 
 			menuDisabled: true,
 			sortable: false,
@@ -243,12 +229,12 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 			width: 30,
 			items: [{
 				//iconCls: 'add',
-				icon: 'resources/images/my_right_icon.png',
-				//tooltip: '测评内容',
+				icon: 'resources/images/my_kclist_icon.png',
+				tooltip: '学生',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onAccntDetail(rec); 
+					grid.up('window').onAccnt(rec); 
 				}	
 			}]			 		 
 	     }], 
@@ -259,26 +245,7 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
    	 		},
    	 	},      
 	}],
-/*
-	onFilter: function(schoolsubID,payment){
-		var me = this; console.log(schoolsubID,payment)
-		//var student = new RegExp("/*" + student); // 正则表达式
-		var store = this.down('grid').getStore();
-		store.clearFilter(); // filter is additive
-		
-		if(schoolsubID == null && payment != null )
-			store.filter("payment", payment);
-		
-		if(payment == null && schoolsubID != null )
-			store.filter("schoolsubID", schoolsubID);
-		
-		if(schoolsubID != null && payment != null )
-			store.filter([
-				{property: "payment", value: payment},
-				{property: "schoolsubID", value: schoolsubID}, 
-			]);
-	},
-*/	
+
 	onSearch: function(){ 
 		var me = this;
 		
@@ -321,7 +288,7 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 		var store = me.down('grid').getStore(); //Ext.getStore('Accnt'); 
 		store.removeAll();
         var url = Youngshine.app.getApplication().dataUrl + 
-			'readAccntList.php?data=' + JSON.stringify(obj);
+			'readAccntFeeList.php?data=' + JSON.stringify(obj);
 		store.getProxy().url = url;
         store.load({
             callback: function(records, operation, success) {
