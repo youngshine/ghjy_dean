@@ -7,8 +7,10 @@ Ext.define('Youngshine.view.student.List' ,{
 	modal: true,
     autoShow: true,
 	//resizable: false,
-	width: 800,
-	height: 550,
+	maximizable: true,
+	maximized: true,
+	width: 850,
+	height: 600,
 	layout: 'fit',
 
     title : '学生列表',
@@ -164,12 +166,12 @@ Ext.define('Youngshine.view.student.List' ,{
 			width: 30,
 			items: [{
 				//iconCls: 'add',
-				icon: 'resources/images/my_pay_icon.png',
-				tooltip: '缴费记录',
+				icon: 'resources/images/my_kclist_icon.png',
+				tooltip: '课程明细',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onAccntFee(rec); 
+					grid.up('window').onAccntDetail(rec); 
 				}	
 			}]
 		},{	 
@@ -179,14 +181,29 @@ Ext.define('Youngshine.view.student.List' ,{
 			width: 30,
 			items: [{
 				//iconCls: 'add',
-				icon: 'resources/images/my_zsd_icon.png',
-				tooltip: '课程明细',
+				icon: 'resources/images/my_pay_icon.png',
+				tooltip: '缴费记录',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onAccntDetail(rec); 
+					grid.up('window').onAccntFee(rec); 
 				}	
 			}]	
+		},{	 
+			menuDisabled: true,
+			sortable: false,
+			xtype: 'actioncolumn',
+			width: 30,
+			items: [{
+				//iconCls: 'add',
+				icon: 'resources/images/my_timely_icon.png',
+				tooltip: '排课',
+				handler: function(grid, rowIndex, colIndex) {
+					grid.getSelectionModel().select(rowIndex); // 高亮
+					var rec = grid.getStore().getAt(rowIndex);
+					grid.up('window').onKcb(rec); 
+				}	
+			}]
 		},{	 
 			menuDisabled: true,
 			sortable: false,
@@ -202,9 +219,23 @@ Ext.define('Youngshine.view.student.List' ,{
 					grid.up('window').onFollowup(rec); 
 				}	
 			}]	 		 
-	     }],     
+	    }],     
 	}],
-	
+
+	onFilter: function(grade,studentName){
+		var me = this;
+		var studentName = new RegExp("/*" + studentName); // 正则表达式
+		var store = this.down('grid').getStore();
+		store.clearFilter(); // filter is additive
+		if(grade != null )
+			store.filter([
+				{property: "grade", value: grade},
+				{property: "fullStudent", value: studentName}, // 姓名模糊查找？？
+			]);
+		if(grade == null )
+			store.filter("fullStudent", studentName);
+	},
+		
 	// 咨询师与学生沟通记录
 	onFollowup: function(rec){ 
 		this.fireEvent('followup',rec);
@@ -239,17 +270,31 @@ Ext.define('Youngshine.view.student.List' ,{
 		});	
 	},
 	
-	onFilter: function(grade,studentName){
-		var me = this;
-		var studentName = new RegExp("/*" + studentName); // 正则表达式
-		var store = this.down('grid').getStore();
-		store.clearFilter(); // filter is additive
-		if(grade != null )
-			store.filter([
-				{property: "grade", value: grade},
-				{property: "fullStudent", value: studentName}, // 姓名模糊查找？？
-			]);
-		if(grade == null )
-			store.filter("fullStudent", studentName);
-	}
+	// 拍客表：大小班，一对一
+	onKcb: function(record){ 
+		//this.fireEvent('kcb',record);
+		var obj = {
+			"studentID": record.get('studentID')
+		}
+		console.log(obj)
+        Ext.data.JsonP.request({
+            url: Youngshine.app.getApplication().dataUrl + 'readKcbByStudent.php', 
+            callbackKey: 'callback',
+            params:{
+                data: JSON.stringify(obj)
+            },
+            success: function(result){
+                if(result.success){
+					console.log(result.data)
+					var arr = result.data,
+						title = ''
+					for(var i=0;i<arr.length;i++)
+						title += (i+1) + '、' + arr[i].kcType + '：' + 
+							arr[i].timely_list + '<br>';
+					Ext.MessageBox.alert('排课',title)
+                }
+            },
+        });
+	},
+	
 });
