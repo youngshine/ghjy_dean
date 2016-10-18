@@ -135,7 +135,21 @@ Ext.define('Youngshine.view.kclist.List' ,{
 		         }
 		         return value;
 		     }
-
+   		},{	 
+   			menuDisabled: true,
+   			sortable: false,
+   			xtype: 'actioncolumn',
+   			width: 30,
+   			items: [{
+   				//iconCls: 'add',
+   				icon: 'resources/images/my_plus_icon.png',
+   				tooltip: '班级',
+   				handler: function(grid, rowIndex, colIndex) {
+   					grid.getSelectionModel().select(rowIndex); // highlight showing selected
+   					var rec = grid.getStore().getAt(rowIndex);
+   					grid.up('window').onClasses(rec); 
+   				}	
+   			}]
   		},{	 
   			menuDisabled: true,
   			sortable: false,
@@ -194,5 +208,31 @@ Ext.define('Youngshine.view.kclist.List' ,{
 				me.fireEvent('del',rec);
 			}
 		});
-	}
+	},
+	
+	// 课程开办几个班级？
+	onClasses: function(record){
+		var obj = {
+			"kclistID": record.get('kclistID')
+		}
+		console.log(obj)
+        Ext.data.JsonP.request({
+            url: Youngshine.app.getApplication().dataUrl + 'readClassesListByKclist.php', 
+            callbackKey: 'callback',
+            params:{
+                data: JSON.stringify(obj)
+            },
+            success: function(result){
+                if(result.success){
+					console.log(result.data)
+					var arr = result.data,
+						title = ''
+					for(var i=0;i<arr.length;i++)
+						title += (i+1) + '、' + arr[i].title + 
+							'：' + arr[i].enroll +' / '+ arr[i].persons +'<br>';
+					Ext.MessageBox.alert('开设班级',title)
+                }
+            },
+        });
+	},
 });

@@ -14,6 +14,40 @@ Ext.define('Youngshine.view.student.List' ,{
     title : '学生列表',
 
 	fbar: [{
+		xtype: 'combo',
+		width: 100,
+		itemId: 'grade',
+		store: {
+			fields: ['value'],
+			data : [
+				{"value":"幼儿园"},
+				{"value":"一年级"},
+				{"value":"二年级"},
+				{"value":"三年级"},
+				{"value":"四年级"},
+				{"value":"五年级"},
+				{"value":"六年级"},
+				{"value":"七年级"},
+				{"value":"八年级"},
+				{"value":"九年级"},
+				{"value":"高一年"},
+				{"value":"高二年"},
+				{"value":"高三年"},
+			]
+		},
+		valueField: 'value',
+		displayField: 'value',
+		emptyText: '年级',
+		//editable: false,
+		//padding: '5 0',
+		listeners: {
+			change: function(cb,newValue){
+				var grade = newValue,
+					studentName = this.up('window').down('textfield[itemId=search]').getValue().trim();
+				this.up('window').onFilter(grade,studentName); 
+			}
+		}
+	},{
 		xtype: 'textfield',
 		itemId : 'search',
 		width: 100,
@@ -30,37 +64,6 @@ Ext.define('Youngshine.view.student.List' ,{
 						grade = field.up('window').down('combo[itemId=grade]').getValue();
 					field.up('window').onFilter(grade,studentName); 
 				}	
-			}
-		}
-	},{		
-		xtype: 'combo',
-		width: 100,
-		itemId: 'grade',
-		store: {
-			fields: ['value'],
-			data : [
-				{"value":"全部年级"},
-				{"value":"一年级"},
-				{"value":"二年级"},
-				{"value":"三年级"},
-				{"value":"四年级"},
-				{"value":"五年级"},
-				{"value":"六年级"},
-				{"value":"七年级"},
-				{"value":"八年级"},
-				{"value":"九年级"},
-			]
-		},
-		valueField: 'value',
-		displayField: 'value',
-		value: '全部年级',
-		editable: false,
-		//padding: '5 0',
-		listeners: {
-			change: function(cb,newValue){
-				var grade = newValue,
-					studentName = this.up('window').down('textfield[itemId=search]').getValue().trim();
-				this.up('window').onFilter(grade,studentName); 
 			}
 		}
 
@@ -146,12 +149,12 @@ Ext.define('Youngshine.view.student.List' ,{
 			width: 30,
 			items: [{
 				//iconCls: 'add',
-				icon: 'resources/images/my_input_icon.png',
-				tooltip: '测评记录',
+				icon: 'resources/images/my_qrcode_icon.png',
+				tooltip: '扫码绑定',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onAssess(rec); 
+					grid.up('window').onQrcode(rec); 
 				}	
 			}]	
 		},{	 
@@ -162,11 +165,11 @@ Ext.define('Youngshine.view.student.List' ,{
 			items: [{
 				//iconCls: 'add',
 				icon: 'resources/images/my_pay_icon.png',
-				tooltip: '购买明细',
+				tooltip: '缴费记录',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onPrepaid(rec); 
+					grid.up('window').onAccntFee(rec); 
 				}	
 			}]
 		},{	 
@@ -177,11 +180,11 @@ Ext.define('Youngshine.view.student.List' ,{
 			items: [{
 				//iconCls: 'add',
 				icon: 'resources/images/my_zsd_icon.png',
-				tooltip: '课程内容',
+				tooltip: '课程明细',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onStudyhist(rec); 
+					grid.up('window').onAccntDetail(rec); 
 				}	
 			}]	
 		},{	 
@@ -207,16 +210,33 @@ Ext.define('Youngshine.view.student.List' ,{
 		this.fireEvent('followup',rec);
 	},	
 	// 报读历史记录，不可编辑
-	onStudyhist: function(rec){ 
-		this.fireEvent('studyhist',rec);
+	onAccntDetail: function(rec){ 
+		this.fireEvent('accntdetail',rec);
 	},
 	// 缴费明细
-	onPrepaid: function(rec){ 
-		this.fireEvent('prepaid',rec);
+	onAccntFee: function(rec){ 
+		this.fireEvent('accntfee',rec);
 	},
-	// 测评
-	onAssess: function(rec){ 
-		this.fireEvent('assess',rec);
+	// qrcode
+	onQrcode: function(record){ 
+		//this.fireEvent('qrcode',record);
+		Ext.Ajax.request({
+		    url: 'script/weixinJS_gongzhonghao/wx_qrcode.php',
+		    params: {
+				studentID: record.data.studentID
+		    },
+		    success: function(response){
+				var ret = JSON.parse(response.responseText)
+				console.log(ret)
+				
+				Ext.Msg.show({
+				     title: '微信扫描二维码绑定账号',
+				     msg: '<img height=220 src=' + ret.img + ' />',
+				     buttons: Ext.Msg.OK,
+				     //icon: Ext.Msg.QUESTION
+				});
+		    }
+		});	
 	},
 	
 	onFilter: function(grade,studentName){
@@ -224,12 +244,12 @@ Ext.define('Youngshine.view.student.List' ,{
 		var studentName = new RegExp("/*" + studentName); // 正则表达式
 		var store = this.down('grid').getStore();
 		store.clearFilter(); // filter is additive
-		if(grade != '全部年级' )
+		if(grade != null )
 			store.filter([
 				{property: "grade", value: grade},
 				{property: "fullStudent", value: studentName}, // 姓名模糊查找？？
 			]);
-		if(grade == '全部年级' )
+		if(grade == null )
 			store.filter("fullStudent", studentName);
 	}
 });

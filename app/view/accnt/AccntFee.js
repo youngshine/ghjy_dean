@@ -33,7 +33,7 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
         //fieldLabel: '至',
         width: 100,
         //margins: '0 0 0 6',
-        emptyText: '结束日期',
+        //emptyText: '结束日期',
         allowBlank: false	
 	},{
 		padding: '5,0',
@@ -107,15 +107,16 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 		store: {
 			fields: ['value'],
 			data : [
-				{"value":"正常"},
+				{"value":"缴费"},
 				{"value":"退单"},
 			]
 		},
-		value: '正常',
+		value: '缴费',
 		valueField: 'value',
 		displayField: 'value',	
 		queryMode: 'local',
 		editable: false,
+		
 	},'-',{
 		xtype: 'button',
 		text: '查找',
@@ -199,7 +200,7 @@ Ext.define('Youngshine.view.accnt.AccntFee' ,{
 			 menuDisabled: true,
 	         dataIndex: 'payment'
 	     }, {
-			 text: '销售单号',
+			 text: '单据号',
 	         width: 60,
 	         sortable: true,
 			 menuDisabled: true,
