@@ -44,7 +44,9 @@ Ext.define('Youngshine.controller.Main', {
 				accntfee: this.navAccntFee,//财务缴款
 				accntconsult: this.navAccntConsult,
 				
-				course: this.navCourse,
+				course: this.navCourse, //统计教师课时
+				
+				ledger: this.navLedger, //日常收支
 				
 				pswreset: this.navPswreset, 
 				logout: this.navLogout,
@@ -146,6 +148,11 @@ Ext.define('Youngshine.controller.Main', {
 	
 	navCourse: function(){
 		this.getApplication().getController('Teacher').showTeacherCourse();
+	},
+	
+	// 日常收支记账
+	navLedger: function(){
+		this.getApplication().getController('Ledger').showLedger();
 	},
 	
 	navPswreset: function(){	

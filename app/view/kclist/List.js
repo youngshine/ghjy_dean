@@ -175,7 +175,7 @@ Ext.define('Youngshine.view.kclist.List' ,{
  				icon: 'resources/images/my_delete_icon.png',
  				tooltip: '删除',
  				handler: function(grid, rowIndex, colIndex) {
- 					//var me = this;
+ 					grid.getSelectionModel().select(rowIndex); // 高亮
  					var rec = grid.getStore().getAt(rowIndex);
  					//Ext.Msg.alert('Sell', 'Sell ' + rec.get('company'));
  					//Ext.Msg.confirm('提示','是否当前操作员？',function(btn){
@@ -195,6 +195,7 @@ Ext.define('Youngshine.view.kclist.List' ,{
 		store.filter("kcType", val);
 	},
 	onNew: function(){ 
+		this.down('grid').getSelectionModel().deselectAll();
 		this.fireEvent('addnew');
 	},
 	onEdit: function(rec){ 
