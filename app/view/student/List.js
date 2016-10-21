@@ -240,14 +240,7 @@ Ext.define('Youngshine.view.student.List' ,{
 	onFollowup: function(rec){ 
 		this.fireEvent('followup',rec);
 	},	
-	// 报读历史记录，不可编辑
-	onAccntDetail: function(rec){ 
-		this.fireEvent('accntdetail',rec);
-	},
-	// 缴费明细
-	onAccntFee: function(rec){ 
-		this.fireEvent('accntfee',rec);
-	},
+
 	// qrcode
 	onQrcode: function(record){ 
 		//this.fireEvent('qrcode',record);
@@ -269,8 +262,60 @@ Ext.define('Youngshine.view.student.List' ,{
 		    }
 		});	
 	},
+
+	// 缴费的子表明细
+	onAccntDetail: function(record){
+		var obj = {
+			"studentID": record.get('studentID')
+		}
+		console.log(obj)
+        Ext.data.JsonP.request({
+            url: Youngshine.app.getApplication().dataUrl + 'readAccntDetailByStudent.php', 
+            callbackKey: 'callback',
+            params:{
+                data: JSON.stringify(obj)
+            },
+            success: function(result){
+                if(result.success){
+					console.log(result.data)
+					var arr = result.data,
+						title = ''
+					for(var i=0;i<arr.length;i++)
+						title += (i+1) + '、' + arr[i].title + '：' + 
+							arr[i].hour+'课时'+ arr[i].amount+'元' + '<br>';
+					Ext.MessageBox.alert('课程明细',title)
+                }
+            },
+        });
+	},
 	
-	// 拍客表：大小班，一对一
+	// 缴款记录
+	onAccntFee: function(record){
+		var obj = {
+			"studentID": record.get('studentID')
+		}
+		console.log(obj)
+        Ext.data.JsonP.request({
+            url: Youngshine.app.getApplication().dataUrl + 'readAccntFeeByStudent.php', 
+            callbackKey: 'callback',
+            params:{
+                data: JSON.stringify(obj)
+            },
+            success: function(result){
+                if(result.success){
+					console.log(result.data)
+					var arr = result.data,
+						title = ''
+					for(var i=0;i<arr.length;i++)
+						title += (i+1) + '、' + arr[i].feeDate + arr[i].payment + 
+							'：' + arr[i].amount+'元' + '<br>';
+					Ext.MessageBox.alert('缴款记录',title)
+                }
+            },
+        });
+	},
+		
+	// 排课：大小班，一对一
 	onKcb: function(record){ 
 		//this.fireEvent('kcb',record);
 		var obj = {
@@ -286,11 +331,50 @@ Ext.define('Youngshine.view.student.List' ,{
             success: function(result){
                 if(result.success){
 					console.log(result.data)
+					/*
 					var arr = result.data,
 						title = ''
 					for(var i=0;i<arr.length;i++)
 						title += (i+1) + '、' + arr[i].kcType + '：' + 
 							arr[i].timely_list + '<br>';
+					Ext.MessageBox.alert('排课',title)
+					*/
+					
+					// 上课时间列表分解成单一
+					var arr = []
+					result.data.forEach(function (item) {
+						var timely_list = item.timely_list.split(',')
+						Ext.Array.each(timely_list, function(timely, index, countriesItSelf) {
+						    console.log(timely);
+							arr.push(timely + '【'+item.kcType + '】' )  
+						});
+						//time = timely_list.concat(item.timely_list)
+					});
+					console.log(arr)
+					
+					var title = ''
+					var weekdays = ['周一','周二','周三','周四','周五','周六','周日']
+					Ext.Array.each(weekdays, function(weekday,index){     
+						//console.log(weekday)
+						var grp = ''
+						for(var i=0;i<arr.length;i++){
+							if(arr[i].indexOf(weekday)>=0){
+								if(grp != weekday){
+									grp = weekday; console.log(i)
+									if(title==''){
+										title +=  grp + '：' + arr[i].substr(2) 
+									}else{
+										title +=  '<br>' + grp + '：' + arr[i].substr(2) 
+									}
+									
+								}else{
+									title +=  '、' + arr[i].substr(2) 
+								}
+								//title += '•' + arr[i] + '<br>';
+							}
+						}
+					});
+					
 					Ext.MessageBox.alert('排课',title)
                 }
             },

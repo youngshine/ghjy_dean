@@ -281,12 +281,12 @@ Ext.define('Youngshine.view.accnt.Accnt' ,{
 				}	
 			}]		 		 
 	    }], 
-		 
+		 /*
    	 	listeners: {
    	 		itemdblclick: function (view, record, row, i, e) {
    	 			this.up('window').onTopic(record);
    	 		},
-   	 	},      
+   	 	},   */   
 	}],
 /*
 	onFilter: function(schoolsubID,payment){
