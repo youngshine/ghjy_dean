@@ -272,7 +272,7 @@ Ext.define('Youngshine.view.ledger.List' ,{
 	onDelete: function(rec){
 		var me = this;
 		console.log(rec);
-		Ext.Msg.confirm('提示','是否删除当前行？',function(btn){
+		Ext.Msg.confirm('询问','是否删除当前行？',function(btn){
 			if(btn == 'yes'){
 				me.fireEvent('del',rec);
 			}

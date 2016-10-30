@@ -7,15 +7,32 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	modal: true,
     autoShow: true,
 	//resizable: false,
-	width: 550,
-	height: 350,
+	maximizable: true,
+	width: 800,
+	height: 550,
 	layout: 'fit',
 
     title : '教师列表',
 	
-	fbar: [
-		'->',
-	{	
+	fbar: [{
+		xtype: 'textfield',
+		itemId : 'search',
+		width: 100,
+		//fieldLabel: '筛选',
+		//labelWidth: 30,
+		//labelAlign: 'right',
+		emptyText: '搜索...',
+		enableKeyEvents: true,
+		listeners: {
+			keypress: function(field,e){
+				console.log(e.getKey())
+				if(e.getKey()=='13'){ //按Enter
+					field.up('window').onFilter(field.value); 
+				}	
+			}
+		}
+
+	},'->',{
 		xtype: 'button', disabled: true,
 		text: '＋新增',
 		width: 65,
@@ -64,11 +81,34 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	         dataIndex: 'subjectName'
 	     }, {
 	         text: '备注',
-	         flex: 1,
+	         width: 150,
 	         sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'note'
-			 
+	     }, {
+	         text: '一对N上课时间',
+	         flex: 1,
+	         sortable: false,
+			 menuDisabled: true,
+	         dataIndex: 'timely_list_one2n'
+
+  		},{	 
+  			menuDisabled: true,
+  			sortable: false,
+  			xtype: 'actioncolumn',
+  			width: 30,
+  			items: [{
+  				//iconCls: 'add',
+  				icon: 'resources/images/my_user_icon.png',
+  				tooltip: '一对N上课时间设定',
+  				handler: function(grid, rowIndex, colIndex) {
+  					grid.getSelectionModel().select(rowIndex); // 高亮
+  					var rec = grid.getStore().getAt(rowIndex);
+  					//Ext.Msg.alert('Sell', 'Sell ' + rec.get('company'));
+  					//me.fireEvent('adminEdit');
+  					grid.up('window').onOne2nKcb(rec); 
+  				}	
+  			}]			 
  		},{	 
  			menuDisabled: true,
  			sortable: false,
@@ -77,7 +117,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
  			items: [{
  				//iconCls: 'add',
  				icon: 'resources/images/my_timely_icon.png',
- 				tooltip: '排课表',
+ 				tooltip: '课程表',
  				handler: function(grid, rowIndex, colIndex) {
  					grid.getSelectionModel().select(rowIndex); // 高亮
  					var rec = grid.getStore().getAt(rowIndex);
@@ -163,6 +203,34 @@ Ext.define('Youngshine.view.teacher.List' ,{
 		});
 	},
 	
+	// 一对一上课时间，预先设定
+	onOne2nKcb: function(record){
+		var me = this;
+		var win = Ext.create('Youngshine.view.teacher.One2nKcb');
+		//win.down('form').loadRecord(record); //binding data
+		win.parentRecord = record // 传递参数
+		win.parentView = me 
+		
+		// 上课周期列表数组，list.store
+		var timely_list = record.data.timely_list_one2n.trim()
+		if(timely_list == ''){
+			return false
+		}
+		timely_list = record.data.timely_list_one2n.split(',')
+		console.log(timely_list)
+		var timely = [];
+		for (var i = 0; i < timely_list.length; i++) {
+			//timely.push( {"timely":timely_list[i]}  )
+			var w = timely_list[i].substr(0,2),
+				h = timely_list[i].substr(2,2),
+				m = timely_list[i].substr(5,2)
+			timely.push( {"w":w,"h":h,"m":m}  )
+		}
+		console.log(timely);
+		win.down('grid').getStore().loadData(timely)
+
+	},
+	
 	onKcb: function(record){ 
 		//this.fireEvent('kcb',record);
 		var obj = {
@@ -225,4 +293,12 @@ Ext.define('Youngshine.view.teacher.List' ,{
             },
         });
 	},
+	
+	onFilter: function(val){
+		var me = this; 
+		var value = new RegExp("/*" + val); // 正则表达式
+		var store = this.down('grid').getStore();
+		store.clearFilter(); // filter is additive
+		store.filter("teacherName", value);
+	}
 });

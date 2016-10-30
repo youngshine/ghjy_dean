@@ -834,6 +834,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.controller.Accnt": [],
   "Youngshine.controller.Consult": [],
   "Youngshine.controller.Kclist": [],
+  "Youngshine.controller.Ledger": [],
   "Youngshine.controller.Main": [],
   "Youngshine.controller.Schoolsub": [],
   "Youngshine.controller.Student": [],
@@ -844,6 +845,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
   "Youngshine.model.Kclist": [],
+  "Youngshine.model.Ledger": [],
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
@@ -854,6 +856,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
   "Youngshine.store.Kclist": [],
+  "Youngshine.store.Ledger": [],
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
@@ -871,6 +874,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.kclist.Edit": [],
   "Youngshine.view.kclist.List": [],
   "Youngshine.view.kclist.New": [],
+  "Youngshine.view.ledger.List": [],
+  "Youngshine.view.ledger.New": [],
   "Youngshine.view.login.Login": [],
   "Youngshine.view.login.Pswreset": [],
   "Youngshine.view.schoolsub.List": [],
@@ -1871,6 +1876,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.controller.Accnt": [],
   "Youngshine.controller.Consult": [],
   "Youngshine.controller.Kclist": [],
+  "Youngshine.controller.Ledger": [],
   "Youngshine.controller.Main": [],
   "Youngshine.controller.Schoolsub": [],
   "Youngshine.controller.Student": [],
@@ -1881,6 +1887,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
   "Youngshine.model.Kclist": [],
+  "Youngshine.model.Ledger": [],
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
@@ -1891,6 +1898,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
   "Youngshine.store.Kclist": [],
+  "Youngshine.store.Ledger": [],
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
@@ -1931,6 +1939,12 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Youngshine.view.kclist.New": [
     "widget.kclist-new"
+  ],
+  "Youngshine.view.ledger.List": [
+    "widget.ledger"
+  ],
+  "Youngshine.view.ledger.New": [
+    "widget.ledger-new"
   ],
   "Youngshine.view.login.Login": [
     "widget.login"

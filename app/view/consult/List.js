@@ -13,9 +13,25 @@ Ext.define('Youngshine.view.consult.List' ,{
 
     title : '咨询师列表',
 	
-	fbar: [
-		'->',
-	{	
+	fbar: [{
+		xtype: 'textfield',
+		itemId : 'search',
+		width: 100,
+		//fieldLabel: '筛选',
+		//labelWidth: 30,
+		//labelAlign: 'right',
+		emptyText: '搜索...',
+		enableKeyEvents: true,
+		listeners: {
+			keypress: function(field,e){
+				console.log(e.getKey())
+				if(e.getKey()=='13'){ //按Enter
+					field.up('window').onFilter(field.value); 
+				}	
+			}
+		}
+
+	},'->',{
 		xtype: 'button', disabled: true,
 		text: '＋新增',
 		width: 65,
@@ -124,5 +140,13 @@ Ext.define('Youngshine.view.consult.List' ,{
 				me.fireEvent('del',rec);
 			}
 		});
+	},
+	
+	onFilter: function(val){
+		var me = this; 
+		var value = new RegExp("/*" + val); // 正则表达式
+		var store = this.down('grid').getStore();
+		store.clearFilter(); // filter is additive
+		store.filter("teacherName", value);
 	}
 });

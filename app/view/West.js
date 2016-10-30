@@ -15,7 +15,7 @@ Ext.define('Youngshine.view.West', {
 	collapsible: true,
 
 	items: [{
-		title: '执行校长',
+		title: '执行校长财务',
 		html: '<div style="margin:10px 5px;cursor:pointer">'+
 			'<div class="menuitem" title="student" style="margin:5px;">学生</div>'+
 			'<div class="menuitem" title="schoolsub" style="margin:5px;">分校区</div>'+

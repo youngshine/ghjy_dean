@@ -12,5 +12,6 @@ Ext.define('Youngshine.model.Teacher', {
 		{name: 'gender'}, 
 		{name: 'phone'}, 	
 		{name: 'note'},	
+		{name: 'timely_list_one2n'},	
     ]
 });
