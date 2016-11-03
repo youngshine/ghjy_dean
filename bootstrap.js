@@ -883,7 +883,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.teacher.Course": [],
   "Youngshine.view.teacher.Edit": [],
   "Youngshine.view.teacher.List": [],
-  "Youngshine.view.teacher.New": []
+  "Youngshine.view.teacher.New": [],
+  "Youngshine.view.teacher.One2nKcb": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1969,6 +1970,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Youngshine.view.teacher.New": [
     "widget.teacher-new"
+  ],
+  "Youngshine.view.teacher.One2nKcb": [
+    "widget.teacher-one2n-kcb"
   ]
 });
 Ext.setVersion("ext-theme-base", "4.2.1");

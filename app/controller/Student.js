@@ -15,25 +15,25 @@ Ext.define('Youngshine.controller.Student', {
     init: function() {
         this.control({
             'student-list': {
-				studyhist: this.studentStudyhist,//报读历史记录
-				prepaid: this.studentPrepaid,//缴费历史记录
-				followup: this.studentFollowup,
+				//studyhist: this.studentStudyhist,//报读历史记录
+				//prepaid: this.studentPrepaid,//缴费历史记录
+				//followup: this.studentFollowup,
+				accntdetail: this.studentAccntdetail
             },			
         });
     },
 
-	// 学生信息，包括添加删除排课以及历史报读课程，show跳转来自main controller
-	showStudent: function(){
+	// 购买的课程列表，方便查看一对多课程的消耗课时
+	studentAccntdetail: function(record){
 		var me = this;
-		var win = Ext.create('Youngshine.view.student.List')
-		win.down('grid').getStore().removeAll(); // 先晴空
-		
+		var win = Ext.create('Youngshine.view.student.AccntDetail')
+
 		var obj = {
-			"schoolID": localStorage.getItem('schoolID')
+			"studentID": record.get('studentID')
 		}
-        var url = this.getApplication().dataUrl + 
-			'readStudentList.php?data=' + JSON.stringify(obj);
-        var store = Ext.getStore('Student');
+        var url = me.getApplication().dataUrl + 
+			'readAccntDetailByStudent.php?data=' + JSON.stringify(obj);
+        var store = Ext.getStore('AccntDetail');
 		store.removeAll();
 		store.clearFilter();
 		store.getProxy().url = url;
@@ -44,6 +44,31 @@ Ext.define('Youngshine.controller.Student', {
             scope: this
         });
 	},
+	
+	// 收费明细
+    studentPrepaid: function(rec) {
+		var me = this;
+		var win = Ext.create('Youngshine.view.student.Prepaid', 
+			{record: rec
+		}); 
+		var obj = {
+			"studentID": rec.data.studentID,
+		};
+		var store = Ext.getStore('Prepaid'); 
+		store.removeAll();
+        var url = this.getApplication().dataUrl + 
+			'readPrepaidListByStudent.php?data=' + JSON.stringify(obj);
+		store.getProxy().url = url;
+        store.load({
+            callback: function(records, operation, success) {
+		        if (success){
+					var sum = me.sumAmt();; // 合计应收
+					win.down('displayfield[itemId=subtotal]').setValue(sum); 
+				};
+            },
+            scope: this
+        }); 
+    },	
 
     studentNew: function(button) {
 		var win = Ext.widget('student-new');
@@ -158,31 +183,7 @@ Ext.define('Youngshine.controller.Student', {
 			}
 		});	
 	},		
-
-	// 收费明细
-    studentPrepaid: function(rec) {
-		var me = this;
-		var win = Ext.create('Youngshine.view.student.Prepaid', 
-			{record: rec
-		}); 
-		var obj = {
-			"studentID": rec.data.studentID,
-		};
-		var store = Ext.getStore('Prepaid'); 
-		store.removeAll();
-        var url = this.getApplication().dataUrl + 
-			'readPrepaidListByStudent.php?data=' + JSON.stringify(obj);
-		store.getProxy().url = url;
-        store.load({
-            callback: function(records, operation, success) {
-		        if (success){
-					var sum = me.sumAmt();; // 合计应收
-					win.down('displayfield[itemId=subtotal]').setValue(sum); 
-				};
-            },
-            scope: this
-        }); 
-    },		
+	
 	// 当前学生的报读历史课程
     studentStudyhist: function(rec) {
 		var me = this;

@@ -45,7 +45,7 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 			fields: ['value'],
 			data : [
 				{"value":"大小班"},
-				{"value":"一对一"},
+				{"value":"一对N"},
 			]
 		},
 		valueField: 'value',
@@ -132,17 +132,23 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 	         dataIndex: 'fullDate'
 	     }, {
 			 text: '课时',
-	         width: 60,
+	         width: 40,
 	         sortable: true,
 			 menuDisabled: true,
 	         dataIndex: 'hour',
 			 align: 'center'
 	     }, {
-			 text: '班级或一对一课',
+			 text: '编号',
+	         width: 150,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'courseNo'
+	     }, {
+			 text: '大小班级或一对N课程',
 	         flex: 1,
 	         sortable: true,
 			 menuDisabled: true,
-	         dataIndex: 'title'
+	         dataIndex: 'kcTitle'
 	     }, {
 			 text: '类型',
 	         width: 60,
@@ -192,7 +198,7 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 		}
 		if(kcType == null){
 			//kcType = ''  // 空白''，代表全部
-			Ext.Msg.alert('提示','请选择课程类型（大小班、一对一）');
+			Ext.Msg.alert('提示','请选择类型（大小班、一对一）');
 			return;
 		}
 
@@ -212,17 +218,18 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 		var me = this
 		
 		var obj = {
-			beginDate: record.data.fullDate,
-			title: record.data.title,
+			//beginDate: record.data.fullDate,
+			//title: record.data.title,
 			kcType: record.data.kcType,
-			teacherID: me.down('combo[itemId=teacher]').getValue()
+			//teacherID: me.down('combo[itemId=teacher]').getValue()
+			courseNo: record.data.courseNo,
 		}
 		console.log(obj)
 		
 		if(obj.kcType=='大小班'){
 			url = Youngshine.app.getApplication().dataUrl + 'readCourseStudentByClass.php'
 		}else{
-			url = Youngshine.app.getApplication().dataUrl + 'readCourseStudentByOne2one.php'
+			url = Youngshine.app.getApplication().dataUrl + 'readCourseStudentByOne2n.php'
 		}
 		
 		Ext.Ajax.request({

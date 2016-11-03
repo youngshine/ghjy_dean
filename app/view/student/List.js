@@ -263,8 +263,12 @@ Ext.define('Youngshine.view.student.List' ,{
 		});	
 	},
 
-	// 缴费的子表明细
+	// 缴费的子表明细：课程
 	onAccntDetail: function(record){
+		var me = this;
+		me.fireEvent('accntdetail',record);
+		return;
+//		
 		var obj = {
 			"studentID": record.get('studentID')
 		}

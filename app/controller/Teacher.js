@@ -258,7 +258,7 @@ Ext.define('Youngshine.controller.Teacher', {
 		if(obj.kcType=='大小班'){
 			url = 'readCourseListByClass.php?data=' + JSON.stringify(obj);
 		}else{
-			url = 'readCourseListByOne2one.php?data=' + JSON.stringify(obj);
+			url = 'readCourseListByOne2n.php?data=' + JSON.stringify(obj);
 		}
 		url = this.getApplication().dataUrl + url
 		store.getProxy().url = url;

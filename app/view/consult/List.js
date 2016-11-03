@@ -147,6 +147,6 @@ Ext.define('Youngshine.view.consult.List' ,{
 		var value = new RegExp("/*" + val); // 正则表达式
 		var store = this.down('grid').getStore();
 		store.clearFilter(); // filter is additive
-		store.filter("teacherName", value);
+		store.filter("consultName", value);
 	}
 });

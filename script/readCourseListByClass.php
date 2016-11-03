@@ -23,7 +23,8 @@ $schoolID = $arr->schoolID;
 		Group By a.classID,DATE_FORMAT(beginTime,'%Y-%m-%d') 
 		Order By a.classID,DATE_FORMAT(beginTime,'%Y-%m-%d')  ";
 */
-$query = "SELECT a.*, 2 AS hour,beginTime AS created,b.title,'大小班' As kcType       
+$query = "SELECT a.*, 2 AS hour,beginTime AS created,
+	b.title As kcTitle,'大小班' As kcType       
 	From `ghjy_class_course` a 
 	JOIN `ghjy_class` b On a.classID=b.classID 
 	Where b.teacherID = $teacherID 

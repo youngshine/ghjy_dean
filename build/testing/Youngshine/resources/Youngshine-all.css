@@ -4157,6 +4157,11 @@ img {
   top: 0;
 }
 
+/* line 4, ../../../../ext/packages/ext-theme-base/sass/src/Editor.scss */
+div.x-editor {
+  overflow: visible;
+}
+
 /* line 1, ../../../../ext/packages/ext-theme-base/sass/src/LoadMask.scss */
 .x-mask {
   z-index: 100;
@@ -4985,6 +4990,17 @@ img {
   text-overflow: clip;
 }
 
+/* line 9, ../../../../ext/packages/ext-theme-base/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-display-field {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* line 17, ../../../../ext/packages/ext-theme-base/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor div.x-form-action-col-field {
+  line-height: 0;
+}
+
 /* line 1, ../../../../ext/packages/ext-theme-base/sass/src/resizer/Splitter.scss */
 .x-splitter {
   font-size: 1px;
@@ -5267,6 +5283,11 @@ a.x-tab {
 .x-animating-size,
 .x-collapsed {
   overflow: hidden!important;
+}
+
+/* line 2, ../../../../ext/packages/ext-theme-neutral/sass/src/Editor.scss */
+.x-editor .x-form-item-body {
+  padding-bottom: 0;
 }
 
 /* line 1, ../../../../ext/packages/ext-theme-neutral/sass/src/FocusManager.scss */
@@ -14163,6 +14184,44 @@ a.x-monthpicker-item-inner:hover {
   background-image: url(images/grid/hmenu-unlock.gif);
 }
 
+/* line 4, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-text {
+  font: normal 11px/15px tahoma, arial, verdana, sans-serif;
+  padding: 1px 5px 2px 5px;
+  height: 20px;
+}
+/* line 15, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-content-box .x-grid-editor .x-form-text {
+  height: 15px;
+}
+/* line 21, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-gecko .x-grid-editor .x-form-text {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+/* line 31, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-trigger {
+  height: 20px;
+}
+/* line 39, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-spinner-up, .x-grid-editor .x-form-spinner-down {
+  height: 10px;
+}
+/* line 58, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-display-field-body {
+  height: 20px;
+}
+/* line 62, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-display-field {
+  font: normal 11px/15px tahoma, arial, verdana, sans-serif;
+  padding: 2px 6px 3px 6px;
+  text-overflow: ellipsis;
+}
+/* line 73, ../../../../ext/packages/ext-theme-neutral/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-action-col-field {
+  padding: 2px 2px 2px 2px;
+}
+
 /* line 1, ../../../../ext/packages/ext-theme-neutral/sass/src/layout/container/Accordion.scss */
 .x-accordion-layout-ct {
   background-color: white;
@@ -17281,6 +17340,19 @@ body.x-nbr .x-tab-default-right-frameInfo {
 .x-column-header-trigger {
   background-color: #c5c5c5;
   background-image: url(images/grid/grid3-hd-btn.gif);
+}
+
+/* line 6, ../../../../ext/packages/ext-theme-classic/sass/src/grid/plugin/Editing.scss */
+.x-content-box .x-grid-editor .x-form-trigger {
+  height: 19px;
+}
+/* line 13, ../../../../ext/packages/ext-theme-classic/sass/src/grid/plugin/Editing.scss */
+.x-grid-editor .x-form-spinner-up, .x-grid-editor .x-form-spinner-down {
+  background-image: url(images/form/spinner-small.gif);
+}
+/* line 16, ../../../../ext/packages/ext-theme-classic/sass/src/grid/plugin/Editing.scss */
+.x-content-box .x-grid-editor .x-form-spinner-up, .x-content-box .x-grid-editor .x-form-spinner-down {
+  height: 9px;
 }
 
 /* line 1, ../../../../ext/packages/ext-theme-classic/sass/src/layout/container/Accordion.scss */
