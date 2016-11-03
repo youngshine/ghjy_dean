@@ -1,11 +1,15 @@
-// 上课课时数，group by
-Ext.define('Youngshine.model.Course', {
+// 上课课时出勤学生及其家长评价（一对多才有评价）
+Ext.define('Youngshine.model.CourseAssess', {
     extend: 'Ext.data.Model',
     //idProperty: 'admin_id',
     fields: [
 		{name: 'courseNo'},  // group by
 		{name: 'kcType'},  //大小班，一对一
 		{name: 'hour'}, 
+		{name: 'flag'}, 
+		{name: 'assessTag_list'}, 
+		{name: 'assessNote'}, 
+		
 		{name: 'beginTime'}, 
 		{name: 'studentID'},
 		{name: 'studentName'},

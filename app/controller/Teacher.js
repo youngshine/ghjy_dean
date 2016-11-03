@@ -37,6 +37,7 @@ Ext.define('Youngshine.controller.Teacher', {
 			// 教师上课课时
 			'teacher-course': {
 				search: this.teachercourseSearch,
+				assess: this.teachercourseAssess,
 			},					
         });
     },
@@ -274,4 +275,35 @@ Ext.define('Youngshine.controller.Teacher', {
             scope: this
         });
     },	
+	
+	// 课时出勤学生及其家长评价（一对多才有评价？）
+	teachercourseAssess: function(record){
+		var me = this;
+		var win = Ext.create('Youngshine.view.teacher.CourseAssess')
+
+		var obj = {
+			"courseNo": record.get('courseNo'),
+			"kcType": record.get('kcType'),
+		}
+		console.log(obj)
+		
+		var url = ''
+		if(obj.kcType=='大小班'){
+			url = me.getApplication().dataUrl + 'readCourseStudentByClass.php?data=' + JSON.stringify(obj);
+		}else{
+			url = me.getApplication().dataUrl + 'readCourseStudentByOne2n.php?data=' + JSON.stringify(obj);
+		}
+		
+	    //var url = me.getApplication().dataUrl + 'readAccntDetailByStudent.php?data=' + JSON.stringify(obj);
+	    var store = Ext.getStore('CourseAssess');
+		store.removeAll();
+		store.clearFilter();
+		store.getProxy().url = url;
+	    store.load({
+	        callback: function(records, operation, success) {
+				console.log(records);
+	        },
+	        scope: this
+	    });
+	},
 });

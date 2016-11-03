@@ -13,7 +13,8 @@ $arr = $req->params;
 
 $studentID = $arr->studentID;
 
-$sql = " SELECT a.kclistID,a.unitprice,a.hour,a.amount,b.title,c.studentID   
+$sql = " SELECT a.accntdetailID,a.kclistID,a.unitprice,a.hour,a.amount,
+b.kcType,b.title,c.studentID   
 	From `ghjy_accnt_detail` a 
 	Join `ghjy_kclist` b On a.kclistID=b.kclistID 
 	Join `ghjy_accnt` c On a.accntID=c.accntID 

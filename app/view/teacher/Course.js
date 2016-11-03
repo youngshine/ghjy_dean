@@ -163,11 +163,11 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 			items: [{
 				//iconCls: 'add',
 				icon: 'resources/images/my_right_icon.png',
-				//tooltip: '测评内容',
+				tooltip: '课后评价',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onRollcall(rec); 
+					grid.up('window').onAssess(rec); 
 				}	
 			}]			 		 
 	     }], 
@@ -213,6 +213,9 @@ Ext.define('Youngshine.view.teacher.Course' ,{
 		this.fireEvent('search',obj,me);
 	},	
 	
+	onAssess: function(record){
+		this.fireEvent('assess',record);
+	},
 	// 点名表
 	onRollcall: function(record){
 		var me = this
