@@ -88,7 +88,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	     }, {
 	         text: '一对N上课时间',
 	         flex: 1,
-	         sortable: false,
+	         //sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'timely_list_one2n'
 
@@ -211,23 +211,29 @@ Ext.define('Youngshine.view.teacher.List' ,{
 		win.parentRecord = record // 传递参数
 		win.parentView = me 
 		
+		// 临时store，先清空
+		win.down('grid').getStore().removeAll()
+		
 		// 上课周期列表数组，list.store
 		var timely_list = record.data.timely_list_one2n.trim()
-		if(timely_list == ''){
-			return false
+		
+		// 如果尚未设定上课时间（空白），则不需经过转换
+		if(timely_list == '' || timely_list == null){
+			
+		}else{
+			timely_list = record.data.timely_list_one2n.split(',')
+			console.log(timely_list)
+			var timely = [];
+			for (var i = 0; i < timely_list.length; i++) {
+				//timely.push( {"timely":timely_list[i]}  )
+				var w = timely_list[i].substr(0,2),
+					h = timely_list[i].substr(2,2),
+					m = timely_list[i].substr(5,2)
+				timely.push( {"w":w,"h":h,"m":m}  )
+			}
+			console.log(timely);
+			win.down('grid').getStore().loadData(timely)
 		}
-		timely_list = record.data.timely_list_one2n.split(',')
-		console.log(timely_list)
-		var timely = [];
-		for (var i = 0; i < timely_list.length; i++) {
-			//timely.push( {"timely":timely_list[i]}  )
-			var w = timely_list[i].substr(0,2),
-				h = timely_list[i].substr(2,2),
-				m = timely_list[i].substr(5,2)
-			timely.push( {"w":w,"h":h,"m":m}  )
-		}
-		console.log(timely);
-		win.down('grid').getStore().loadData(timely)
 
 	},
 	

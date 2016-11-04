@@ -844,6 +844,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.AccntFee": [],
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
+  "Youngshine.model.CourseAssess": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.Ledger": [],
   "Youngshine.model.School": [],
@@ -852,9 +853,11 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.Subject": [],
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
+  "Youngshine.store.AccntDetail": [],
   "Youngshine.store.AccntFee": [],
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
+  "Youngshine.store.CourseAssess": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.Ledger": [],
   "Youngshine.store.School": [],
@@ -879,8 +882,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.login.Login": [],
   "Youngshine.view.login.Pswreset": [],
   "Youngshine.view.schoolsub.List": [],
+  "Youngshine.view.student.AccntDetail": [],
   "Youngshine.view.student.List": [],
   "Youngshine.view.teacher.Course": [],
+  "Youngshine.view.teacher.CourseAssess": [],
   "Youngshine.view.teacher.Edit": [],
   "Youngshine.view.teacher.List": [],
   "Youngshine.view.teacher.New": [],
@@ -1887,6 +1892,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.AccntFee": [],
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
+  "Youngshine.model.CourseAssess": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.Ledger": [],
   "Youngshine.model.School": [],
@@ -1895,9 +1901,11 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.Subject": [],
   "Youngshine.model.Teacher": [],
   "Youngshine.store.Accnt": [],
+  "Youngshine.store.AccntDetail": [],
   "Youngshine.store.AccntFee": [],
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
+  "Youngshine.store.CourseAssess": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.Ledger": [],
   "Youngshine.store.School": [],
@@ -1956,11 +1964,17 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.view.schoolsub.List": [
     "widget.schoolsub"
   ],
+  "Youngshine.view.student.AccntDetail": [
+    "widget.accnt-detail"
+  ],
   "Youngshine.view.student.List": [
     "widget.student-list"
   ],
   "Youngshine.view.teacher.Course": [
     "widget.teacher-course"
+  ],
+  "Youngshine.view.teacher.CourseAssess": [
+    "widget.accnt-detail"
   ],
   "Youngshine.view.teacher.Edit": [
     "widget.teacher-edit"
