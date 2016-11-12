@@ -18,9 +18,9 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
     fbar : [{
     	text: '＋添加上课时间',
 		handler: function(btn){
-			btn.up('window').onAddrow();
+			btn.up('window').onAddnew();
 		}
-    },'->',{
+    },{
 		text: '保存',hidden: true,
 		handler: function(btn){
 			btn.up('window').onSave();
@@ -225,7 +225,7 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
 		})
 	},
 	
-	// 添加上课时间记录
+	// 添加上课时间记录 xx
 	onAddrow: function(){
 		var me = this;	
 		me.down('grid').getSelectionModel().deselectAll();
@@ -235,7 +235,15 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
 		//me.down('grid').getStore().add({w:'周日'},{h:'08'});
 		//me.fireEvent('addrow',me); 
 	},
-	
+
+	// 添加上课时间记录
+	onAddnew: function(){
+		var me = this;	
+		var win = Ext.create('Youngshine.view.teacher.one2nkcb.Addnew')
+		win.parentRecord = me.parentRecord // 传递当前教师参数teacherID
+		win.parentView = me 
+	},
+		
 	// 删除行，已经一对N排课学生的one2n_student，不能删除
 	onDelete: function(record){
 		var me = this; console.log(record)

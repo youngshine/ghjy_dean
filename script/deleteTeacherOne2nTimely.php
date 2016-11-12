@@ -32,7 +32,8 @@ if(mysql_num_rows($result) > 0){
 	//$timely_list_new = array_splice($timely_list_old,$key,1);
 	$timely_list = implode(',',$timely_list);
 	
-	$sql2 = "UPDATE `ghjy_teacher` Set timely_list_one2n = '$timely_list' ";
+	$sql2 = "UPDATE `ghjy_teacher` Set timely_list_one2n = '$timely_list' 
+		Where teacherID=$teacherID LIMIT 1 ";
 	$result2 = mysql_query($sql2);
 
 	$res->success = true;
