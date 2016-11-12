@@ -20,7 +20,7 @@ $schoolsubID = $arr->schoolsubID;
 if($schoolsubID == 0){
 	$cond1 = "1 > 0"; //all
 }else{
-	$cond1 = "a.schoolsubID = $schoolsubID";
+	$cond1 = "b.schoolsubID = $schoolsubID";
 }
 $kcType = $arr->kcType;
 $refund = $arr->refund;

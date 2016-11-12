@@ -6,11 +6,11 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
     autoShow: true,
     modal: true,
 	resizable: false,
-	closable: false,
+	closable: true,
     //layout: 'fit',
 	width: 400,
 	//height: 300,
-	title : '一对N排课',
+	title : '一对N课程表',
 	
 	parentRecord: null, //parent view
 	parentView: null,
@@ -21,12 +21,12 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
 			btn.up('window').onAddrow();
 		}
     },'->',{
-		text: '保存',
+		text: '保存',hidden: true,
 		handler: function(btn){
 			btn.up('window').onSave();
 		}
 	},{
-		text: '取消',
+		text: '关闭',
 		//scope: this,
 		handler: function(btn){
 			btn.up('window').destroy();
@@ -36,23 +36,45 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
 	
 	items: [{
 		//上课时间列表
+		/*
+		selType: 'cellmodel',
 		plugins: [
 			Ext.create('Ext.grid.plugin.CellEditing', {
 				clicksToEdit: 1
 			})
-		], 
+		], */
 		xtype: 'grid',
-		height: 250,
+		height: 300,
 		tripeRows: true,
 		store: Ext.create('Ext.data.Store', {
 			fields: [
-	            //{name: "timely_list", type: "string"},
-				{name: "w", type: "string"},
-				{name: "h", type: "string"},
-				{name: "m", type: "string"},
+	            {name: "timely", type: "string"},
+				//{name: "w", type: "string"},
+				//{name: "h", type: "string"},
+				//{name: "m", type: "string"},
 	        ],
 		}),
-		 
+		columns: [{ 
+			text: '上课时间',  
+			dataIndex: 'timely',
+			flex: 1, 
+ 		},{	
+ 			menuDisabled: true,
+ 			sortable: false,
+ 			xtype: 'actioncolumn',
+ 			width: 30,
+ 			items: [{
+ 				//iconCls: 'add',
+ 				icon: 'resources/images/my_delete_icon.png',
+ 				tooltip: '删除',
+ 				handler: function(grid, rowIndex, colIndex) {
+ 					grid.getSelectionModel().select(rowIndex); // 高亮
+ 					var rec = grid.getStore().getAt(rowIndex);
+ 					grid.up('window').onDelete(rec); 
+ 				}	
+ 			}]
+		}],
+		 /*
 	    columns: [{
 			text: '上课星期',
 			flex: 1,
@@ -151,7 +173,8 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
  					grid.up('window').onDelete(rec); 
  				}	
  			}]
-		}],	
+		}],	 */
+		
     }],
 	
 	onSave: function(){
@@ -212,9 +235,46 @@ Ext.define('Youngshine.view.teacher.One2nKcb', {
 		//me.down('grid').getStore().add({w:'周日'},{h:'08'});
 		//me.fireEvent('addrow',me); 
 	},
-	// 删除行
+	
+	// 删除行，已经一对N排课学生的one2n_student，不能删除
 	onDelete: function(record){
 		var me = this; console.log(record)
-		me.down('grid').getStore().remove(record); //store选择的排除，从 检测项目.. 
+		//me.down('grid').getStore().remove(record); //store选择的排除，从 检测项目.. 
+		
+		Ext.Msg.confirm('询问','是否删除当前行时间段？',function(btn){
+			if(btn == 'yes'){
+				var obj = {
+					"timely"           : record.data.timely,
+					"teacherID"        : me.parentRecord.data.teacherID,
+					"timely_list_one2n": me.parentRecord.data.timely_list_one2n,
+				}
+				console.log(obj)
+				
+				Ext.data.JsonP.request({
+		            url: Youngshine.app.getApplication().dataUrl + 'deleteTeacherOne2nTimely.php',
+		            callbackKey: 'callback',
+		            params:{
+		                data: JSON.stringify(obj)
+		            },
+					//params: obj,
+		            success: function(result){
+						console.log(result)
+						//var ret = Ext.JSON.decode(response.responseText)
+						if(result.success){
+							me.down('grid').getStore().remove(record)
+							/* 更新前端store
+							var model = me.down('form').getRecord();
+							model.set(obj) */
+							me.parentRecord.set({
+								"timely_list_one2n": result.data.timely_list_one2n
+							})
+							//me.destroy()
+						}else{
+							Ext.Msg.alert('提示',result.message)
+						}	
+					},
+		        });
+			}
+		});
 	},
 });

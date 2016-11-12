@@ -190,9 +190,11 @@ Ext.define('Youngshine.view.teacher.List' ,{
 		this.down('grid').getSelectionModel().deselectAll();
 		this.fireEvent('addnew');
 	},
+	
 	onEdit: function(rec){ 
 		this.fireEvent('edit',rec);
 	},
+	
 	onDelete: function(rec){
 		var me = this;
 		console.log(rec);
@@ -208,7 +210,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
 		var me = this;
 		var win = Ext.create('Youngshine.view.teacher.One2nKcb');
 		//win.down('form').loadRecord(record); //binding data
-		win.parentRecord = record // 传递参数
+		win.parentRecord = record // 传递参数 teacherID,timely_list_one2n
 		win.parentView = me 
 		
 		// 临时store，先清空
@@ -218,18 +220,23 @@ Ext.define('Youngshine.view.teacher.List' ,{
 		var timely_list = record.data.timely_list_one2n.trim()
 		
 		// 如果尚未设定上课时间（空白），则不需经过转换
-		if(timely_list == '' || timely_list == null){
-			
-		}else{
+		if(timely_list != '' && timely_list != null){
 			timely_list = record.data.timely_list_one2n.split(',')
+			timely_list = Ext.Array.sort(timely_list); //排序
 			console.log(timely_list)
 			var timely = [];
 			for (var i = 0; i < timely_list.length; i++) {
-				//timely.push( {"timely":timely_list[i]}  )
+				timely.push({
+					"timely"           : timely_list[i], 
+					//"teacherID"        : record.data.teacherID,
+					//"timely_list_one2n": record.data.timely_list_one2n,
+				})
+				/*
 				var w = timely_list[i].substr(0,2),
 					h = timely_list[i].substr(2,2),
 					m = timely_list[i].substr(5,2)
 				timely.push( {"w":w,"h":h,"m":m}  )
+				*/
 			}
 			console.log(timely);
 			win.down('grid').getStore().loadData(timely)
