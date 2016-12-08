@@ -254,7 +254,7 @@ Ext.define('Youngshine.view.student.List' ,{
 				console.log(ret)
 				
 				Ext.Msg.show({
-				     title: '微信扫描二维码绑定账号',
+				     title: '微信扫码绑定账号｜'+ record.data.studentName,
 				     msg: '<img height=220 src=' + ret.img + ' />',
 				     buttons: Ext.Msg.OK,
 				     //icon: Ext.Msg.QUESTION

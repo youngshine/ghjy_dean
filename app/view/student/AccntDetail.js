@@ -90,7 +90,7 @@ Ext.define('Youngshine.view.student.AccntDetail' ,{
 			items: [{
 				//iconCls: 'add',
 				icon: 'resources/images/my_timely_icon.png',
-				tooltip: '消耗课时',
+				tooltip: '课时消耗',
 				handler: function(grid, rowIndex, colIndex) {
 					grid.getSelectionModel().select(rowIndex); // 高亮
 					var rec = grid.getStore().getAt(rowIndex);

@@ -74,17 +74,17 @@ Ext.define('Youngshine.view.consult.List' ,{
 			 menuDisabled: true,
 	         dataIndex: 'phone'
 	     }, {
+	         text: '备注',
+	         width: 150,
+	         //sortable: false,
+			 menuDisabled: true,
+	         dataIndex: 'note'
+	     }, {
 	         text: '分校区',
 	         flex: 1,
 	         //sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'schoolsub'
-	     }, {
-	         text: '备注',
-	         width: 100,
-	         //sortable: false,
-			 menuDisabled: true,
-	         dataIndex: 'note'
  		},{	 
  			menuDisabled: true,
  			sortable: false,
