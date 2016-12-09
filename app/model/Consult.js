@@ -9,6 +9,7 @@ Ext.define('Youngshine.model.Consult', {
 		{name: 'userId'}, 
 		{name: 'phone'}, 
 		{name: 'note'}, 
+		{name: 'isChief'}, //咨询主管、分校校长＝1
 		{name: 'schoolsubID'},
 		{name: 'schoolsub'}, // 所属分校区 fullname
 		{name: 'schoolID'}, 

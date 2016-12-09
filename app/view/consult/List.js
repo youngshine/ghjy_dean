@@ -85,6 +85,28 @@ Ext.define('Youngshine.view.consult.List' ,{
 	         //sortable: false,
 			 menuDisabled: true,
 	         dataIndex: 'schoolsub'
+	     }, {
+			 text: '主管',
+	         width: 40,
+	         sortable: true,
+			 menuDisabled: true,
+	         dataIndex: 'isChief',
+			 align: 'center'
+  		},{	 
+  			menuDisabled: true,
+  			sortable: false,
+  			xtype: 'actioncolumn',
+  			width: 30,
+  			items: [{
+  				//iconCls: 'add',
+  				icon: 'resources/images/my_setup_icon.png',
+  				tooltip: '主管',
+  				handler: function(grid, rowIndex, colIndex) {
+  					grid.getSelectionModel().select(rowIndex); // highlight showing selected
+  					var rec = grid.getStore().getAt(rowIndex);
+  					grid.up('window').onChief(rec); 
+  				}	
+  			}]
  		},{	 
  			menuDisabled: true,
  			sortable: false,
@@ -138,6 +160,16 @@ Ext.define('Youngshine.view.consult.List' ,{
 		Ext.Msg.confirm('提示','是否删除当前行？',function(btn){
 			if(btn == 'yes'){
 				me.fireEvent('del',rec);
+			}
+		});
+	},
+	
+	onChief: function(rec){
+		var me = this;
+		console.log(rec);
+		Ext.Msg.confirm('询问','设定该咨询师为主管（分校长）？',function(btn){
+			if(btn == 'yes'){
+				me.fireEvent('chief',rec);
 			}
 		});
 	},

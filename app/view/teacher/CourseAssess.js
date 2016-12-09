@@ -1,7 +1,7 @@
 // 教师一对多课程学生出勤及其评价（一对多才有评价？）
 Ext.define('Youngshine.view.teacher.CourseAssess' ,{
 	extend: 'Ext.window.Window',
-    alias : 'widget.accnt-detail',
+    alias : 'widget.course-assess',
 	//id: 'winPrepaidHist',
 
 	autoShow: true,

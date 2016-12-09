@@ -99,7 +99,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
   			width: 30,
   			items: [{
   				//iconCls: 'add',
-  				icon: 'resources/images/my_user_icon.png',
+  				icon: 'resources/images/my_setup_icon.png',
   				tooltip: '一对N上课时间设定',
   				handler: function(grid, rowIndex, colIndex) {
   					grid.getSelectionModel().select(rowIndex); // 高亮
@@ -126,6 +126,21 @@ Ext.define('Youngshine.view.teacher.List' ,{
  					grid.up('window').onKcb(rec); 
  				}	
  			}]	
+		},{	 
+			menuDisabled: true,
+			sortable: false,
+			xtype: 'actioncolumn',
+			width: 30,
+			items: [{
+				//iconCls: 'add',
+				icon: 'resources/images/my_user_icon.png',
+				tooltip: '一对N学生',
+				handler: function(grid, rowIndex, colIndex) {
+					grid.getSelectionModel().select(rowIndex); // 高亮
+					var rec = grid.getStore().getAt(rowIndex);
+					grid.up('window').onOne2nStudent(rec); 
+				}	
+			}]	
  		},{	 
  			menuDisabled: true,
  			sortable: false,
@@ -242,6 +257,29 @@ Ext.define('Youngshine.view.teacher.List' ,{
 			win.down('grid').getStore().loadData(timely)
 		}
 
+	},
+	
+	// 该教师的一对N学生
+	onOne2nStudent: function(record){
+		var me = this
+		var win = Ext.create('Youngshine.view.teacher.One2nStudent')
+		win.parentRecord = record // 传递参数
+
+		var obj = {
+			"teacherID": record.data.teacherID
+		}
+	    var url = Youngshine.getApplication().dataUrl + 
+			'readOne2nStudent.php?data=' + JSON.stringify(obj);
+	    var store = Ext.getStore('One2nStudent');
+		store.removeAll();
+		store.clearFilter();
+		store.getProxy().url = url;
+	    store.load({
+	        callback: function(records, operation, success) {
+				console.log(records);
+	        },
+	        scope: this
+	    });
 	},
 	
 	onKcb: function(record){ 

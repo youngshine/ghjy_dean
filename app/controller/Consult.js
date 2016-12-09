@@ -24,6 +24,7 @@ Ext.define('Youngshine.controller.Consult', {
 				addnew: this.consultNew,
 				edit: this.consultEdit, //自定义事件 user...
 				del: this.consultDelete,
+				chief: this.consultChief, //设置为咨询主管、分校长
             },
 			'consult-edit': {
 				save: this.consulteditSave, 
@@ -192,5 +193,38 @@ Ext.define('Youngshine.controller.Consult', {
 				Ext.Msg.alert('网络错误','服务请求失败');
 			}
 		});	
+	},	
+	
+	consultChief: function(record){
+		var me = this;
+		var obj = {
+			consultID: record.data.consultID
+		}
+		
+		Ext.MessageBox.show({
+		   msg: '正在更新...',
+		   width: 300,
+		   wait: true,
+		   waitConfig: {interval:200},
+		});
+		Ext.Ajax.request({
+            url: Youngshine.getApplication().dataUrl + 'updateConsultByChief.php',
+            //callbackKey: 'callback',
+            params: obj,
+            success: function(res){
+				Ext.MessageBox.hide();
+				var ret = JSON.parse(res.responseText)
+				console.log(ret)
+				if(ret.success){
+					// 更新前端store
+					//var model = oldWin.down('form').getRecord();
+					//model.set(obj) 
+					record.set({"isChief": 1})
+					//oldWin.close();
+				}else{	
+					Ext.Msg.alert('提示',ret.message);
+				}	
+			},
+        });
 	},	
 });

@@ -847,6 +847,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.CourseAssess": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.Ledger": [],
+  "Youngshine.model.One2nStudent": [],
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
@@ -860,6 +861,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.store.CourseAssess": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.Ledger": [],
+  "Youngshine.store.One2nStudent": [],
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
@@ -890,6 +892,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.teacher.List": [],
   "Youngshine.view.teacher.New": [],
   "Youngshine.view.teacher.One2nKcb": [],
+  "Youngshine.view.teacher.One2nStudent": [],
   "Youngshine.view.teacher.one2nkcb.Addnew": []
 });
 Ext.ClassManager.addNameAliasMappings({
@@ -1896,6 +1899,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.CourseAssess": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.Ledger": [],
+  "Youngshine.model.One2nStudent": [],
   "Youngshine.model.School": [],
   "Youngshine.model.Schoolsub": [],
   "Youngshine.model.Student": [],
@@ -1909,6 +1913,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.store.CourseAssess": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.Ledger": [],
+  "Youngshine.store.One2nStudent": [],
   "Youngshine.store.School": [],
   "Youngshine.store.Schoolsub": [],
   "Youngshine.store.Student": [],
@@ -1975,7 +1980,7 @@ Ext.ClassManager.addNameAliasMappings({
     "widget.teacher-course"
   ],
   "Youngshine.view.teacher.CourseAssess": [
-    "widget.accnt-detail"
+    "widget.course-assess"
   ],
   "Youngshine.view.teacher.Edit": [
     "widget.teacher-edit"
@@ -1988,6 +1993,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Youngshine.view.teacher.One2nKcb": [
     "widget.teacher-one2n-kcb"
+  ],
+  "Youngshine.view.teacher.One2nStudent": [
+    "widget.one2n-student"
   ],
   "Youngshine.view.teacher.one2nkcb.Addnew": [
     "widget.one2nkcb-addnew"
