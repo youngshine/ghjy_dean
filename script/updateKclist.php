@@ -12,8 +12,8 @@ $kclistID = $_REQUEST['kclistID']; // update unique
 //$kcType = addslashes($_REQUEST['kcType']);  
 $title = addslashes($_REQUEST['title']); 
 $kcType = addslashes($_REQUEST['kcType']); //大小班0，一对一
-$kmType = addslashes($_REQUEST['kmType']); 
-$sectionName = addslashes($_REQUEST['sectionName']); 
+$subjectID = $_REQUEST['subjectID']; 
+$gradeID = $_REQUEST['gradeID']; 
 $unitprice = $_REQUEST['unitprice']; //大小班0，一对一才有
 $hour = $_REQUEST['hour'];
 $amount = $_REQUEST['amount'];
@@ -21,10 +21,10 @@ $amount = $_REQUEST['amount'];
 //$schoolID = $_REQUEST['schoolID'];
 
 $query = "UPDATE `ghjy_kclist` SET 
-	title = '$title',kcType = '$kcType',kmType = '$kmType',sectionName = '$sectionName',
+	title = '$title',kcType = '$kcType',subjectID = $subjectID,gradeID = $gradeID,
 	unitprice = $unitprice, hour = $hour,amount = $amount
 	WHERE kclistID = $kclistID ";
-$result = mysql_query($query) or die("Invalid query: updatekclist" . mysql_error());
+$result = mysql_query($query) Or die("Invalid query: updatekclist" . mysql_error());
 	
 if($result){
 	echo json_encode(array(

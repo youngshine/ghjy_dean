@@ -85,17 +85,17 @@ Ext.define('Youngshine.view.kclist.List' ,{
 			 menuDisabled: true,
 	         dataIndex: 'kcType'
 	     }, {
-	         text: '科目',
+	         text: '学科',
 	         width: 60,
 	         //sortable: false,
 			 menuDisabled: true,
-	         dataIndex: 'kmType' 
+	         dataIndex: 'subjectName' 
 	     }, {
-	         text: '学段',
+	         text: '年级',
 	         width: 60,
 	         //sortable: false,
 			 menuDisabled: true,
-	         dataIndex: 'sectionName'
+	         dataIndex: 'gradeName'
 	     }, {
 	         text: '单价',
 	         width: 60,
@@ -142,7 +142,7 @@ Ext.define('Youngshine.view.kclist.List' ,{
    			width: 30,
    			items: [{
    				//iconCls: 'add',
-   				icon: 'resources/images/my_plus_icon.png',
+   				icon: 'resources/images/my_team_icon.png',
    				tooltip: '班级',
    				handler: function(grid, rowIndex, colIndex) {
    					grid.getSelectionModel().select(rowIndex); // highlight showing selected

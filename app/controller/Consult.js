@@ -195,11 +195,8 @@ Ext.define('Youngshine.controller.Consult', {
 		});	
 	},	
 	
-	consultChief: function(record){
-		var me = this;
-		var obj = {
-			consultID: record.data.consultID
-		}
+	consultChief: function(obj){
+		var me = this; console.log(obj)
 		
 		Ext.MessageBox.show({
 		   msg: '正在更新...',
@@ -219,7 +216,7 @@ Ext.define('Youngshine.controller.Consult', {
 					// 更新前端store
 					//var model = oldWin.down('form').getRecord();
 					//model.set(obj) 
-					record.set({"isChief": 1})
+					//record.set({"isChief": 1})
 					//oldWin.close();
 				}else{	
 					Ext.Msg.alert('提示',ret.message);

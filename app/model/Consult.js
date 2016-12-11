@@ -14,6 +14,12 @@ Ext.define('Youngshine.model.Consult', {
 		{name: 'schoolsub'}, // 所属分校区 fullname
 		{name: 'schoolID'}, 
 		{name: 'schoolName'},
+		
+		/*
+		{ name: 'fullChief', convert: function(value, record){
+				return record.get('isChief') ? '是' : '否'
+			} 
+		}, */
 
     ]
 });

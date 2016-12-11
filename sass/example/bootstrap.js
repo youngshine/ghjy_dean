@@ -845,6 +845,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
   "Youngshine.model.CourseAssess": [],
+  "Youngshine.model.Grade": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.Ledger": [],
   "Youngshine.model.One2nStudent": [],
@@ -859,6 +860,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
   "Youngshine.store.CourseAssess": [],
+  "Youngshine.store.Grade": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.Ledger": [],
   "Youngshine.store.One2nStudent": [],
@@ -885,7 +887,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "Youngshine.view.login.Pswreset": [],
   "Youngshine.view.schoolsub.List": [],
   "Youngshine.view.student.AccntDetail": [],
+  "Youngshine.view.student.Hour": [],
   "Youngshine.view.student.List": [],
+  "Youngshine.view.student.StudentFind": [],
   "Youngshine.view.teacher.Course": [],
   "Youngshine.view.teacher.CourseAssess": [],
   "Youngshine.view.teacher.Edit": [],
@@ -1897,6 +1901,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.model.Consult": [],
   "Youngshine.model.Course": [],
   "Youngshine.model.CourseAssess": [],
+  "Youngshine.model.Grade": [],
   "Youngshine.model.Kclist": [],
   "Youngshine.model.Ledger": [],
   "Youngshine.model.One2nStudent": [],
@@ -1911,6 +1916,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.store.Consult": [],
   "Youngshine.store.Course": [],
   "Youngshine.store.CourseAssess": [],
+  "Youngshine.store.Grade": [],
   "Youngshine.store.Kclist": [],
   "Youngshine.store.Ledger": [],
   "Youngshine.store.One2nStudent": [],
@@ -1973,8 +1979,14 @@ Ext.ClassManager.addNameAliasMappings({
   "Youngshine.view.student.AccntDetail": [
     "widget.accnt-detail"
   ],
+  "Youngshine.view.student.Hour": [
+    "widget.student-hour"
+  ],
   "Youngshine.view.student.List": [
     "widget.student-list"
+  ],
+  "Youngshine.view.student.StudentFind": [
+    "widget.student-find"
   ],
   "Youngshine.view.teacher.Course": [
     "widget.teacher-course"

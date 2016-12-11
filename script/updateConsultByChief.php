@@ -9,8 +9,9 @@ header('Access-Control-Allow-Origin: *'); // 跨域问题
 require_once('db/database_connection.php');
 
 $consultID = $_REQUEST['consultID']; // update unique
+$isChief = $_REQUEST['isChief'];
 
-$query = "UPDATE `ghjy_consult` SET isChief = 1 
+$query = "UPDATE `ghjy_consult` SET isChief = $isChief 
 	WHERE consultID = $consultID ";
 $result = mysql_query($query);
 	

@@ -45,6 +45,7 @@ Ext.define('Youngshine.controller.Main', {
 				accntconsult: this.navAccntConsult,
 				
 				course: this.navCourse, //统计教师课时
+				hour: this.navHour, //学生课时消耗
 				
 				ledger: this.navLedger, //日常收支
 				
@@ -149,6 +150,11 @@ Ext.define('Youngshine.controller.Main', {
 	navCourse: function(){
 		this.getApplication().getController('Teacher').showTeacherCourse();
 	},
+	// 学生课时消耗
+	navHour: function(){
+		this.getApplication().getController('Student').showHour();
+	},
+	
 	
 	// 日常收支记账
 	navLedger: function(){

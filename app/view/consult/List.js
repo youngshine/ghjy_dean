@@ -91,7 +91,10 @@ Ext.define('Youngshine.view.consult.List' ,{
 	         sortable: true,
 			 menuDisabled: true,
 	         dataIndex: 'isChief',
-			 align: 'center'
+			 align: 'center',
+			 renderer: function(value){
+		         return value==1 ? '是' : '否'
+		     }
   		},{	 
   			menuDisabled: true,
   			sortable: false,
@@ -100,7 +103,7 @@ Ext.define('Youngshine.view.consult.List' ,{
   			items: [{
   				//iconCls: 'add',
   				icon: 'resources/images/my_setup_icon.png',
-  				tooltip: '主管',
+  				tooltip: '设置主管',
   				handler: function(grid, rowIndex, colIndex) {
   					grid.getSelectionModel().select(rowIndex); // highlight showing selected
   					var rec = grid.getStore().getAt(rowIndex);
@@ -167,9 +170,18 @@ Ext.define('Youngshine.view.consult.List' ,{
 	onChief: function(rec){
 		var me = this;
 		console.log(rec);
-		Ext.Msg.confirm('询问','设定该咨询师为主管（分校长）？',function(btn){
+		
+		var obj = {
+			consultID: rec.data.consultID,
+			isChief: rec.data.isChief==1 ? 0 : 1, //相反
+			msg: rec.data.isChief==1 ? '取消设置' : '设置'
+		}
+		Ext.Msg.confirm('询问',obj.msg+'该咨询师为主管（分校长）？',function(btn){
 			if(btn == 'yes'){
-				me.fireEvent('chief',rec);
+				me.fireEvent('chief',obj);
+				
+				// 前端更新
+				rec.set({"isChief":obj.isChief})
 			}
 		});
 	},

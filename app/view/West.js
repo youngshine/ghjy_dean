@@ -34,7 +34,7 @@ Ext.define('Youngshine.view.West', {
 		
 			'<div style="margin:10px 0;cursor:auto;"><hr></div>'+
 			'<div class="menuitem" title="course" style="margin:5px;">教师课时统计</div>'+
-			'<div class="menuitem" title="course" style="margin:5px;">学生课时统计</div>'+
+			'<div class="menuitem" title="hour" style="margin:5px;">学生课时消耗统计</div>'+
 		
 			'<div style="margin:10px 0;cursor:auto;"><hr></div>'+
 			'<div class="menuitem" title="ledger" style="margin:5px;">日常记账</div>'+

@@ -42,7 +42,7 @@ Ext.define('Youngshine.controller.Kclist', {
 			"schoolID": localStorage.getItem('schoolID')
 		}
         var url = this.getApplication().dataUrl + 
-			'readKclist.php?data=' + JSON.stringify(obj);
+			'readKclistList.php?data=' + JSON.stringify(obj);
         var store = Ext.getStore('Kclist');
 		store.removeAll();
 		store.clearFilter();
@@ -90,7 +90,12 @@ Ext.define('Youngshine.controller.Kclist', {
     kclistEdit: function(record) {
 		var win = Ext.create('Youngshine.view.kclist.Edit') 
 		//Ext.widget('kclist-edit');
-        win.down('form').loadRecord(record); //binding data
+		var form = win.down('form')
+		form.loadRecord(record); //binding data
+		form.down('combo[name=kcType]').setDisabled(true)
+		form.down('numberfield[name=unitprice]').setDisabled(record.data.kcType=='大小班')
+		form.down('numberfield[name=hour]').setDisabled(record.data.kcType != '大小班')
+		form.down('numberfield[name=amount]').setDisabled(record.data.kcType != '大小班')
     },
 	kclisteditSave: function(obj,oldWin){ //obj用户信息
 		var me = this;

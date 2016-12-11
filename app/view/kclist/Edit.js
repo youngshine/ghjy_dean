@@ -21,10 +21,6 @@ Ext.define('Youngshine.view.kclist.Edit', {
 			anchor: '100%'
 		},
 		items: [{
-			xtype: 'textfield',
-			name : 'title',
-			fieldLabel: '课程名称'
-		},{
 			xtype: 'combo',
 			name: 'kcType',
 			store: {
@@ -39,37 +35,25 @@ Ext.define('Youngshine.view.kclist.Edit', {
 			editable: false,
 			fieldLabel: '类型'
 		},{
-			xtype: 'combo',
-			name: 'kmType',
-			store: {
-				fields: ['value'],
-				data : [
-					{"value":"数理化"},
-					{"value":"语政英"},
-					{"value":"史地生"},
-					{"value":"艺术"}
-				]
-			},
-			valueField: 'value',
-			displayField: 'value',
-			editable: false,
-			fieldLabel: '学科类别'
+			xtype: 'textfield',
+			name : 'title',
+			fieldLabel: '课程名称'
 		},{
 			xtype: 'combo',
-			name: 'sectionName',
-			store: {
-				fields: ['value'],
-				data : [
-					{"value":"幼儿"},
-					{"value":"小学"},
-					{"value":"初中"},
-					{"value":"高中"}
-				]
-			},
-			valueField: 'value',
-			displayField: 'value',
+			name: 'subjectID',
+			store: 'Subject',
+			valueField: 'subjectID',
+			displayField: 'subjectName',
 			editable: false,
-			fieldLabel: '学段'
+			fieldLabel: '学科',
+		},{
+			xtype: 'combo',
+			name: 'gradeID',
+			store: 'Grade', // Ext.getStore('Grade')
+			valueField: 'gradeID',
+			displayField: 'gradeName',
+			editable: false,
+			fieldLabel: '年级',
 		},{
 			xtype: 'numberfield',
 			name : 'unitprice',
@@ -110,8 +94,10 @@ Ext.define('Youngshine.view.kclist.Edit', {
 		var me = this;
 		var title = this.down('textfield[name=title]').getValue().trim(),
 			kcType = this.down('combo[name=kcType]').getValue(),
-			kmType = this.down('combo[name=kmType]').getValue(),
-			sectionName = this.down('combo[name=sectionName]').getValue(),
+			subjectID = this.down('combo[name=subjectID]').getValue(),
+			subjectName = this.down('combo[name=subjectID]').getRawValue(),
+			gradeID = this.down('combo[name=gradeID]').getValue(),
+			gradeName = this.down('combo[name=gradeID]').getRawValue(),
 			unitprice = this.down('numberfield[name=unitprice]').getValue(),
 			hour = this.down('numberfield[name=hour]').getValue(),
 			amount = this.down('numberfield[name=amount]').getValue(),
@@ -121,12 +107,22 @@ Ext.define('Youngshine.view.kclist.Edit', {
 			Ext.Msg.alert('提示','课程名称不能空白');
 			return;
 		}
+		if (unitprice==0 && hour==0 ){
+			Ext.Msg.alert('提示','请输入一对一单价或班级课时数');
+			return;
+		}	
+		if (unitprice != 0 && hour != 0 ){
+			Ext.Msg.alert('提示','不能同时输入一对一单价和班级课时数');
+			return;
+		}
 		
 		var obj = {
 			"title": title,
 			"kcType": kcType,
-			"kmType": kmType,
-			"sectionName": sectionName,
+			"subjectID": subjectID,
+			"subjectName": subjectName,
+			"gradeID": gradeID,
+			"gradeName": gradeName,
 			"unitprice": unitprice,
 			"hour": hour,
 			"amount": amount,
@@ -137,7 +133,8 @@ Ext.define('Youngshine.view.kclist.Edit', {
 		Ext.Msg.confirm('询问','确认修改保存？',function(id){
 			if( id == "yes"){
 				//me.close();
-				me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
+				me.fireEvent('save',obj,me); 
+				//后台数据判断，才能关闭  本窗口win
 			}
 		})
 	}

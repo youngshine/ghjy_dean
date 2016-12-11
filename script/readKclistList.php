@@ -13,8 +13,8 @@ $arr = $req->params;
 $schoolID = $arr->schoolID;
 $query = " SELECT a.*,b.subjectName,c.gradeName 
 	From `ghjy_kclist` a 
-	Join `ghjy_subject` b On a.subjectID=b.subjectID 
-	Join `ghjy_grade` c On a.gradeID=c.gradeID 
+	Left Join `ghjy_subject` b On a.subjectID=b.subjectID 
+	Left Join `ghjy_grade` c On a.gradeID=c.gradeID 
 	Where a.schoolID=$schoolID 
 	Order by a.created Desc ";
 

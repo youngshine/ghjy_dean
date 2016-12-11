@@ -93,7 +93,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
 	         dataIndex: 'timely_list_one2n'
 
   		},{	 
-  			menuDisabled: true,
+  			menuDisabled: true, hidden: true, //转到咨询师设定
   			sortable: false,
   			xtype: 'actioncolumn',
   			width: 30,
@@ -108,24 +108,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
   					//me.fireEvent('adminEdit');
   					grid.up('window').onOne2nKcb(rec); 
   				}	
-  			}]			 
- 		},{	 
- 			menuDisabled: true,
- 			sortable: false,
- 			xtype: 'actioncolumn',
- 			width: 30,
- 			items: [{
- 				//iconCls: 'add',
- 				icon: 'resources/images/my_timely_icon.png',
- 				tooltip: '课程表',
- 				handler: function(grid, rowIndex, colIndex) {
- 					grid.getSelectionModel().select(rowIndex); // 高亮
- 					var rec = grid.getStore().getAt(rowIndex);
- 					//Ext.Msg.alert('Sell', 'Sell ' + rec.get('company'));
- 					//me.fireEvent('adminEdit');
- 					grid.up('window').onKcb(rec); 
- 				}	
- 			}]	
+  			}]		
 		},{	 
 			menuDisabled: true,
 			sortable: false,
@@ -140,7 +123,24 @@ Ext.define('Youngshine.view.teacher.List' ,{
 					var rec = grid.getStore().getAt(rowIndex);
 					grid.up('window').onOne2nStudent(rec); 
 				}	
-			}]	
+			}]		 
+ 		},{	 
+ 			menuDisabled: true,
+ 			sortable: false,
+ 			xtype: 'actioncolumn',
+ 			width: 30,
+ 			items: [{
+ 				//iconCls: 'add',
+ 				icon: 'resources/images/my_timely_icon.png',
+ 				tooltip: '排课表',
+ 				handler: function(grid, rowIndex, colIndex) {
+ 					grid.getSelectionModel().select(rowIndex); // 高亮
+ 					var rec = grid.getStore().getAt(rowIndex);
+ 					//Ext.Msg.alert('Sell', 'Sell ' + rec.get('company'));
+ 					//me.fireEvent('adminEdit');
+ 					grid.up('window').onKcb(rec); 
+ 				}	
+ 			}]	
  		},{	 
  			menuDisabled: true,
  			sortable: false,

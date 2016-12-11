@@ -19,7 +19,10 @@ Ext.define('Youngshine.controller.Student', {
 				//prepaid: this.studentPrepaid,//缴费历史记录
 				//followup: this.studentFollowup,
 				accntdetail: this.studentAccntdetail
-            },			
+            },	
+			'student-hour': {
+				search: this.studenthourSearch //学生课时消耗
+			},		
         });
     },
 
@@ -45,6 +48,29 @@ Ext.define('Youngshine.controller.Student', {
             scope: this
         });
 	},		
+	
+	// 学生课时消耗统计，show跳转来自main controller
+	showHour: function(){
+		var me = this;
+		var win = Ext.create('Youngshine.view.student.Hour');
+		win.down('grid').getStore().removeAll(); // 先晴空
+		
+		var obj = {
+			"schoolID": localStorage.getItem('schoolID'),
+		}
+	    var url = this.getApplication().dataUrl + 
+			'readTeacherList.php?data=' + JSON.stringify(obj);
+        var store = Ext.getStore('Teacher');
+		store.removeAll();
+		store.clearFilter();
+		store.getProxy().url = url;
+        store.load({
+            callback: function(records, operation, success) {
+				console.log(records);
+            },
+            scope: this
+        });
+	},	
 	
 	// 购买的课程列表，方便查看一对多课程的消耗课时
 	studentAccntdetail: function(record){
@@ -122,6 +148,32 @@ Ext.define('Youngshine.controller.Student', {
             scope: this
         }); 
     },		
+	
+	//学生课时消耗
+    studenthourSearch: function(obj,win) {
+		var store = Ext.getStore('Course'); 
+		store.removeAll();
+		
+		var url 
+		if(obj.kcType=='大小班'){
+			url = 'readHoursByClass.php?data=' + JSON.stringify(obj);
+		}else{
+			url = 'readHoursByOne2n.php?data=' + JSON.stringify(obj);
+		}
+		url = this.getApplication().dataUrl + url
+		store.getProxy().url = url;
+        store.load({
+            callback: function(records, operation, success) {
+				console.log(records);
+				var total = 0
+				store.each(function(record){
+					total += parseInt(record.data.hour)
+				})
+				win.down('displayfield[itemId=subtotal]').setValue(total)
+            },
+            scope: this
+        });
+    },	
 	
 	// 表格合计公用函数
 	sumAmt: function(){

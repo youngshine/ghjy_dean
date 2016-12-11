@@ -18,6 +18,6 @@ Ext.define('Youngshine.Application', {
         // TODO: add stores here
 		'Schoolsub','Student','Consult','Teacher','Kclist',
 		'Accnt','AccntFee','AccntDetail',"Course",'CourseAssess',
-		'Subject','Ledger','One2nStudent'
+		'Subject','Grade','Ledger','One2nStudent'
     ]
 });
