@@ -218,10 +218,59 @@ Ext.define('Youngshine.controller.Consult', {
 					//model.set(obj) 
 					//record.set({"isChief": 1})
 					//oldWin.close();
+					
+					// 设置分校长标签（添加或移除）
+					obj.isChief==1 ? doAddtag(obj.userId) : doDeltag(obj.userId)
 				}else{	
 					Ext.Msg.alert('提示',ret.message);
 				}	
 			},
         });
+		
+		// 1. 成功后，企业号通讯录新增人员，如果重复？
+		function doAdd2Contact(obj){
+			console.log(obj)
+			$.ajax({
+				url: 'script/weixinJS/wx_user_create.php',
+				dataType: "json", 
+				data: obj,
+				success: function(data){	
+	                console.log(data)
+					toast('添加咨询成功') //数据库和通讯录都添加
+					doAdd2Tag(obj)
+				},
+			});
+		}
+	
+		// 2. 人员设置（添加或移除）标签（咨询2、教师3、分校长6）
+		// 标签必须解锁状态
+		function doAddtag(userId){
+			Ext.Ajax.request({
+				url: 'script/weixinJS/wx_user_addtag.php',
+			    params: {
+			        userId: userId
+			    },
+				success: function(response){	
+	                var text = response.responseText;
+					// process server response here
+					Ext.Msg.alert('提示','添加了分校长标签') //数据库和通讯录都添加
+				},
+			});
+		}
+		
+		function doDeltag(userId){
+			Ext.Ajax.request({
+				url: 'script/weixinJS/wx_user_deltag.php',
+			    params: {
+			        userId: userId
+			    },
+				success: function(response){	
+	                var text = response.responseText;
+					// process server response here
+					Ext.Msg.alert('提示','删除了分校长标签') //数据库和通讯录都添加
+				},
+			});
+		}
 	},	
+	
 });

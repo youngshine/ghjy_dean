@@ -167,14 +167,16 @@ Ext.define('Youngshine.view.consult.List' ,{
 		});
 	},
 	
+	// 设定／取消主管， 同时更改企业号的标签tag（分校校长）
 	onChief: function(rec){
 		var me = this;
 		console.log(rec);
 		
 		var obj = {
 			consultID: rec.data.consultID,
-			isChief: rec.data.isChief==1 ? 0 : 1, //相反
-			msg: rec.data.isChief==1 ? '取消设置' : '设置'
+			userId   : rec.data.userId, //企业号设置标签
+			isChief  : rec.data.isChief==1 ? 0 : 1, //相反
+			msg      : rec.data.isChief==1 ? '取消设置' : '设置'
 		}
 		Ext.Msg.confirm('询问',obj.msg+'该咨询师为主管（分校长）？',function(btn){
 			if(btn == 'yes'){
