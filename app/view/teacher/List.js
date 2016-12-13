@@ -33,7 +33,7 @@ Ext.define('Youngshine.view.teacher.List' ,{
 		}
 
 	},'->',{
-		xtype: 'button', disabled: true,
+		xtype: 'button', disabled: false,
 		text: '＋新增',
 		width: 65,
 	    handler: function(btn){

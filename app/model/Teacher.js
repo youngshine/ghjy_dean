@@ -4,7 +4,7 @@ Ext.define('Youngshine.model.Teacher', {
     fields: [
 		{name: 'teacherID'}, 
 		{name: 'teacherName'},
-		{name: 'userId'},  
+		{name: 'userId'}, //企业号
 		{name: 'subjectID'}, 
 		{name: 'subjectName'}, 
 		{name: 'schoolID'}, 

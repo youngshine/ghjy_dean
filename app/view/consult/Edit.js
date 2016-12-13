@@ -28,7 +28,7 @@ Ext.define('Youngshine.view.consult.Edit', {
 		},{
 			xtype: 'displayfield',
 			name : 'userId',
-			fieldLabel: '微信账号'
+			fieldLabel: '自动账号'
 		},{
 			xtype: 'combo',
 			name: 'gender',
@@ -116,6 +116,7 @@ Ext.define('Youngshine.view.consult.Edit', {
 			"note": note,	
 			"schoolsubID": schoolsubID,						
 			//"schoolID": localStorage.schoolID, //当前学校
+			//"userId" : userId,
 			"consultID": consultID // unique
 		};
 		console.log(obj);

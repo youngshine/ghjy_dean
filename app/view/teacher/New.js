@@ -23,7 +23,38 @@ Ext.define('Youngshine.view.teacher.New', {
 		items: [{
 			xtype: 'textfield',
 			name : 'teacherName',
-			fieldLabel: '姓名'
+			fieldLabel: '姓名',
+			listeners: {
+			    specialkey: function(field, e) {
+			        if (e.getKey() === e.ENTER && !Ext.isEmpty(field.value)) {
+						var py = Youngshine.getApplication().getController('Main').toPinyin(field.value)
+						this.up('window').down('displayfield[name=userId]')
+							.setValue(py+localStorage.schoolID)
+			        }
+			    },
+		    },
+		},{
+			xtype: 'displayfield',
+			name : 'userId',
+			fieldLabel: '自动账号'
+		},{
+			xtype: 'combo',
+			name: 'gender',
+			store: {
+				fields: ['value'],
+				data : [
+					{"value":"男"},
+					{"value":"女"},
+				]
+			},
+			valueField: 'value',
+			displayField: 'value',
+			editable: false,
+			fieldLabel: '性别'
+		},{
+			xtype: 'textfield',
+			name: 'phone',
+			fieldLabel: '电话',
 		},{
 			xtype: 'combo',
 			name: 'subjectID',
@@ -36,12 +67,12 @@ Ext.define('Youngshine.view.teacher.New', {
 			xtype: 'textfield',
 			name: 'note',
 			fieldLabel: '备注',
-			hidden: true
+			//hidden: true
 		}],
 	}],
 	
     fbar : [{
-		text: '保存', disabled: true,
+		text: '保存', disabled: false,
 		width: 45,
 		action: 'save',
 		//scope: this,

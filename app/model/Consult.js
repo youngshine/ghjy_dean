@@ -5,8 +5,8 @@ Ext.define('Youngshine.model.Consult', {
     fields: [
 		{name: 'consultID'}, 
 		{name: 'consultName'}, 
+		{name: 'userId'}, //企业号
 		{name: 'gender'}, 
-		{name: 'userId'}, 
 		{name: 'phone'}, 
 		{name: 'note'}, 
 		{name: 'isChief'}, //咨询主管、分校校长＝1

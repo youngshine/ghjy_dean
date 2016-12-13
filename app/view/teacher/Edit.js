@@ -27,7 +27,7 @@ Ext.define('Youngshine.view.teacher.Edit', {
 		},{
 			xtype: 'displayfield',
 			name : 'userId',
-			fieldLabel: '微信账号'
+			fieldLabel: '自动账号'
 		},{
 			xtype: 'combo',
 			name: 'gender',
