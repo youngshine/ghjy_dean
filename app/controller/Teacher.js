@@ -89,6 +89,7 @@ Ext.define('Youngshine.controller.Teacher', {
 			scope: this
 		});
     },
+	
 	teachernewSave: function(obj,win){ //obj用户信息
 		var me = this;
 		Ext.MessageBox.show({
@@ -97,22 +98,27 @@ Ext.define('Youngshine.controller.Teacher', {
 		   wait: true,
 		   waitConfig: {interval:200},
 		});
-		Ext.data.JsonP.request({
+		Ext.Ajax.request({
             url: this.getApplication().dataUrl + 'createTeacher.php',
-            callbackKey: 'callback',
-            params:{
-                data: JSON.stringify(obj)
-            },
-            success: function(result){
-				Ext.MessageBox.hide(); console.log(result)
-				if(result.success){
-					//Ext.getStore('Student').load(); //数据重新加载，最新添加的在前面
-					obj.studentID = result.data.studentID; // model数组添加项目
-					obj.created = '刚刚刚刚'
+            //callbackKey: 'callback',
+            params: obj,
+            success: function(res){
+				Ext.MessageBox.hide();
+				var ret = JSON.parse(res.responseText)
+				console.log(ret)
+				if(ret.success){
+					//Ext.getStore('Consult').load(); 
+					//数据重新加载，最新添加id的在前面???
+					obj.teacherID = ret.data.teacherID; // model数组添加项目
+					obj.position = '教师'
+					//obj.created = '刚刚刚刚'
 					Ext.getStore('Teacher').insert(0,obj); //新增记录，排在最前面
 					win.close(); //成功保存才关闭窗口
+					
+					// 企业号通讯录添加，包括标签tag
+					doAdd2contact(obj)
 				}else{		
-					Ext.Msg.alert('提示',result.message);
+					Ext.Msg.alert('提示',ret.message);
 				}	
 			},
 			failure: function(result){
@@ -120,7 +126,45 @@ Ext.define('Youngshine.controller.Teacher', {
 				Ext.Msg.alert('网络错误','服务请求失败');
 			}
         });
-	},		
+		
+		// 2. 成功后，企业号通讯录新增人员，如果重复？咋办？？
+		function doAdd2contact(obj){
+			console.log(obj)
+			Ext.Ajax.request({
+				url: 'script/weixinJS/wx_user_create.php',
+				params: obj,
+				success: function(response){	
+	                console.log(response)
+					var text = response.responseText;
+					console.log(text)
+					
+					//toast('添加教师到通讯录成功') //数据库和通讯录都添加
+					doAddtag(obj.userId)
+				},
+			});
+		}
+		
+		// 3. 添加企业号通讯录成功后，设置标签（咨询2、教师3、分校长6）
+		function doAddtag(userId){
+			Ext.Ajax.request({
+				url: 'script/weixinJS/wx_user_addtag.php',
+			    params: {
+			        userId: userId,
+					tagId : 3 // 咨询标签 2
+			    },
+				success: function(response){	
+	                var text = response.responseText;
+					// process server response here
+					//wxMsgText(userId,'您被分配了分校长权限')
+					console.log(text)
+					
+					Ext.Msg.alert('提示','添加教师成功') 
+					//数据库和通讯录都添加，出错的事务回滚？？
+				},
+			});
+		}
+	},	
+		
     teacherEdit: function(record) {
 		var win = Ext.create('Youngshine.view.teacher.Edit') 
 		//Ext.widget('teacher-edit');

@@ -24,6 +24,7 @@ Ext.define('Youngshine.view.teacher.New', {
 			xtype: 'textfield',
 			name : 'teacherName',
 			fieldLabel: '姓名',
+			emptyText: '输入后回车自动生成账号',
 			listeners: {
 			    specialkey: function(field, e) {
 			        if (e.getKey() === e.ENTER && !Ext.isEmpty(field.value)) {
@@ -62,7 +63,7 @@ Ext.define('Youngshine.view.teacher.New', {
 			valueField: 'subjectID',
 			displayField: 'subjectName',
 			editable: false,
-			fieldLabel: '学科'
+			fieldLabel: '任课学科'
 		},{
 			xtype: 'textfield',
 			name: 'note',
@@ -91,32 +92,53 @@ Ext.define('Youngshine.view.teacher.New', {
    
 	onSave: function(){
 		var me = this;
-		var teacherName = this.down('textfield[name=teacherName]').getValue().trim();
-		var subjectID = this.down('combo[name=subjectID]').getValue();
-		//var note = this.down('textfield[name=note]').getValue().trim();
+		var teacherName = this.down('textfield[name=teacherName]').getValue().trim(),
+			userId = this.down('displayfield[name=userId]').getValue(),
+			gender = this.down('combo[name=gender]').getValue(),
+			phone = this.down('textfield[name=phone]').getValue().trim(),
+			note = this.down('textfield[name=note]').getValue().trim(),
+			subjectID = this.down('combo[name=subjectID]').getValue(),
+			subjectName = this.down('combo[name=subjectID]').getRawValue(),//前端显示用
+			schoolID = localStorage.schoolID
 		
 		if (teacherName == ''){
 			Ext.Msg.alert('提示','姓名不能空白');
+			return;
+		}
+		if (userId == '' || userId==null){
+			Ext.Msg.alert('没生成账号！')
+			return;
+		}
+		if (gender == null){
+			Ext.Msg.alert('提示','请选择性别');
+			//me.down('label[itemId=errorMsg]').setText('请选择性别！')
+			return;
+		}
+		if (phone == ''){
+			Ext.Msg.alert('提示','电话不能空白');
+			//me.down('label[itemId=errorMsg]').setText('电话不能空白！')
 			return;
 		}
 		if (subjectID == null){
 			Ext.Msg.alert('提示','请选择学科');
 			return;
 		}		
+		
+		var obj = {
+			"teacherName": teacherName,
+			"userId": userId,
+			"gender": gender,
+			"phone": phone,
+			"note": note,	
+			"subjectID": subjectID,	
+			"subjectName": subjectName, //用于前端马上显示					
+			"schoolID": schoolID, //当前学校
+		};
+		console.log(obj);
 
 		Ext.Msg.confirm('询问','是否保存？',function(id){
 			if( id == "yes"){
-				//if(viewEF.isValid()){
-					var obj = {
-						"teacherName": teacherName,
-						"subjectID": subjectID,
-						"subjectName": subjectName,
-
-					};
-					console.log(obj);
-					//me.close();
-					me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
-				//}
+				me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
 			}
 		})
 	}

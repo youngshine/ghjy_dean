@@ -141,24 +141,15 @@ Ext.define('Youngshine.view.student.List' ,{
 			 menuDisabled: true,
 	         dataIndex: 'created',
 			 renderer : function(val) {
-                 return '<span style="color:' + '#73b51e' + ';">' + val.substr(2,8) + '</span>';
-                 //return val;
+                 //return '<span style="color:' + '#73b51e' + ';">' + val.substr(2,8) + '</span>';
+				 if (val == null) {
+				 	 return null;
+				 }else{ 
+					 var date = new Date(val); 
+					 return Ext.Date.format(date,'Y-m-d');
+				 }
              }, 
-		},{	 
-			menuDisabled: true,
-			sortable: false,
-			xtype: 'actioncolumn',
-			width: 30,
-			items: [{
-				//iconCls: 'add',
-				icon: 'resources/images/my_qrcode_icon.png',
-				tooltip: '扫码绑定',
-				handler: function(grid, rowIndex, colIndex) {
-					grid.getSelectionModel().select(rowIndex); // 高亮
-					var rec = grid.getStore().getAt(rowIndex);
-					grid.up('window').onQrcode(rec); 
-				}	
-			}]	
+
 		},{	 
 			menuDisabled: true,
 			sortable: false,
@@ -205,7 +196,7 @@ Ext.define('Youngshine.view.student.List' ,{
 				}	
 			}]
 		},{	 
-			menuDisabled: true,
+			menuDisabled: true, hidden: true,
 			sortable: false,
 			xtype: 'actioncolumn',
 			width: 30,
@@ -218,7 +209,22 @@ Ext.define('Youngshine.view.student.List' ,{
 					var rec = grid.getStore().getAt(rowIndex);
 					grid.up('window').onFollowup(rec); 
 				}	
-			}]	 		 
+			}]	 
+		},{	 
+			menuDisabled: true,
+			sortable: false,
+			xtype: 'actioncolumn',
+			width: 30,
+			items: [{
+				//iconCls: 'add',
+				icon: 'resources/images/my_qrcode_icon.png',
+				tooltip: '扫码绑定',
+				handler: function(grid, rowIndex, colIndex) {
+					grid.getSelectionModel().select(rowIndex); // 高亮
+					var rec = grid.getStore().getAt(rowIndex);
+					grid.up('window').onQrcode(rec); 
+				}	
+			}]			 
 	    }],     
 	}],
 

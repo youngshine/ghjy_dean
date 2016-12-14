@@ -247,9 +247,10 @@ Ext.define('Youngshine.view.accnt.AccntConsult' ,{
 	onSearch: function(){ 
 		var me = this;
 		var start = this.down('datefield[name=startdate]').getValue(),
-			end = this.down('datefield[name=enddate]').value//.toLocaleDateString() 
+			end = this.down('datefield[name=enddate]').getValue //.toLocaleDateString() 
 			// 0点0分，不准确，要转换toLocal
-		//end = new Date().format('yyyy-mm-dd')
+		start = Ext.Date.format(start, 'Y-m-d')
+		end = Ext.Date.format(end, 'Y-m-d')
 		/*var user_id = this.down('combo[name=user_id]').getValue()
 		if(user_id == null){
 			user_id = 0

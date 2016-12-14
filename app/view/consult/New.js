@@ -24,6 +24,7 @@ Ext.define('Youngshine.view.consult.New', {
 			xtype: 'textfield',
 			name : 'consultName',
 			fieldLabel: '姓名',
+			emptyText: '输入后回车自动生成账号',
 			listeners: {
 			    specialkey: function(field, e) {
 			        if (e.getKey() === e.ENTER && !Ext.isEmpty(field.value)) {
@@ -104,21 +105,26 @@ Ext.define('Youngshine.view.consult.New', {
 			gender = this.down('combo[name=gender]').getValue(),
 			phone = this.down('textfield[name=phone]').getValue().trim(),
 			note = this.down('textfield[name=note]').getValue().trim(),
-			schoolsubID = this.down('combo[name=schoolsubID]').getValue(),
+			schoolsubID = this.down('combo[name=schoolsubID]').getRawValue(), //前端显示
+			schoolsub = this.down('combo[name=schoolsubID]').getValue(),
 			schoolID = localStorage.schoolID  //当前学校
 		
 		if (consultName == ''){
 			me.down('label[itemId=errorMsg]').setText('姓名不能空白！')
 			return;
 		}
-		if (phone == ''){
-			//Ext.Msg.alert('提示','姓名不能空白');
-			me.down('label[itemId=errorMsg]').setText('电话不能空白！')
+		if (userId == '' || userId==null){
+			me.down('label[itemId=errorMsg]').setText('没生成账号！')
 			return;
 		}
 		if (gender == null){
 			//Ext.Msg.alert('提示','请选择性别');
 			me.down('label[itemId=errorMsg]').setText('请选择性别！')
+			return;
+		}
+		if (phone == ''){
+			//Ext.Msg.alert('提示','姓名不能空白');
+			me.down('label[itemId=errorMsg]').setText('电话不能空白！')
 			return;
 		}	
 		if (schoolsubID == null){
@@ -140,7 +146,7 @@ Ext.define('Youngshine.view.consult.New', {
 
 		Ext.Msg.confirm('询问','是否保存？',function(id){
 			if( id == "yes"){
-				//me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
+				me.fireEvent('save',obj,me); //后台数据判断，才能关闭  本窗口win
 			}
 		})
 	}

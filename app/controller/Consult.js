@@ -20,12 +20,12 @@ Ext.define('Youngshine.controller.Consult', {
 				del: this.consultDelete,
 				chief: this.consultChief, //设置为咨询主管、分校长
             },
-			'consult-edit': {
-				save: this.consulteditSave, 
-            },
 			'consult-new': {
                 save: this.consultnewSave,
-            },		
+            },	
+			'consult-edit': {
+				save: this.consulteditSave, 
+            },	
         });
     },
 
@@ -96,10 +96,10 @@ Ext.define('Youngshine.controller.Consult', {
 	consultnewSave: function(obj,win){ //obj用户信息
 		var me = this;
 		Ext.MessageBox.show({
-		   msg: '正在保存',
-		   width: 300,
-		   wait: true,
-		   waitConfig: {interval:200},
+			msg: '正在保存',
+			width: 300,
+			wait: true,
+			waitConfig: {interval:200},
 		});
 		Ext.Ajax.request({
             url: this.getApplication().dataUrl + 'createConsult.php',
@@ -112,12 +112,11 @@ Ext.define('Youngshine.controller.Consult', {
 				if(ret.success){
 					//Ext.getStore('Consult').load(); 
 					//数据重新加载，最新添加id的在前面???
-					obj.consultID = ret.data.id; // model数组添加项目
-					obj.position = '咨询'
-					//obj.created = '刚刚刚刚'
+					obj.consultID = ret.data.consultID; // model数组添加项目
 					Ext.getStore('Consult').insert(0,obj); //新增记录，排在最前面
 					win.close(); //成功保存才关闭窗口
 					
+					obj.position = '咨询' //企业号通讯录
 					// 企业号通讯录添加，包括标签tag
 					doAdd2contact(obj)
 				}else{		
@@ -145,7 +144,7 @@ Ext.define('Youngshine.controller.Consult', {
 			});
 		}
 		
-		// 3. 添加企业号通讯录成功后，设置标签（咨询2、教师3、分校长6）
+		// 3. 员工userId添加企业号通讯录成功后，设置标签（咨询2、教师3、分校长6）
 		function doAddtag(userId){
 			Ext.Ajax.request({
 				url: 'script/weixinJS/wx_user_addtag.php',
